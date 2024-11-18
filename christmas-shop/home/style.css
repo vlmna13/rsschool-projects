@@ -80,6 +80,11 @@ html {
     font-family: inherit;
 }
 
+.hero__link:hover, .cta__link:hover {
+    background-color: var(--static-white);
+    color: var(--dark);
+}
+
 .nav__container {
     display: flex;
     justify-content: center;
@@ -159,6 +164,7 @@ html {
     border-radius: 20px;
     padding: 20px 32px;
     text-transform: uppercase;
+    transition: 1s;
 }
 
 #about {
@@ -201,7 +207,7 @@ html {
     color: var(--primary);
 }
 
-.about__title, .item__text, .cta__title{
+.about__title, .item__text, .cta__title, .contacts__action{
     font-family: "Montserrat", sans-serif;
     font-size: 24px;
     font-weight: 600;
@@ -211,7 +217,7 @@ html {
     text-transform: uppercase;
 }
 
-.about__story {
+.about__story, .social__copyright {
     font-size: 16px;
     font-weight: 400;
     line-height: 148%;
@@ -242,7 +248,7 @@ html {
     margin-top: 12px;
 }
 
-.slider__wish, .gifts__caption {
+.slider__wish, .gifts__caption, .social__rss {
     font-family: "Allura", cursive;
     font-size: 24px;
     font-weight: 400;
@@ -356,6 +362,11 @@ html {
     border-radius: 20px;
     background-color: var(--content-background);
     overflow: hidden;
+    cursor: pointer;
+}
+
+.gifts__item:hover .item__text{
+    color: var(--primary);
 }
 
 .gifts__image_wrapper {
@@ -387,13 +398,14 @@ html {
     letter-spacing: 0.7px;
 }
 
-.item__text {
+.item__text, .contacts__description {
     font-family: "Montserrat", sans-serif;
     font-size: 16px;
     font-weight: 600;
     line-height: 152%;
     letter-spacing: 1.2px;
     margin-top: 7px;
+    transition: 1s;
 }
 
 .blue {
@@ -491,4 +503,94 @@ html {
     position: absolute;
 }
 
+footer {
+    margin: 0 auto;
+    width: 1440px;
+    background-color: var(--static-white);
+}
+
+#footer {
+    padding: var(--padding-top-bottom) var(--padding-large-side);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 60px;
+}
+
+.footer__contacts {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+}
+
+.contacts__link {
+    cursor: pointer;
+    background-color: var(--content-background);
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 417px;
+    transition: 1s;
+}
+
+.contacts__link:hover .contacts__description,
+.contacts__link:hover .contacts__action {
+    color: var(--primary);
+}
+
+.contacts__action {
+    margin-bottom: 6px;
+}
+
+.contacts__link img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 12px;
+}
+
+.contacts__description {
+    color: var(--dark);
+    text-transform: uppercase;
+    transition: 1s;
+}
+
+.footer__social_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+.social__list {
+    display: flex;
+    gap: 12px;
+}
+
+.social__link {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.social__link svg {
+   transition: 1s;
+}
+
+.social__link:hover svg {
+    filter: brightness(0) saturate(100%) invert(53%) sepia(37%) saturate(6321%) hue-rotate(333deg) brightness(103%) contrast(105%);
+}
+
+footer .social__rss {
+    color: var(--dark);
+    transition: 1s;
+}
+
+.social__rss:hover {
+    color: var(--primary);
+}
 
