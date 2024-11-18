@@ -216,3 +216,116 @@ html {
     font-weight: 400;
     line-height: 148%;
 }
+
+#slider {
+    padding: var(--padding-top-bottom) 0  var(--padding-top-bottom) var(--padding-large-side);
+    width: 1440px;
+    background-image: url("../images/bg-snow.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.slider__wish_wrapper {
+    text-align: center;
+    padding-right: 81px;
+}
+
+.slider__title {
+    font-family: "Montserrat", sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 152%;
+    letter-spacing: 3.8px;
+    color: var(--static-white);
+    text-transform: uppercase;
+    margin-top: 12px;
+}
+
+.slider__wish {
+    font-family: "Allura", cursive;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 100%;
+    letter-spacing: 1.1px;
+    color: var(--static-white);
+}
+
+.slider__wrapper {
+    position: relative;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.slider__track {
+    display: flex;
+    gap: 20px;
+    overflow: hidden;
+}
+
+.slider__item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.slider__text {
+    font-family: "Montserrat", sans-serif;
+    font-size: 80px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--static-white);
+}
+
+.slider__image {
+    display: block;
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    border-radius: 20px;
+}
+
+.slider__button_wrapper {
+    padding-left: auto;
+    padding-right: 82px;
+    display: flex;
+    justify-content: end;
+    gap: 20px;
+}
+
+.slider__button {
+    width: 56px;
+    height: 56px;
+    border-radius: 20px;
+    background-color: transparent;
+    cursor: pointer;
+    transition: 0.5s;
+    border: 1px solid var(--static-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slider__button:hover {
+    border: 1px solid var(--static-white);
+    background-color: var(--static-white);
+}
+
+.slider__button:hover .slider__button-img {
+    filter: brightness(0) saturate(100%) invert(39%) sepia(87%) saturate(2243%) hue-rotate(337deg) brightness(112%) contrast(100%);
+    opacity: 100%;
+}
+
+.left__button {
+    border: 1px solid var(--static-white-40);
+}
+
+.left__button .slider__button-img {
+    transform: scale(-1, 1);
+    opacity: 40%;
+}
+
+
