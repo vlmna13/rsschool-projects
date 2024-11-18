@@ -1,0 +1,596 @@
+:root {
+    --padding-large-side: 82px;
+    --padding-small-side: 8px;
+    --padding-top-bottom: 60px;
+
+    --primary: #ff4646;
+    --dark: #181c29;
+    --static-white: #fff;
+    --content-background: #ecf3f8;
+    --tag-purple: #4361ff;
+    --tag-pink: #ff43f7;
+    --tag-green: #06a44f;
+    --primary-10: rgba(255, 70, 70, 0.1);
+    --static-white-20: rgba(255, 255, 255, 0.2);
+    --static-white-40: rgba(255, 255, 255, 0.4);
+    --overlay: rgba(24, 28, 41, 0.8);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style-type:  none;
+}
+
+body{
+    /* width: 100%; */
+    background-color: var(--static-white);
+    font-family: "Montserrat", sans-serif;
+}
+
+main {
+    margin: 0 auto;
+    width: 1440px;
+    background-color: var(--primary);
+    border-radius: 20px;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.header {
+    width: 1440px;
+    display: flex;
+    justify-content: space-between;
+    padding: 12px var(--padding-large-side);
+    background-color: var(--static-white);
+    margin: 0 auto;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    padding: var(--padding-small-side) 20px;
+    cursor: pointer;
+    gap: 8px;
+}
+
+.logo {
+    display: block;
+    width: 24px;
+    height: 24px;
+}
+
+.logo__title, .nav__link, .cta__link {
+    font-size: 12px;
+    font-weight: 600;
+    line-height:  152%;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--dark);
+    font-family: inherit;
+}
+
+.hero__link:hover, .cta__link:hover {
+    background-color: var(--static-white);
+    color: var(--dark);
+}
+
+.nav__container {
+    display: flex;
+    justify-content: center;
+}
+
+.nav__list {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.nav__link {
+    padding: 12px 20px;
+    letter-spacing: 0.6px;
+    cursor: pointer;
+    transition: 0.5s;
+    border-radius: 4px;
+}
+
+.nav__link:hover {
+    background-color: var(--primary-10);
+    color: var(--primary);
+}
+
+#hero {
+    background-image: url('../images/bg-ball.png'), url('../images/bg-snow.png');
+    background-repeat: no-repeat, no-repeat;
+    background-position: center, center;
+    background-size: cover, cover;
+    padding: var(--padding-top-bottom) var(--padding-large-side);
+    width: 1440px;
+    display: flex;
+    justify-content: center;
+    padding-top: 60px;
+    padding-bottom: 60.4px;
+}
+
+.hero__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 433px;
+    padding-top: var(--padding-top-bottom);
+    padding-bottom: var(--padding-top-bottom);
+    gap: 12px;
+}
+
+.hero__wish, .cta__wait {
+    font-family: "Allura", cursive;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 100%;
+    letter-spacing: 1.1px;
+    color: var(--static-white);
+}
+
+.hero__title {
+    font-family: "Montserrat", sans-serif;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 150%;
+    letter-spacing: 5.8px;
+    color: var(--static-white);
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.hero__link, .cta__link {
+    cursor: pointer;
+    color: var(--static-white);
+    font-family: "Montserrat", sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 130%;
+    letter-spacing: 0.7px;
+    background-color: var(--dark);
+    border-radius: 20px;
+    padding: 20px 32px;
+    text-transform: uppercase;
+    transition: 1s;
+}
+
+#about {
+    width: 1440px;
+    background-image: url("../images/bg-snow.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding: var(--padding-top-bottom) var(--padding-large-side);
+}
+
+.about__wrapper {
+    display: flex;
+    background-color: var(--static-white);
+    border-radius: 20px;
+}
+
+.about__description {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 160px;
+    padding-bottom: 60px;
+    padding-left: 60px;
+    padding-right: 152px;
+    gap: 20px;
+}
+
+.about__img {
+    display: block;
+    border-radius: 20px;
+}
+
+.about {
+    font-family: "Allura", cursive;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 100%;
+    letter-spacing: 1.1px;
+    color: var(--primary);
+}
+
+.about__title, .item__text, .cta__title, .contacts__action{
+    font-family: "Montserrat", sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 152%;
+    letter-spacing: 3.8px;
+    color: var(--dark);
+    text-transform: uppercase;
+}
+
+.about__story, .social__copyright {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 148%;
+}
+
+#slider {
+    padding: var(--padding-top-bottom) 0  var(--padding-top-bottom) var(--padding-large-side);
+    width: 1440px;
+    background-image: url("../images/bg-snow.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.slider__wish_wrapper {
+    text-align: center;
+    padding-right: 81px;
+}
+
+.slider__title , .gifts__title{
+    font-family: "Montserrat", sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 152%;
+    letter-spacing: 3.8px;
+    color: var(--static-white);
+    text-transform: uppercase;
+    margin-top: 12px;
+}
+
+.slider__wish, .gifts__caption, .social__rss {
+    font-family: "Allura", cursive;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 100%;
+    letter-spacing: 1.1px;
+    color: var(--static-white);
+}
+
+.slider__wrapper {
+    position: relative;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.slider__track {
+    display: flex;
+    gap: 22px;
+    overflow: hidden;
+}
+
+.slider__item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.slider__text {
+    font-family: "Montserrat", sans-serif;
+    font-size: 80px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--static-white);
+}
+
+.slider__image {
+    display: block;
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    border-radius: 20px;
+}
+
+.slider__button_wrapper {
+    padding-left: auto;
+    padding-right: 82px;
+    display: flex;
+    justify-content: end;
+    gap: 20px;
+}
+
+.slider__button {
+    width: 56px;
+    height: 56px;
+    border-radius: 20px;
+    background-color: transparent;
+    cursor: pointer;
+    transition: 0.5s;
+    border: 1px solid var(--static-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slider__button:hover {
+    border: 1px solid var(--static-white);
+    background-color: var(--static-white);
+}
+
+.slider__button:hover .slider__button-img {
+    color: var(--primary);
+}
+
+.slider__button-img {
+    height: 14px;
+    width: 14px;
+    color: var(--static-white);
+}
+
+.left__button {
+    border: 1px solid var(--static-white-40);
+}
+
+.left__button .slider__button-img {
+    transform: scale(-1, 1);
+    color: var(--static-white-40);
+}
+
+#gifts {
+    width: 1440px;
+    padding: var(--padding-top-bottom) var(--padding-large-side);
+    background-image: url("../images/bg-snow.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    text-align: center;
+}
+
+.gifts__wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 19px;
+}
+
+.gifts__item {
+    width: 100%;
+    max-width: 310px;
+    height: 342px;
+    border-radius: 20px;
+    background-color: var(--content-background);
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.gifts__item:hover .item__text{
+    color: var(--primary);
+}
+
+.gifts__image_wrapper {
+    overflow: hidden;
+    width: 310px;
+    height: 230px;
+}
+
+.gift__image {
+    object-fit: contain;
+    width: 310px;
+    height: 230px;
+}
+
+.item__description {
+    padding: 20px;
+    background-color: var(--static-white);
+    border-radius: 20px;
+    height: 112px;
+    text-align: left;
+}
+
+.item__category {
+    text-transform: uppercase;
+    font-family: "Montserrat", sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 130%;
+    letter-spacing: 0.7px;
+}
+
+.item__text, .contacts__description {
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 152%;
+    letter-spacing: 1.2px;
+    margin-top: 7px;
+    transition: 1s;
+}
+
+.blue {
+    color: var(--tag-purple);
+}
+
+.green {
+    color: var(--tag-green);
+}
+
+.pink {
+    color: var(--tag-pink);
+}
+
+#cta {
+    background-image: url('../images/bg-snow.png'), url('../images/bg-forest.png');
+    background-position: center, center;
+    background-repeat: no-repeat, no-repeat;
+    background-size: cover, contain;
+    width: 1440px;
+    display: flex;
+    justify-content: center;
+    padding-top: 119px;
+    padding-bottom: 119px;
+}
+
+.cta__wrapper {
+    max-width: 426px;
+    padding-bottom: var(--padding-top-bottom);
+    padding-top: var(--padding-top-bottom);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.cta__title {
+    color: var(--static-white);
+    margin-bottom: 20px;
+}
+
+.cta__wait {
+    margin-bottom: 8px;
+}
+
+.cta__link {
+    margin-bottom: 20px;
+}
+
+.timer__wrapper {
+    background-color: var(--static-white-40);
+    border-radius: 20px;
+    display: flex;
+    padding: var(--padding-small-side) 12px 12px;
+}
+
+.counter {
+    width: 80px;
+}
+
+.timer {
+    font-family: "Montserrat", sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 152%;
+    letter-spacing: 3.8px;
+    color: var(--static-white);
+    text-transform: uppercase;
+}
+
+.timer__title {
+    color: var(--static-white);
+    font-family: "Montserrat", sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 130%;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+}
+
+.line {
+    /* необходим для формирования позиций линии */
+    position: relative;
+    /* весь блок будет занимать ширину по размеру контента в нём */
+    display: inline-block;
+}
+
+.line::before {
+    content: " ";
+    background: var(--static-white-40);
+    width: 0.5px;
+    height: 20px;
+    top: 16px;
+    /* включаем абсолютное позиционирование относительно блока с relative */
+    position: absolute;
+}
+
+footer {
+    margin: 0 auto;
+    width: 1440px;
+    background-color: var(--static-white);
+}
+
+#footer {
+    padding: var(--padding-top-bottom) var(--padding-large-side);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 60px;
+}
+
+.footer__contacts {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+}
+
+.contacts__link {
+    cursor: pointer;
+    background-color: var(--content-background);
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 417px;
+    transition: 1s;
+}
+
+.contacts__link:hover .contacts__description,
+.contacts__link:hover .contacts__action {
+    color: var(--primary);
+}
+
+.contacts__action {
+    margin-bottom: 6px;
+}
+
+.contacts__link img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 12px;
+}
+
+.contacts__description {
+    color: var(--dark);
+    text-transform: uppercase;
+    transition: 1s;
+}
+
+.footer__social_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+.social__list {
+    display: flex;
+    gap: 12px;
+}
+
+.social__link {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.social__link svg {
+   transition: 1s;
+}
+
+.social__link:hover svg {
+    filter: brightness(0) saturate(100%) invert(53%) sepia(37%) saturate(6321%) hue-rotate(333deg) brightness(103%) contrast(105%);
+}
+
+footer .social__rss {
+    color: var(--dark);
+    transition: 1s;
+}
+
+.social__rss:hover {
+    color: var(--primary);
+}
+
