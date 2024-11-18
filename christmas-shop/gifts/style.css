@@ -342,7 +342,7 @@ footer {
     filter: brightness(0) saturate(100%) invert(53%) sepia(37%) saturate(6321%) hue-rotate(333deg) brightness(103%) contrast(105%);
 }
 
-footer .social__rss {
+.social__rss {
     color: var(--dark);
     transition: 1s;
     font-family: "Allura", cursive;
@@ -350,7 +350,6 @@ footer .social__rss {
     font-weight: 400;
     line-height: 100%;
     letter-spacing: 1.1px;
-    color: var(--static-white);
 }
 
 .social__rss:hover {
