@@ -40,6 +40,7 @@ main {
     margin: 0 auto;
     width: 1440px;
     background-color: var(--primary);
+    border-radius: 20px;
 }
 
 html {
@@ -69,7 +70,7 @@ html {
     height: 24px;
 }
 
-.logo__title, .nav__link {
+.logo__title, .nav__link, .cta__link {
     font-size: 12px;
     font-weight: 600;
     line-height:  152%;
@@ -109,7 +110,6 @@ html {
     background-position: center, center;
     background-size: cover, cover;
     padding: var(--padding-top-bottom) var(--padding-large-side);
-    border-radius: 20px 20px 0px 0px;
     width: 1440px;
     display: flex;
     justify-content: center;
@@ -127,7 +127,7 @@ html {
     gap: 12px;
 }
 
-.hero__wish {
+.hero__wish, .cta__wait {
     font-family: "Allura", cursive;
     font-size: 24px;
     font-weight: 400;
@@ -147,7 +147,7 @@ html {
     text-transform: uppercase;
 }
 
-.hero__link {
+.hero__link, .cta__link {
     cursor: pointer;
     color: var(--static-white);
     font-family: "Montserrat", sans-serif;
@@ -201,7 +201,7 @@ html {
     color: var(--primary);
 }
 
-.about__title, .item__text {
+.about__title, .item__text, .cta__title{
     font-family: "Montserrat", sans-serif;
     font-size: 24px;
     font-weight: 600;
@@ -346,7 +346,7 @@ html {
 .gifts__wrapper {
     display: flex;
     justify-content: space-between;
-    margin-top: 20px;
+    margin-top: 19px;
 }
 
 .gifts__item {
@@ -406,6 +406,89 @@ html {
 
 .pink {
     color: var(--tag-pink);
+}
+
+#cta {
+    background-image: url('../images/bg-snow.png'), url('../images/bg-forest.png');
+    background-position: center, center;
+    background-repeat: no-repeat, no-repeat;
+    background-size: cover, contain;
+    width: 1440px;
+    display: flex;
+    justify-content: center;
+    padding-top: 119px;
+    padding-bottom: 119px;
+}
+
+.cta__wrapper {
+    max-width: 426px;
+    padding-bottom: var(--padding-top-bottom);
+    padding-top: var(--padding-top-bottom);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.cta__title {
+    color: var(--static-white);
+    margin-bottom: 20px;
+}
+
+.cta__wait {
+    margin-bottom: 8px;
+}
+
+.cta__link {
+    margin-bottom: 20px;
+}
+
+.timer__wrapper {
+    background-color: var(--static-white-40);
+    border-radius: 20px;
+    display: flex;
+    padding: var(--padding-small-side) 12px 12px;
+}
+
+.counter {
+    width: 80px;
+}
+
+.timer {
+    font-family: "Montserrat", sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 152%;
+    letter-spacing: 3.8px;
+    color: var(--static-white);
+    text-transform: uppercase;
+}
+
+.timer__title {
+    color: var(--static-white);
+    font-family: "Montserrat", sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 130%;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+}
+
+.line {
+    /* необходим для формирования позиций линии */
+    position: relative;
+    /* весь блок будет занимать ширину по размеру контента в нём */
+    display: inline-block;
+}
+
+.line::before {
+    content: " ";
+    background: var(--static-white-40);
+    width: 0.5px;
+    height: 20px;
+    top: 16px;
+    /* включаем абсолютное позиционирование относительно блока с relative */
+    position: absolute;
 }
 
 
