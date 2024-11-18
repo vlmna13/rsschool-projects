@@ -542,6 +542,7 @@ footer {
 
 .contacts__action {
     margin-bottom: 6px;
+    transition: 0.5s;
 }
 
 .contacts__link img {
