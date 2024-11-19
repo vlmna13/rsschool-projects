@@ -76,6 +76,7 @@ html {
 .nav__item:first-child .nav__link{
     background-color: var(--primary-10);
     color: var(--primary); 
+    cursor: default;
 }
 
 .hero__link:hover, .cta__link:hover {
@@ -99,7 +100,7 @@ html {
     letter-spacing: 0.6px;
     cursor: pointer;
     transition: 0.5s;
-    border-radius: 4px;
+    border-radius: 12px;
 }
 
 .nav__link:hover {
@@ -163,6 +164,10 @@ main {
 .category__item:hover,
 .category__item:first-child {
     background-color: var(--static-white-20);
+}
+
+.category__item:first-child {
+    cursor: default;
 }
 
 .gifts__wrapper {

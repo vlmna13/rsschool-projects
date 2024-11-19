@@ -101,7 +101,7 @@ html {
     letter-spacing: 0.6px;
     cursor: pointer;
     transition: 0.5s;
-    border-radius: 4px;
+    border-radius: 12px;
 }
 
 .nav__link:hover {
@@ -315,12 +315,12 @@ html {
     justify-content: center;
 }
 
-.slider__button:hover {
+.right__button:hover {
     border: 1px solid var(--static-white);
     background-color: var(--static-white);
 }
 
-.slider__button:hover .slider__button-img {
+.right__button:hover .slider__button-img {
     color: var(--primary);
 }
 
@@ -332,6 +332,7 @@ html {
 
 .left__button {
     border: 1px solid var(--static-white-40);
+    cursor: auto;
 }
 
 .left__button .slider__button-img {
