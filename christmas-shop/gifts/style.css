@@ -76,7 +76,8 @@ html {
 .nav__item:first-child .nav__link{
     background-color: var(--primary-10);
     color: var(--primary); 
-    cursor: default;
+    cursor: none;
+    pointer-events: none;
 }
 
 .hero__link:hover, .cta__link:hover {
