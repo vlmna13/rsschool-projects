@@ -186,6 +186,7 @@ html {
     background-color: var(--static-white);
     border-radius: 20px;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .about__description {
@@ -196,17 +197,21 @@ html {
     padding-bottom: 60px;
     padding-left: 60px;
     gap: 20px;
-    max-width: 50%;
+    width: 50%;
+    min-width: 320px;
+    flex-grow: 1;
 }
 
 
 .about__img_wrapper {
     border-radius: 20px;
-    max-width: 50%;
+    min-width: 320px;
+    width: 50%;
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-grow: 1;
 }
 
 .about__img {
@@ -554,8 +559,6 @@ footer {
     gap: 12px;
     width: 100%;
     flex-wrap: wrap;
-    /* display: grid;
-    grid-template-columns: repeat(3, 1fr); */
 }
 
 .footer__contacts_item {
@@ -567,7 +570,6 @@ footer {
     cursor: pointer;
     background-color: var(--content-background);
     border-radius: 20px;
-    /* padding: 20px; */
     padding-top: 20px;
     padding-bottom: 20px;
     display: flex;
@@ -694,7 +696,19 @@ footer .social__rss {
         padding-top: 120px;
         padding-bottom: 120px;
     }
+
     #footer .contacts__action, .contacts__description {
         line-height: 147%;
+    }
+
+    .footer__contacts_item {
+        min-width: 100%;
+    }
+}
+
+@media(width: 380px) {
+    .about__description {
+        padding: 60px 20px;
+
     }
 }

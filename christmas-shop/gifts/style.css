@@ -260,9 +260,6 @@ main {
     color: var(--tag-pink);
 }
 
-
-
-
 footer {
     margin: 0 auto;
     max-width: 1440px;
@@ -412,4 +409,19 @@ footer {
     #footer .contacts__action, .contacts__description {
         line-height: 147%;
     }
+
+    .footer__contacts_item {
+        min-width: 100%;
+    }
+
 }
+
+@media(max-width: 500px) {
+    .categories__wrapper {
+        gap: 0px;
+    }
+    .category__item {
+        padding: 12px 8px;
+    }
+}
+
