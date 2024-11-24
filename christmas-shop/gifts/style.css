@@ -31,7 +31,6 @@ li {
 }
 
 body{
-    /* width: 100%; */
     background-color: var(--static-white);
     font-family: "Montserrat", sans-serif;
 }
@@ -41,12 +40,14 @@ html {
 }
 
 .header {
-    width: 1440px;
+    max-width: 1440px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     padding: 12px var(--padding-large-side);
     background-color: var(--static-white);
     margin: 0 auto;
+    align-items: center;
 }
 
 .logo-container {
@@ -111,7 +112,8 @@ html {
 
 main {
     margin: 0 auto;
-    width: 1440px;
+    max-width: 1440px;
+    width: 100%;
     background-color: var(--primary);
     border-radius: 20px;
     background-color: var(--primary);
@@ -176,6 +178,7 @@ main {
     gap: 12px;
     width: 100%;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .gifts__item {
@@ -257,12 +260,10 @@ main {
     color: var(--tag-pink);
 }
 
-
-
-
 footer {
     margin: 0 auto;
-    width: 1440px;
+    max-width: 1440px;
+    width: 100%;
     background-color: var(--static-white);
 }
 
@@ -278,17 +279,25 @@ footer {
     display: flex;
     gap: 12px;
     width: 100%;
+    flex-wrap: wrap;
+}
+
+.footer__contacts_item {
+    min-width: 417px;
+    flex-grow: 1;
 }
 
 .contacts__link {
     cursor: pointer;
     background-color: var(--content-background);
     border-radius: 20px;
-    padding: 20px;
+    /* padding: 20px; */
+    padding-top: 20px;
+    padding-bottom: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 417px;
+    min-width: 100%;
     transition: 1s;
 }
 
@@ -363,3 +372,56 @@ footer {
 .social__rss:hover {
     color: var(--primary);
 }
+
+
+.burger__menu {
+    width: 40px;
+    height: 40px;
+    gap: 8px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    display: none;
+    cursor: pointer;
+}
+
+.burger__line {
+    width: 20px;
+    border-radius: 1px;
+    border: 0.5px solid var(--dark);
+    
+}
+
+@media (max-width: 768px) {
+    :root {
+        --padding-large-side: 8px;
+    }
+    .burger__menu {
+        display: flex;
+    }
+    .nav__container {
+        display: none;
+    }
+    .header {
+        padding: 12px var(--padding-large-side);
+    }
+
+    #footer .contacts__action, .contacts__description {
+        line-height: 147%;
+    }
+
+    .footer__contacts_item {
+        min-width: 100%;
+    }
+
+}
+
+@media(max-width: 500px) {
+    .categories__wrapper {
+        gap: 0px;
+    }
+    .category__item {
+        padding: 12px 8px;
+    }
+}
+
