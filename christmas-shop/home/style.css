@@ -655,18 +655,6 @@ footer .social__rss {
 
 }
 
-@media(max-width: 1140px){
-    /* .footer__contacts {
-        grid-template-columns: repeat(auto-fill, 1fr);
-    }
- */
-
-}
-
-@media(max-width: 1060px){
-
-}
-
 @media (max-width: 796px) {
     :root {
         --padding-large-side: 8px;
