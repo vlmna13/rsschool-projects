@@ -376,7 +376,7 @@ footer {
     align-items: center;
     justify-content: center;
     display: none;
-
+    cursor: pointer;
 }
 
 .burger__line {
@@ -392,5 +392,8 @@ footer {
     }
     .nav__container {
         display: none;
+    }
+    .header {
+        padding: 12px var(--padding-small-side);
     }
 }

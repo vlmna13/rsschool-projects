@@ -185,6 +185,7 @@ html {
     display: flex;
     background-color: var(--static-white);
     border-radius: 20px;
+    justify-content: space-between;
 }
 
 .about__description {
@@ -194,13 +195,24 @@ html {
     padding-top: 160px;
     padding-bottom: 60px;
     padding-left: 60px;
-    padding-right: 152px;
     gap: 20px;
+    max-width: 50%;
+}
+
+
+.about__img_wrapper {
+    border-radius: 20px;
+    max-width: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .about__img {
-    display: block;
     border-radius: 20px;
+    object-fit: fill;
+    height: 100%;
 }
 
 .about {
@@ -222,6 +234,11 @@ html {
     text-transform: uppercase;
 }
 
+.about__title, .about__story {
+    max-width: 426px;
+    width: 100%;
+}
+
 .about__story, .social__copyright {
     font-size: 16px;
     font-weight: 400;
@@ -229,7 +246,7 @@ html {
 }
 
 #slider {
-    padding: var(--padding-top-bottom) 0  var(--padding-top-bottom) var(--padding-large-side);
+    padding: var(--padding-top-bottom) 0;
     max-width: 1440px;
     width: 100%;
     background-image: url("../images/bg-snow.png");
@@ -240,7 +257,7 @@ html {
 
 .slider__wish_wrapper {
     text-align: center;
-    padding-right: 81px;
+    /* padding-right: var(--padding-large-side); */
 }
 
 .slider__title , .gifts__title{
@@ -276,6 +293,8 @@ html {
     display: flex;
     gap: 22px;
     overflow: hidden;
+    padding-left: var(--padding-large-side);
+    padding-right: var(--padding-large-side);
 }
 
 .slider__item {
@@ -349,7 +368,7 @@ html {
 #gifts {
     max-width: 1440px;
     width: 100%;
-    padding: var(--padding-top-bottom) var(--padding-large-side);
+    padding: var(--padding-top-bottom) var(--padding-small-side);
     background-image: url("../images/bg-snow.png");
     background-repeat: no-repeat;
     background-position: center;
@@ -359,8 +378,10 @@ html {
 
 .gifts__wrapper {
     display: flex;
-    justify-content: space-between;
+    gap: 12px;
     margin-top: 19px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .gifts__item {
@@ -432,7 +453,7 @@ html {
     background-image: url('../images/bg-snow.png'), url('../images/bg-forest.png');
     background-position: center, center;
     background-repeat: no-repeat, no-repeat;
-    background-size: cover, contain;
+    background-size: cover, cover;
     max-width: 1440px;
     width: 100%;
     display: flex;
@@ -524,27 +545,35 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 60px;
 }
 
 .footer__contacts {
-    /* display: flex;
-    gap: 12px; */
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
     gap: 12px;
+    width: 100%;
+    flex-wrap: wrap;
+    /* display: grid;
+    grid-template-columns: repeat(3, 1fr); */
+}
+
+.footer__contacts_item {
+    min-width: 417px;
+    flex-grow: 1;
 }
 
 .contacts__link {
     cursor: pointer;
     background-color: var(--content-background);
     border-radius: 20px;
-    padding: 20px;
+    /* padding: 20px; */
+    padding-top: 20px;
+    padding-bottom: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* max-width: 417px; */
+    min-width: 100%;
     transition: 1s;
 }
 
@@ -616,14 +645,32 @@ footer .social__rss {
     align-items: center;
     justify-content: center;
     display: none;
-
+    cursor: pointer;
 }
 
 .burger__line {
     width: 20px;
     border-radius: 1px;
     border: 0.5px solid var(--dark);
-    
+
+}
+
+@media(max-width: 1140px){
+    /* .footer__contacts {
+        grid-template-columns: repeat(auto-fill, 1fr);
+    }
+ */
+
+}
+
+@media(max-width: 1060px){
+
+}
+
+@media (max-width: 796px) {
+    :root {
+        --padding-large-side: 8px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -632,5 +679,34 @@ footer .social__rss {
     }
     .nav__container {
         display: none;
+    }
+
+    .header {
+        padding: 12px var(--padding-small-side);
+    }
+
+    .about__description {
+        padding-right: 60px;
+    }
+
+    .slider__wish_wrapper {
+        padding-right: 0px;
+    }
+
+    .slider__button_wrapper {
+        padding-right: var(--padding-large-side);
+    }
+
+    .about__description {
+        padding-top: 106px;
+        padding-bottom: 46px;
+    }
+
+    #cta {
+        padding-top: 120px;
+        padding-bottom: 120px;
+    }
+    #footer .contacts__action, .contacts__description {
+        line-height: 147%;
     }
 }
