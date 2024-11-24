@@ -38,7 +38,8 @@ body{
 
 main {
     margin: 0 auto;
-    width: 1440px;
+    max-width: 1440px;
+    width: 100%;
     background-color: var(--primary);
     border-radius: 20px;
 }
@@ -48,12 +49,14 @@ html {
 }
 
 .header {
-    width: 1440px;
+    max-width: 1440px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     padding: 12px var(--padding-large-side);
     background-color: var(--static-white);
     margin: 0 auto;
+    align-items: center;
 }
 
 .logo-container {
@@ -115,7 +118,8 @@ html {
     background-position: center, center;
     background-size: cover, cover;
     padding: var(--padding-top-bottom) var(--padding-large-side);
-    width: 1440px;
+    max-width: 1440px;
+    width: 100%;
     display: flex;
     justify-content: center;
     padding-top: 60px;
@@ -168,7 +172,8 @@ html {
 }
 
 #about {
-    width: 1440px;
+    max-width: 1440px;
+    width: 100%;
     background-image: url("../images/bg-snow.png");
     background-repeat: no-repeat;
     background-position: center;
@@ -180,6 +185,8 @@ html {
     display: flex;
     background-color: var(--static-white);
     border-radius: 20px;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .about__description {
@@ -189,13 +196,28 @@ html {
     padding-top: 160px;
     padding-bottom: 60px;
     padding-left: 60px;
-    padding-right: 152px;
     gap: 20px;
+    width: 50%;
+    min-width: 320px;
+    flex-grow: 1;
+}
+
+
+.about__img_wrapper {
+    border-radius: 20px;
+    min-width: 320px;
+    width: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
 }
 
 .about__img {
-    display: block;
     border-radius: 20px;
+    object-fit: fill;
+    height: 100%;
 }
 
 .about {
@@ -217,6 +239,11 @@ html {
     text-transform: uppercase;
 }
 
+.about__title, .about__story {
+    max-width: 426px;
+    width: 100%;
+}
+
 .about__story, .social__copyright {
     font-size: 16px;
     font-weight: 400;
@@ -224,8 +251,9 @@ html {
 }
 
 #slider {
-    padding: var(--padding-top-bottom) 0  var(--padding-top-bottom) var(--padding-large-side);
-    width: 1440px;
+    padding: var(--padding-top-bottom) 0;
+    max-width: 1440px;
+    width: 100%;
     background-image: url("../images/bg-snow.png");
     background-repeat: no-repeat;
     background-position: center;
@@ -234,7 +262,7 @@ html {
 
 .slider__wish_wrapper {
     text-align: center;
-    padding-right: 81px;
+    /* padding-right: var(--padding-large-side); */
 }
 
 .slider__title , .gifts__title{
@@ -270,6 +298,8 @@ html {
     display: flex;
     gap: 22px;
     overflow: hidden;
+    padding-left: var(--padding-large-side);
+    padding-right: var(--padding-large-side);
 }
 
 .slider__item {
@@ -341,8 +371,9 @@ html {
 }
 
 #gifts {
-    width: 1440px;
-    padding: var(--padding-top-bottom) var(--padding-large-side);
+    max-width: 1440px;
+    width: 100%;
+    padding: var(--padding-top-bottom) var(--padding-small-side);
     background-image: url("../images/bg-snow.png");
     background-repeat: no-repeat;
     background-position: center;
@@ -352,8 +383,10 @@ html {
 
 .gifts__wrapper {
     display: flex;
-    justify-content: space-between;
+    gap: 12px;
     margin-top: 19px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .gifts__item {
@@ -425,8 +458,9 @@ html {
     background-image: url('../images/bg-snow.png'), url('../images/bg-forest.png');
     background-position: center, center;
     background-repeat: no-repeat, no-repeat;
-    background-size: cover, contain;
-    width: 1440px;
+    background-size: cover, cover;
+    max-width: 1440px;
+    width: 100%;
     display: flex;
     justify-content: center;
     padding-top: 119px;
@@ -506,7 +540,8 @@ html {
 
 footer {
     margin: 0 auto;
-    width: 1440px;
+    max-width: 1440px;
+    width: 100%;
     background-color: var(--static-white);
 }
 
@@ -515,6 +550,7 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 60px;
 }
 
@@ -522,17 +558,24 @@ footer {
     display: flex;
     gap: 12px;
     width: 100%;
+    flex-wrap: wrap;
+}
+
+.footer__contacts_item {
+    min-width: 417px;
+    flex-grow: 1;
 }
 
 .contacts__link {
     cursor: pointer;
     background-color: var(--content-background);
     border-radius: 20px;
-    padding: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 417px;
+    min-width: 100%;
     transition: 1s;
 }
 
@@ -596,3 +639,76 @@ footer .social__rss {
     color: var(--primary);
 }
 
+.burger__menu {
+    width: 40px;
+    height: 40px;
+    gap: 8px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    display: none;
+    cursor: pointer;
+}
+
+.burger__line {
+    width: 20px;
+    border-radius: 1px;
+    border: 0.5px solid var(--dark);
+
+}
+
+@media (max-width: 796px) {
+    :root {
+        --padding-large-side: 8px;
+    }
+}
+
+@media (max-width: 768px) {
+    .burger__menu {
+        display: flex;
+    }
+    .nav__container {
+        display: none;
+    }
+
+    .header {
+        padding: 12px var(--padding-small-side);
+    }
+
+    .about__description {
+        padding-right: 60px;
+    }
+
+    .slider__wish_wrapper {
+        padding-right: 0px;
+    }
+
+    .slider__button_wrapper {
+        padding-right: var(--padding-large-side);
+    }
+
+    .about__description {
+        padding-top: 106px;
+        padding-bottom: 46px;
+    }
+
+    #cta {
+        padding-top: 120px;
+        padding-bottom: 120px;
+    }
+
+    #footer .contacts__action, .contacts__description {
+        line-height: 147%;
+    }
+
+    .footer__contacts_item {
+        min-width: 100%;
+    }
+}
+
+@media(width: 380px) {
+    .about__description {
+        padding: 60px 20px;
+
+    }
+}
