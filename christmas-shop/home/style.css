@@ -654,7 +654,7 @@ footer .social__rss {
     width: 20px;
     border-radius: 1px;
     border: 0.5px solid var(--dark);
-
+    transition: 0.5s;
 }
 
 @media (max-width: 796px) {
@@ -675,9 +675,7 @@ footer .social__rss {
         z-index: 20;
         right: -100%;
         width: 100%;
-        height: 100vh;
-        transition: all 0.5s ease-in-out;
-        top: 64px;
+        transition: right 0.5s ease-in-out;
         background-color: var(--static-white);
         overflow-y: auto;
         justify-content: center;
@@ -703,6 +701,15 @@ footer .social__rss {
 
     .slider__button_wrapper {
         padding-right: var(--padding-large-side);
+    }
+
+    .burger__line_first.open {
+        transform: rotate(45deg) translate(6px, 6px);
+        
+    }
+
+    .burger__line_second.open {
+        transform: rotate(-45deg);
     }
 
     .about__description {
