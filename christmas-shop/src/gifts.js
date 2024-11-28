@@ -1,4 +1,4 @@
-[
+const data = [
   {
     "name": "Bug Magnet",
     "description": "Able to find bugs in code like they were placed there on purpose.",
@@ -8,7 +8,8 @@
       "create": "+500",
       "love": "+200",
       "dream": "+400"
-    }
+    },
+    "color": 'blue'
   },
 
   {
@@ -20,7 +21,8 @@
       "create": "+500",
       "love": "+200",
       "dream": "+400"
-    }
+    },
+    "color": 'blue'
   },
 
   {
@@ -32,7 +34,8 @@
       "create": "+500",
       "love": "+400",
       "dream": "+200"
-    }
+    },
+    "color": 'blue'
   },
 
   {
@@ -44,7 +47,8 @@
       "create": "+500",
       "love": "+200",
       "dream": "+300"
-    }
+    },
+    "color": 'blue'
   },
 
   {
@@ -56,7 +60,8 @@
       "create": "+400",
       "love": "+200",
       "dream": "+300"
-    }
+    },
+    "color": 'blue'
   },
 
   {
@@ -68,7 +73,8 @@
       "create": "+500",
       "love": "+200",
       "dream": "+300"
-    }
+    },
+    "color": 'blue'
   },
 
   {
@@ -80,7 +86,8 @@
       "create": "+500",
       "love": "+500",
       "dream": "+200"
-    }
+    },
+    "color": 'blue'
   },
 
   {
@@ -92,7 +99,8 @@
       "create": "+300",
       "love": "+200",
       "dream": "+200"
-    }
+    },
+    "color": 'blue'
   },
 
   {
@@ -104,7 +112,8 @@
       "create": "+500",
       "love": "+200",
       "dream": "+100"
-    }
+    },
+    "color": 'blue'
   },
 
   {
@@ -116,7 +125,8 @@
       "create": "+500",
       "love": "+300",
       "dream": "+400"
-    }
+    },
+    "color": 'blue'
   },
 
   {
@@ -128,7 +138,8 @@
       "create": "+500",
       "love": "+500",
       "dream": "+200"
-    }
+    },
+    "color": 'blue'
   },
 
   {
@@ -140,7 +151,8 @@
       "create": "+500",
       "love": "+400",
       "dream": "+400"
-    }
+    },
+    "color": 'blue'
   },
 
   {
@@ -152,7 +164,8 @@
       "create": "+500",
       "love": "+500",
       "dream": "+400"
-    }
+    },
+    "color": 'green'
   },
 
   {
@@ -164,7 +177,8 @@
       "create": "+300",
       "love": "+500",
       "dream": "+400"
-    }
+    },
+    "color": 'green'
   },
 
   {
@@ -176,7 +190,8 @@
       "create": "+100",
       "love": "+200",
       "dream": "+400"
-    }
+    },
+    "color": 'green'
   },
 
   {
@@ -188,7 +203,8 @@
       "create": "+300",
       "love": "+500",
       "dream": "+500"
-    }
+    },
+    "color": 'green'
   },
 
   {
@@ -200,7 +216,8 @@
       "create": "+500",
       "love": "+500",
       "dream": "+500"
-    }
+    },
+    "color": 'green'
   },
 
   {
@@ -212,7 +229,8 @@
       "create": "+300",
       "love": "+300",
       "dream": "+400"
-    }
+    },
+    "color": 'green'
   },
 
   {
@@ -224,7 +242,8 @@
       "create": "+300",
       "love": "+500",
       "dream": "+400"
-    }
+    },
+    "color": 'green'
   },
 
   {
@@ -236,7 +255,8 @@
       "create": "+400",
       "love": "+200",
       "dream": "+400"
-    }
+    },
+    "color": 'green'
   },
 
   {
@@ -248,7 +268,8 @@
       "create": "+400",
       "love": "+400",
       "dream": "+400"
-    }
+    },
+    "color": 'green'
   },
 
   {
@@ -260,7 +281,8 @@
       "create": "+300",
       "love": "+200",
       "dream": "+400"
-    }
+    },
+    "color": 'green'
   },
 
   {
@@ -272,7 +294,8 @@
       "create": "+500",
       "love": "+500",
       "dream": "+400"
-    }
+    },
+    "color": 'green'
   },
 
   {
@@ -284,7 +307,8 @@
       "create": "+300",
       "love": "+500",
       "dream": "+200"
-    }
+    },
+    "color": 'green'
   },
 
   {
@@ -296,7 +320,8 @@
       "create": "+200",
       "love": "+500",
       "dream": "+500"
-    }
+    },
+    "color": 'pink'
   },
 
   {
@@ -308,7 +333,8 @@
       "create": "+200",
       "love": "+500",
       "dream": "+500"
-    }
+    },
+    "color": 'pink'
   },
 
   {
@@ -320,7 +346,8 @@
       "create": "+200",
       "love": "+500",
       "dream": "+400"
-    }
+    },
+    "color": 'pink'
   },
 
   {
@@ -332,7 +359,8 @@
       "create": "+200",
       "love": "+500",
       "dream": "+400"
-    }
+    },
+    "color": 'pink'
   },
 
   {
@@ -344,7 +372,8 @@
       "create": "+200",
       "love": "+300",
       "dream": "+500"
-    }
+    },
+    "color": 'pink'
   },
 
   {
@@ -356,7 +385,8 @@
       "create": "+200",
       "love": "+400",
       "dream": "+100"
-    }
+    },
+    "color": 'pink'
   },
 
   {
@@ -368,7 +398,8 @@
       "create": "+200",
       "love": "+500",
       "dream": "+500"
-    }
+    },
+    "color": 'pink'
   },
 
   {
@@ -380,7 +411,8 @@
       "create": "+200",
       "love": "+500",
       "dream": "+500"
-    }
+    },
+    "color": 'pink'
   },
 
   {
@@ -392,7 +424,8 @@
       "create": "+200",
       "love": "+200",
       "dream": "+500"
-    }
+    },
+    "color": 'pink'
   },
 
   {
@@ -404,7 +437,8 @@
       "create": "+200",
       "love": "+100",
       "dream": "+100"
-    }
+    },
+    "color": 'pink'
   },
 
   {
@@ -416,7 +450,8 @@
       "create": "+200",
       "love": "+500",
       "dream": "+500"
-    }
+    },
+    "color": 'pink'
   },
 
   {
@@ -428,6 +463,9 @@
       "create": "+200",
       "love": "+300",
       "dream": "+200"
-    }
+    },
+    "color": 'pink'
   }
 ]
+
+export default data
