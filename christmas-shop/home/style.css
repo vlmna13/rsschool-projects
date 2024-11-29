@@ -728,7 +728,6 @@ footer .social__rss {
 
     .burger__line_first.open {
         transform: rotate(45deg) translate(6px, 6px);
-        
     }
 
     .burger__line_second.open {
@@ -772,6 +771,7 @@ footer .social__rss {
     }
 }
 
+
 .popup__wrapper {
     background-color: var(--overlay);
     width: 100%;
@@ -812,31 +812,23 @@ footer .social__rss {
 .popup__img {
     width: 100%;
     height: 230px;
-    background-image: url('../images/gift-for-harmony.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     background-color: var(--content-background);
-    padding: var(--padding-small-side);
+    padding: 12px;
 }
 
 .popup__button {
     width: 40px;
     height: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     cursor: pointer;
     margin-left: auto;
-}
-
-.popup__line_first {
-    transform: rotate(45deg);
-}
-
-.popup__line_second {
-    transform: rotate(-45deg);
+    border: none;
+    background-color: transparent;
+    background-position: center;
+    background-size: contain;
+    background-repeat: none;
 }
 
 .popup__characteristic {
@@ -878,6 +870,7 @@ footer .social__rss {
 
 .self {
     margin-left: auto;
+    text-transform: capitalize;
 }
 
 .snowdrift {
@@ -888,4 +881,9 @@ footer .social__rss {
 .snowflake {
     width: 16px;
     height: 16px;
+    opacity: 50%;
+}
+
+.ab__name {
+    text-transform: capitalize;
 }
