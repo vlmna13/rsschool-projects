@@ -438,7 +438,7 @@ html {
     text-align: left;
 }
 
-.item__category {
+.item__category, .popup__category, .spec__title {
     text-transform: uppercase;
     font-family: "Montserrat", sans-serif;
     font-size: 12px;
@@ -447,7 +447,7 @@ html {
     letter-spacing: 0.7px;
 }
 
-.item__text, .contacts__description {
+.item__text, .contacts__description, .popup__text {
     font-family: "Montserrat", sans-serif;
     font-size: 16px;
     font-weight: 600;
@@ -673,7 +673,7 @@ footer .social__rss {
     cursor: pointer;
 }
 
-.burger__line {
+.burger__line, .popup__line {
     width: 20px;
     border-radius: 1px;
     border: 0.5px solid var(--dark);
@@ -770,4 +770,122 @@ footer .social__rss {
         padding: 60px 20px;
 
     }
+}
+
+.popup__wrapper {
+    background-color: var(--overlay);
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.5s all;
+    z-index: 2;
+}
+
+.popup__wrapper.open {
+    opacity: 1;
+    pointer-events: all;
+    transition: 0.5s all;
+}
+
+.popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: #fff;
+    max-width: 400px;
+    width: 100%;
+    transition: 0.5s all;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.popup.open {
+    transform: translate(-50%, -50%) scale(1);
+    transition: 0.5s all;
+}
+
+.popup__img {
+    width: 100%;
+    height: 230px;
+    background-image: url('../images/gift-for-harmony.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: var(--content-background);
+    padding: var(--padding-small-side);
+}
+
+.popup__button {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.popup__line_first {
+    transform: rotate(45deg);
+}
+
+.popup__line_second {
+    transform: rotate(-45deg);
+}
+
+.popup__characteristic {
+    display: flex;
+    padding: 20px;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.popup__story {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.popup__description {
+    font-size: 16px;
+    line-height: 148%;
+}
+
+.popup__spec {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.superpowers {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.live, .create, .love, .dream {
+    display: flex;
+    justify-content: end;
+    gap: 12px;
+    align-items: center;
+}
+
+.self {
+    margin-left: auto;
+}
+
+.snowdrift {
+    display: flex;
+    gap: 8px;
+}
+
+.snowflake {
+    width: 16px;
+    height: 16px;
 }

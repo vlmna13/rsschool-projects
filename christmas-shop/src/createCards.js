@@ -1,9 +1,12 @@
-import { shuffle } from "../home/index.js";
 import { giftsWrapper} from '../src/variables.js';
+import data from "./gifts.js";
+import shuffle from './shuffle.js';
+import { showPopUp } from './showPopUp.js';
 
-function createCards(){
+function createCards(ammount){
+    giftsWrapper.innerHTML = '';
     let bit = shuffle() 
-    for(let i = 0; i < 4; i++){
+    for(let i = 0; i < ammount; i++){
         let categorySrc = bit[i].category.split(' ')[1].toLocaleLowerCase();
         let giftsItem = document.createElement('div')
         giftsItem.classList.add('gifts__item');
@@ -25,8 +28,9 @@ function createCards(){
         itemDes.appendChild(itemCategory);
         let itemText = document.createElement('h3');
         itemText.classList.add('item__text');
-        itemText.innerText = bit[i].description;
+        itemText.innerText = bit[i].name;
         itemDes.appendChild(itemText);
+        giftsItem.addEventListener('click', showPopUp);
     }
 }
 
