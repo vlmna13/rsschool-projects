@@ -1,30 +1,26 @@
-const navContainer = document.querySelector('.nav__container');
-const bodyNoScroll = document.querySelector('body');
-const burgerButton = document.querySelector('.burger__menu');
-const lineFirst = document.querySelector('.burger__line_first');
-const lineSecond = document.querySelector('.burger__line_second');
+import { navContainer, bodyNoScroll, burgerButton, lineFirst, lineSecond, giftsWrapper} from '../src/variables.js';
+import { toggleBurgerMenu, closeBurgerMenu } from '../src/toggleBurger.js';
+import createCards from '../src/createCards.js';
+import data from '../src/gifts.js';
+import shuffle from '../src/shuffle.js';
 
-function toggleBurgerMenu() {
-    const scrollTop = window.scrollY;
-    navContainer.style.top = 64 - scrollTop + 'px';
+// const navContainer = document.querySelector('.nav__container');
+// const bodyNoScroll = document.querySelector('body');
+// const burgerButton = document.querySelector('.burger__menu');
 
-    navContainer.style.height = `calc(100vh - ${navContainer.style.top})`;
-    console.log(`calc(100vh - ${navContainer.style.top})`);
+// function toggleBurgerMenu() {
+//     navContainer.classList.toggle('open');
+//     bodyNoScroll.classList.toggle('open');
+//     burgerButton.classList.toggle('open');
+//     const scrollTop = window.scrollY;
+//     navContainer.style.top = 64 - scrollTop + 'px';
+// }
 
-    navContainer.classList.toggle('open');
-    bodyNoScroll.classList.toggle('open');
-    burgerButton.classList.toggle('open');
-    lineFirst.classList.toggle('open');
-    lineSecond.classList.toggle('open');
-}
-
-function closeBurgerMenu() {
-    burgerButton.classList.remove('open');
-    navContainer.classList.remove('open');
-    bodyNoScroll.classList.remove('open');
-    lineFirst.classList.remove('open');
-    lineSecond.classList.remove('open');
-}
+// function closeBurgerMenu() {
+//     burgerButton.classList.remove('open');
+//     navContainer.classList.remove('open');
+//     bodyNoScroll.classList.remove('open');
+// }
 
 burgerButton.addEventListener('click', toggleBurgerMenu);
 
@@ -32,7 +28,7 @@ document.querySelectorAll('.nav__item').forEach( (item) => {
     item.addEventListener('click', closeBurgerMenu);
 })
 
-document.querySelector('.logo__container').addEventListener('click', closeBurgerMenu);
+// document.querySelector('.logo__container').addEventListener('click', closeBurgerMenu);
 
 
 
