@@ -166,15 +166,17 @@ main {
     color: var(--static-white);
     cursor: pointer;
     transition: 1s;
+    pointer-events: auto;
 }
 
-.category__item:hover,
-.category__item:first-child {
+.category__item.open {
     background-color: var(--static-white-20);
+    cursor: default;
+    pointer-events: none;
 }
 
-.category__item:first-child {
-    cursor: default;
+.category__item:hover {
+    background-color: var(--static-white-20);
 }
 
 .gifts__wrapper {

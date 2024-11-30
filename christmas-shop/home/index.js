@@ -83,8 +83,8 @@ function moveLeft() {
 buttonPrev.addEventListener('click', moveLeft);
 
 //cards
-
-createCards(4)
+let mixed = shuffle(data);
+createCards(4, mixed)
 
 
 

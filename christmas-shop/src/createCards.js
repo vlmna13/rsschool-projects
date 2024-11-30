@@ -2,11 +2,11 @@ import { giftsWrapper} from '../src/variables.js';
 import data from "./gifts.js";
 import shuffle from './shuffle.js';
 import  { showPopUp }  from './showPopUp.js';
-function createCards(ammount){
-    let mixed = shuffle();
+
+function createCards(ammount, mixed){
     giftsWrapper.innerHTML = '';
     for(let i = 0; i < ammount; i++){
-        let categorySrc = mixed[i].category.split(' ')[1].toLocaleLowerCase();
+        let categorySrc = mixed[i].category.split(' ')[1].toLowerCase();
         let giftsItem = document.createElement('div');
         giftsItem.classList.add('gifts__item');
         giftsItem.dataset.name = i;
