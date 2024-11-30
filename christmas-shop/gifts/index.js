@@ -16,31 +16,29 @@ let allItems = document.querySelectorAll('.category__item');
 allItems.forEach(el => {
     el.dataset.category = el.textContent;
     el.addEventListener('click', () => {
-        changeCategory(el)
+        console.log(1);
+        changeCategory(el);
     })
 })
 
 function changeCategory(el) {
-    if(el.classList.contains('open')){
+
+    if (el.classList.contains('open')) {
         return;
     } else {
-        for(let i = 0; i < allItems.length; i++){
-            if(allItems[i] == el) {
-                el.classList.add('open')
-            }
-            allItems[i].classList.remove('open');
-            let mixed = [];
-            data.forEach(card=> {
-            if(el.dataset.category == 'All'){
-                mixed = shuffle(data);
-            } else if(card.category == el.dataset.category){
-                mixed.push(card);
-                }
-            })
-            createCards(mixed.length, mixed);
-            }
+        allItems.forEach(element => element.classList.remove('open'));
+        el.classList.add('open');
+
+        let mixed = [];
+        if (el.dataset.category == 'All'){
+            mixed = shuffle(data);
+        } else {
+            let filteredData = data.filter(item => item.category === el.dataset.category);
+            mixed = [...filteredData];
         }
 
+        createCards(mixed.length, mixed);
+    }
 }
 
 let mixed = shuffle(data)
