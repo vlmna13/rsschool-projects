@@ -222,7 +222,7 @@ main {
     text-align: left;
 }
 
-.item__category {
+.item__category, .popup__category {
     text-transform: uppercase;
     font-family: "Montserrat", sans-serif;
     font-size: 12px;
@@ -242,7 +242,7 @@ main {
 }
 
 
-.item__text {
+.item__text, .popup__description {
     font-family: "Montserrat", sans-serif;
     font-size: 16px;
     font-weight: 600;
@@ -476,5 +476,121 @@ footer {
     .category__item {
         padding: 12px 8px;
     }
+}
+
+.popup__wrapper {
+    background-color: var(--overlay);
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.5s all;
+    z-index: 2;
+}
+
+.popup__wrapper.open {
+    opacity: 1;
+    pointer-events: all;
+    transition: 0.5s all;
+}
+
+.popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: #fff;
+    max-width: 400px;
+    width: 100%;
+    transition: 0.5s all;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.popup.open {
+    transform: translate(-50%, -50%) scale(1);
+    transition: 0.5s all;
+}
+
+.popup__img {
+    width: 100%;
+    height: 230px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: var(--content-background);
+    padding: 12px;
+}
+
+.popup__button {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    margin-left: auto;
+    border: none;
+    background-color: transparent;
+    background-position: center;
+    background-size: contain;
+    background-repeat: none;
+}
+
+.popup__characteristic {
+    display: flex;
+    padding: 20px;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.popup__story {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.popup__description {
+    font-size: 16px;
+    line-height: 148%;
+}
+
+.popup__spec {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.superpowers {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.live, .create, .love, .dream {
+    display: flex;
+    justify-content: end;
+    gap: 12px;
+    align-items: center;
+}
+
+.self {
+    margin-left: auto;
+    text-transform: capitalize;
+}
+
+.snowdrift {
+    display: flex;
+    gap: 8px;
+}
+
+.snowflake {
+    width: 16px;
+    height: 16px;
+    opacity: 50%;
+}
+
+.ab__name {
+    text-transform: capitalize;
 }
 

@@ -673,7 +673,7 @@ footer .social__rss {
     cursor: pointer;
 }
 
-.burger__line, .popup__line {
+.burger__line {
     width: 20px;
     border-radius: 1px;
     border: 0.5px solid var(--dark);
