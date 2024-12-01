@@ -45,5 +45,29 @@ let mixed = shuffle(data)
 createCards(mixed.length, mixed)
 
 
+//button
+
+const buttonUp = document.querySelector('.button__up');
+window.onscroll = function () {
+    if(window.pageYOffset >= 300){
+        buttonUp.style.display = 'flex';
+    } else {
+        buttonUp.style.display = 'none';
+    }
+}
+
+function scrollUp(){
+    window.scrollTo(0, 0);
+    buttonUp.style.display = 'none';
+    console.log(window.pageYOffset)
+}
+
+buttonUp.addEventListener('click',scrollUp )
+
+
+
+
+
+
 
 
