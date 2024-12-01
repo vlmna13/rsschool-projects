@@ -780,8 +780,13 @@ footer .social__rss {
 @media(width: 380px) {
     .about__description {
         padding: 60px 20px;
-
     }
+
+    .popup {
+        max-width: 364px;
+        width: 100%;
+    }
+
 }
 
 

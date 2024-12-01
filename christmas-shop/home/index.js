@@ -3,8 +3,6 @@ import { toggleBurgerMenu, closeBurgerMenu } from '../src/toggleBurger.js';
 import createCards from '../src/createCards.js';
 import data from '../src/gifts.js';
 import shuffle from '../src/shuffle.js';
-// export let bit = shuffle() 
-
 
 //burger
 burgerButton.addEventListener('click', toggleBurgerMenu);
@@ -85,6 +83,43 @@ buttonPrev.addEventListener('click', moveLeft);
 //cards
 let mixed = shuffle(data);
 createCards(4, mixed)
+
+// timer
+
+const timerDays = document.querySelector('.timer__days');
+const timerHours = document.querySelector('.timer__hours');
+const timerMinutes = document.querySelector('.timer__minutes');
+const timerSeconds = document.querySelector('.timer__seconds');
+const deadline = 'December 31 2024 23:59:59 GMT+03:00';
+
+
+function countTime(){
+    let difference = Date.parse(deadline) - Date.parse(new Date());
+    let days = Math.floor(difference / 1000 / 60 / 60 / 24);
+    let hours = Math.floor(difference / 1000 / 60 / 60) % 24;
+    let minutes = Math.floor(difference / 1000 / 60) % 60;
+    let seconds = Math.floor(difference / 1000) % 60;
+    return {days, hours, minutes, seconds, difference};
+}
+countTime()
+function fillTimer(){
+    let end = setInterval(function(){
+        let options = countTime()
+        timerDays.innerText = options.days;
+        timerHours.innerText = options.hours;
+        timerMinutes.innerText = options.minutes;
+        timerSeconds.innerText = options.seconds;
+        if(options.difference <= 0){
+            clearInterval(end);
+        }
+    }, 1000);
+
+};
+fillTimer()
+
+
+
+
 
 
 
