@@ -42,7 +42,7 @@ function init() {
 }
 init();
 
-window.addEventListener('resize', init)
+window.addEventListener('resize', init);
 
 buttonNext.addEventListener('click', moveRight);
 

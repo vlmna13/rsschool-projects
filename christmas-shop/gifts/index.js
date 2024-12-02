@@ -48,13 +48,20 @@ createCards(mixed.length, mixed)
 //button
 
 const buttonUp = document.querySelector('.button__up');
-window.onscroll = function () {
-    if(window.pageYOffset >= 300){
-        buttonUp.style.display = 'flex';
+window.addEventListener('resize', function(){
+    if(window.innerWidth <= 768) {
+        window.onscroll = function () {
+            if(window.pageYOffset >= 300){
+                buttonUp.style.display = 'flex';
+            } else {
+                buttonUp.style.display = 'none';
+            }
+        }
     } else {
         buttonUp.style.display = 'none';
-    }
-}
+        }
+});
+
 
 function scrollUp(){
     window.scrollTo(0, 0);
