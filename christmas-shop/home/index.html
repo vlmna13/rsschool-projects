@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="popup__wrapper"></div>
     <header class="header">
         <a class="logo-container" href="../home/index.html">
             <img class = "logo" src="../images/snowflake.svg" alt="logo snowflake">
@@ -90,7 +91,7 @@
                 </div>
             </div>
             <div class="slider__button_wrapper">
-                <button class="slider__button left__button">
+                <button class="slider__button left__button disabled" disabled>
                     <svg class="slider__button-img" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
                         <path d="M1 7H13.5M13.5 7L7.5 1M13.5 7L7.5 13" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
@@ -105,44 +106,7 @@
         <section id="gifts">
             <p class="gifts__caption">Best Gifts</p>
             <h2 class="gifts__title">especially for you</h2>
-            <div class="gifts__wrapper">
-                <div class="gifts__item">
-                    <div class="gifts__image_wrapper">
-                        <img class = "gift__image" src="../images/gift-for-work.png" alt="gift">
-                    </div>
-                    <div class="item__description">
-                        <h4 class="item__category blue">for work</h4>
-                        <h3 class="item__text">Console.log Guru</h3>
-                    </div>
-                </div>
-                <div class="gifts__item">
-                    <div class="gifts__image_wrapper">
-                        <img class = "gift__image" src="../images/gift-for-health.png" alt="gift">
-                    </div>
-                    <div class="item__description">
-                        <h4 class="item__category green">For health</h4>
-                        <h3 class="item__text">Hydration Bot</h3>
-                    </div>
-                </div>
-                <div class="gifts__item">
-                    <div class="gifts__image_wrapper">
-                        <img class = "gift__image" src="../images/gift-for-work.png" alt="gift">
-                    </div>
-                    <div class="item__description">
-                        <h4 class="item__category blue">for work</h4>
-                        <h3 class="item__text">Merge Master</h3>
-                    </div>
-                </div>
-                <div class="gifts__item">
-                    <div class="gifts__image_wrapper">
-                        <img class = "gift__image" src="../images/gift-for-harmony.png" alt="gift">
-                    </div>
-                    <div class="item__description">
-                        <h4 class="item__category pink">For harmony</h4>
-                        <h3 class="item__text">Spontaneous Coding Philosopher</h3>
-                    </div>
-                </div>
-            </div>
+            <div class="gifts__wrapper"></div>
         </section>
         <section id="cta">
             <div class = "cta__wrapper">
@@ -151,22 +115,22 @@
                 <p class="cta__wait">The New Year is Coming Soon...</p>
                 <div class="timer__wrapper">
                     <div class="counter">
-                        <p class="timer__days timer">47</p>
+                        <p class="timer__days timer"></p>
                         <p class="timer__title">days</p>
                     </div>
                     <div class="line"></div>
                     <div class="counter">
-                        <p class="timer__hours timer">5</p>
+                        <p class="timer__hours timer"></p>
                         <p class="timer__title">hours</p>
                     </div>
                     <div class="line"></div>
                     <div class="counter">
-                        <p class="timer__minutes timer">34</p>
+                        <p class="timer__minutes timer"></p>
                         <p class="timer__title">minutes</p>
                     </div>
                     <div class="line"></div>
                     <div class="counter">
-                        <p class="timer__seconds timer">12</p>
+                        <p class="timer__seconds timer"></p>
                         <p class="timer__title">seconds</p>
                     </div>
                 </div>
@@ -229,5 +193,6 @@
             </div>
         </div>
     </footer>
+    <script src="./index.js" type = "module"></script>
 </body>
 </html>
