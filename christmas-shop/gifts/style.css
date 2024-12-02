@@ -496,6 +496,9 @@ footer {
     .category__item {
         padding: 12px 8px;
     }
+    .popup {
+        max-width: 364px!important;
+    }
 }
 
 .popup__wrapper {
@@ -523,7 +526,7 @@ footer {
     left: 50%;
     transform: translate(-50%, -50%) scale(0);
     background: #fff;
-    max-width: 400px;
+    max-width: 380px;
     width: 100%;
     transition: 0.5s all;
     border-radius: 20px;

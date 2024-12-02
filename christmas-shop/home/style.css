@@ -687,6 +687,10 @@ footer .social__rss {
 }
 
 @media (max-width: 768px) {
+    .popup {
+        max-width: 380px;
+        width: 100%;
+    }
     .burger__menu {
         display: flex;
     }
@@ -783,8 +787,7 @@ footer .social__rss {
     }
 
     .popup {
-        max-width: 364px;
-        width: 100%;
+        max-width: 364px!important;
     }
 
 }
@@ -815,7 +818,7 @@ footer .social__rss {
     left: 50%;
     transform: translate(-50%, -50%) scale(0);
     background: #fff;
-    max-width: 400px;
+    max-width: 380px;
     width: 100%;
     transition: 0.5s all;
     border-radius: 20px;
