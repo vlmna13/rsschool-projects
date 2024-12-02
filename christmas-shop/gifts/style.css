@@ -467,6 +467,25 @@ footer {
         min-width: 100%;
     }
 
+    .button__up {
+        display: none;
+        justify-content: center;
+        align-items: center;
+        width: 56px;
+        height: 56px;
+        border-radius: 100%;
+        background-color: var(--static-white);
+        border: 1px solid var(--primary);
+        position: fixed;
+        bottom: 8px;
+        right: 8px;
+    }
+    
+    .button__up svg {
+        transform: rotate(-90deg);
+        color: var(--primary);
+    }
+
 
 }
 
@@ -596,23 +615,6 @@ footer {
 }
 
 
-.button__up {
-    display: none;
-    justify-content: center;
-    align-items: center;
-    width: 56px;
-    height: 56px;
-    border-radius: 100%;
-    background-color: var(--static-white);
-    border: 1px solid var(--primary);
-    position: fixed;
-    bottom: 8px;
-    right: 8px;
-}
 
-.button__up svg {
-    transform: rotate(-90deg);
-    color: var(--primary);
-}
 
 

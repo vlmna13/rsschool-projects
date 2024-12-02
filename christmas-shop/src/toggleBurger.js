@@ -12,6 +12,8 @@ export function toggleBurgerMenu() {
 }
 
 export function closeBurgerMenu() {
+    navContainer.style.top = 0 + 'px';
+    navContainer.style.height = 64 + 'px';
     burgerButton.classList.remove('open');
     navContainer.classList.remove('open');
     bodyNoScroll.classList.remove('open');

@@ -39,6 +39,9 @@ function init() {
         click = 6;    
     }
     chunk = (width - sliderWrapper.offsetWidth) / click;
+    if(window.innerWidth > 768) {
+        closeBurgerMenu();
+    }
 }
 init();
 

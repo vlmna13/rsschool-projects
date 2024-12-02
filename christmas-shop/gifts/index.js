@@ -60,13 +60,23 @@ window.addEventListener('resize', function(){
     } else {
         buttonUp.style.display = 'none';
         }
+    if(window.innerWidth > 768){
+        closeBurgerMenu()
+    }
 });
+
+window.onscroll = function () {
+    if(window.pageYOffset >= 300){
+        buttonUp.style.display = 'flex';
+    } else {
+        buttonUp.style.display = 'none';
+    }
+}
 
 
 function scrollUp(){
     window.scrollTo(0, 0);
     buttonUp.style.display = 'none';
-    console.log(window.pageYOffset)
 }
 
 buttonUp.addEventListener('click',scrollUp )
