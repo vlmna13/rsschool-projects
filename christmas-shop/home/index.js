@@ -26,13 +26,15 @@ let chunk;
 let width;
 
 function init() {
-    width = sliderTrack.offsetWidth;
+    width = sliderTrack.offsetWidth + 36;
     offset = 0;
     sliderTrack.style.left = 0;
     click = 0;
     count = 0;
     buttonPrev.classList.add('disabled');
     buttonPrev.setAttribute('disabled', "");
+    buttonNext.classList.remove('disabled');
+    buttonNext.removeAttribute('disabled');
     if(sliderWrapper.offsetWidth > 768) {
         click = 3;
     } else {
@@ -41,6 +43,7 @@ function init() {
     chunk = (width - sliderWrapper.offsetWidth) / click;
     if(window.innerWidth > 768) {
         closeBurgerMenu();
+        width = sliderTrack.offsetWidth;
     }
 }
 init();
