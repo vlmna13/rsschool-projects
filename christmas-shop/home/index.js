@@ -96,7 +96,7 @@ const timerDays = document.querySelector('.timer__days');
 const timerHours = document.querySelector('.timer__hours');
 const timerMinutes = document.querySelector('.timer__minutes');
 const timerSeconds = document.querySelector('.timer__seconds');
-const deadline = 'December 31 2024 23:59:59 GMT+03:00';
+const deadline = 'December 31 2024 23:59:59 UTC+0';
 
 
 function countTime(){

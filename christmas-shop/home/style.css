@@ -36,6 +36,10 @@ body{
     font-family: "Montserrat", sans-serif;
 }
 
+body.open {
+    overflow: hidden;
+}
+
 main {
     margin: 0 auto;
     max-width: 1440px;
@@ -774,9 +778,7 @@ footer .social__rss {
         overflow-y: auto;
     }
 
-    body.open {
-        overflow: hidden;
-    }
+
     
 
 }
