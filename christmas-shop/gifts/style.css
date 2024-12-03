@@ -402,6 +402,10 @@ footer {
     transition: 0.5s;
 }
 
+body.open {
+    overflow: hidden;
+}
+
 @media (max-width: 768px) {
     :root {
         --padding-large-side: 8px;
@@ -435,10 +439,6 @@ footer {
     .nav__container.open {
         right: 0;
         overflow-y: auto;
-    }
-
-    body.open {
-        overflow: hidden;
     }
 
     .nav__list {

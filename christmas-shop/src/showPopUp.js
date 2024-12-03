@@ -87,4 +87,5 @@ export function showPopUp(giftsItem, mixed){
             allSnow[k].style.opacity = '100%';
         }  
     }
+    bodyNoScroll.classList.add('open');
 }
