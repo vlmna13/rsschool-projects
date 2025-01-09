@@ -56,3 +56,36 @@ button:hover {
 .hard.active {
     background-color: red;
 }
+
+.main-wrapper {
+    padding: 10px;
+    max-width: 1440px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.field {
+    display: flex;
+    width: 100%;
+    max-width: 300px;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 30px;
+    height: 40px;
+}
+
+.key-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.line-wrapper {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+

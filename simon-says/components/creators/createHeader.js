@@ -1,5 +1,5 @@
 import { startGame } from "../startGame.js";
-import { toggleLevel } from "./toggleLevel.js";
+import { toggleLevel } from "../toggleLevel.js";
 import { defaultParameters } from "../../index.js";
 
 export function createHeader() {

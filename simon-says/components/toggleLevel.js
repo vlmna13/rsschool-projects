@@ -1,4 +1,4 @@
-import { defaultParameters } from "../../index.js";
+import { defaultParameters } from "../index.js";
 
 export function toggleLevel(event) {
     const levelWrapper = document.querySelector('.level-wrapper');
@@ -14,4 +14,7 @@ export function toggleLevel(event) {
     buttonStart.classList.add(defaultParameters.level);
     repeatSeq.classList.remove(repeatSeq.classList[1]);
     repeatSeq.classList.add(defaultParameters.level);
+    const field = document.querySelector('.field');
+    field.classList.remove(field.classList[1]);
+    field.classList.add(defaultParameters.level);
 }
