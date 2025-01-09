@@ -1,4 +1,6 @@
 import { startGame } from "../startGame.js";
+import { toggleLevel } from "./toggleLevel.js";
+import { defaultParameters } from "../../index.js";
 
 export function createHeader() {
     const body = document.querySelector('body');
@@ -10,20 +12,20 @@ export function createHeader() {
     //levelWrapper
     levelWrapper.classList.add('level-wrapper');
     const levelEasy = document.createElement('button');
-    levelEasy.classList.add('level', 'easy');
+    levelEasy.classList.add('easy', 'active');
     levelEasy.innerHTML = 'easy';
     // levelEasy.style.background = '#90EE90';
-    // levelEasy.addEventListener('click', toggleClass);
+    levelEasy.addEventListener('click', toggleLevel);
 
     const levelMedium = document.createElement('button');
-    levelMedium.classList.add('level' ,'medium');
+    levelMedium.classList.add('medium');
     levelMedium.innerHTML = 'medium';
-    // levelMedium.addEventListener('click', toggleClass);
+    levelMedium.addEventListener('click', toggleLevel);
 
     const levelHard = document.createElement('button');
-    levelHard.classList.add('level' ,'hard');
+    levelHard.classList.add('hard');
     levelHard.innerHTML = 'hard';
-    // levelHard.addEventListener('click', toggleClass);
+    levelHard.addEventListener('click', toggleLevel);
     levelWrapper.appendChild(levelEasy);
     levelWrapper.appendChild(levelMedium);
     levelWrapper.appendChild(levelHard);
@@ -35,14 +37,14 @@ export function createHeader() {
     header.appendChild(score);
     //Start
     const buttonStart = document.createElement('button');
-    buttonStart.classList.add('start');
+    buttonStart.classList.add('start', 'easy');
     buttonStart.innerText = 'start game';
     buttonStart.addEventListener('click', startGame);
     header.appendChild(buttonStart);
 
     //repeat
     const repeatSeq = document.createElement('button');
-    repeatSeq.classList.add('repeat');
+    repeatSeq.classList.add('repeat', 'easy');
     repeatSeq.innerText = 'repeat sequence';
     header.appendChild(repeatSeq);
     return { header, levelEasy, levelHard, levelMedium, levelWrapper };
