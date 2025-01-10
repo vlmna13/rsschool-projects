@@ -1,11 +1,12 @@
 import { defaultParameters } from "../index.js";
 import { createRound } from "./creators/creatRound.js";
 import { allowInput } from "./allowInput.js";
+import { lightUp } from "./lightUp.js";
 
 export function startGame() {
     defaultParameters.round = 0;
     defaultParameters.round += 1;
-    defaultParameters.isGamestarted = true;
+    // defaultParameters.isGamestarted = true;
     const score = document.querySelector('.score');
     score.innerText = 'round ' + defaultParameters.round + ' / 5';
     defaultParameters.sequence.length = 0;
@@ -18,4 +19,6 @@ export function startGame() {
     } else {
         return;
     }
+    allowInput();
+    lightUp();
 }

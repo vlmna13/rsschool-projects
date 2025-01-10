@@ -1,19 +1,22 @@
 import { defaultParameters } from "../index.js";
+import { connection } from "./creators/connection.js";
 
 export function allowInput() {
     const allbuttons = document.querySelectorAll('button');
     const field = document.querySelectorAll('.field');
     field.innerText = '';
-    if(defaultParameters.isGamestarted = 'false') {
-        defaultParameters.isGamestarted = 'false';
+    if(defaultParameters.isGamestarted === false) {
+        document.removeEventListener('keydown', connection);
         allbuttons.forEach(button => {
             button.disabled = true;
         })
+        console.log('dwork');
     } else {
-        defaultParameters.isGamestarted = 'true';
+        document.addEventListener('keydown', connection);
         allbuttons.forEach(button => {
             button.disabled = false;
-        })
+        });
+        console.log('work');
     }
 
 }
