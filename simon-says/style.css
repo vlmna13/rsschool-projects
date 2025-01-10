@@ -16,7 +16,8 @@ button:hover {
     place-items: center;
     gap: 10px;
     padding: 10px;
-    max-width: 1440px;
+    max-width: 550px;
+    margin: 0 auto;
 }
 
 .level-wrapper {
@@ -59,11 +60,13 @@ button:hover {
 
 .main-wrapper {
     padding: 10px;
-    max-width: 1440px;
+    max-width: 550px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    margin: 0 auto;
 }
 
 .field {
@@ -81,6 +84,7 @@ button:hover {
     flex-direction: column;
     gap: 20px;
     align-items: center;
+    max-width: 500px;
 }
 
 .line-wrapper {

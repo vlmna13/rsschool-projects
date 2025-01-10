@@ -8,7 +8,7 @@ export function createKeyboard() {
     keyWrapper.appendChild(lineWrapper);
     for(let i = 0; i <= defaultParameters.data.length -1; i++) {
         const key = document.createElement('button');
-        key.classList.add('key');
+        key.classList.add('key', `${defaultParameters.level}`);
         key.dataset.index = defaultParameters.data[i].code;
         key.innerText = defaultParameters.data[i].inside;
 

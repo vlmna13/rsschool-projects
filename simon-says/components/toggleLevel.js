@@ -1,6 +1,6 @@
 import { defaultParameters } from "../index.js";
 import { changeData } from "./changeData.js";
-import { createRound } from "./creators/creatRound.js";
+import { createKeyboard } from "./creators/createKeyBoard.js";
 
 export function toggleLevel(event) {
     const levelWrapper = document.querySelector('.level-wrapper');
@@ -20,5 +20,10 @@ export function toggleLevel(event) {
     field.classList.remove(field.classList[1]);
     field.classList.add(defaultParameters.level);
     changeData();
-    createRound();
+    createKeyboard();
+    const allKeys = document.querySelectorAll('.key');
+    allKeys.forEach(key => {
+        key.classList.remove(key.classList[1]);
+        key.classList.add(defaultParameters.level);
+    })
 }

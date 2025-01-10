@@ -7,11 +7,12 @@ export let defaultParameters = {
     isGamestarted: false,
     level: 'easy',
     data: keyboardDataNumbers,
+    round: 0,
+    sequence: []
 }
 
 createHeader();
 createMain();
-createRound();
 
 
 

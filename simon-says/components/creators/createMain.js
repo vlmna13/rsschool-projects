@@ -12,6 +12,6 @@ export function createMain() {
     const keyWrapper = document.createElement('div');
     keyWrapper.classList.add('key-wrapper');
     main.appendChild(keyWrapper);
-    // createKeyboard(keyWrapper);
+    createKeyboard();
     // return { main, field, keyWrapper };
 }

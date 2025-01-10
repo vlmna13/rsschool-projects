@@ -1,7 +1,6 @@
 import { startGame } from "../startGame.js";
 import { toggleLevel } from "../toggleLevel.js";
 import { defaultParameters } from "../../index.js";
-import { createRound } from "./creatRound.js";
 
 export function createHeader() {
     const body = document.querySelector('body');
@@ -34,7 +33,7 @@ export function createHeader() {
     //score
     const score = document.createElement('p');
     score.classList.add('score');
-    score.innerText = 'round 0/5';
+    score.innerText = 'round ' + defaultParameters.round + ' / 5';
     header.appendChild(score);
     //Start
     const buttonStart = document.createElement('button');
@@ -49,6 +48,6 @@ export function createHeader() {
     repeatSeq.innerText = 'repeat sequence';
     header.appendChild(repeatSeq);
     // createRound();
-    return { header, levelEasy, levelHard, levelMedium, levelWrapper };
+    // return { header, levelEasy, levelHard, levelMedium, levelWrapper };
     
 }
