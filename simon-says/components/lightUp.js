@@ -16,18 +16,21 @@ export function lightUp() {
                 setTimeout(() => {
                     key.classList.remove('active');
                     index++;
-                    highlightKey();
+                    if (index < sequence.length && sequence[index] === sequence[index - 1]) {
+                        setTimeout(highlightKey, 1000); // Add delay if the next key is the same
+                    } else {
+                        highlightKey();
+                    }
                 }, 2000);
             }
         } else {
-            // defaultParameters.isGamestarted = true;
             setTimeout(() => {
                 defaultParameters.isGamestarted = true;
                 allowInput();
-                console.log(defaultParameters.isGamestarted);
-            }, 1000);
+            }, 300);
         }
     }
+
     highlightKey();
 }
    
