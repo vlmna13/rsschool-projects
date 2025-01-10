@@ -1,4 +1,6 @@
 import { defaultParameters } from "../index.js";
+import { changeData } from "./changeData.js";
+import { createRound } from "./creators/creatRound.js";
 
 export function toggleLevel(event) {
     const levelWrapper = document.querySelector('.level-wrapper');
@@ -17,4 +19,6 @@ export function toggleLevel(event) {
     const field = document.querySelector('.field');
     field.classList.remove(field.classList[1]);
     field.classList.add(defaultParameters.level);
+    changeData();
+    createRound();
 }

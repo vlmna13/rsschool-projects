@@ -1,6 +1,7 @@
 import { startGame } from "../startGame.js";
 import { toggleLevel } from "../toggleLevel.js";
 import { defaultParameters } from "../../index.js";
+import { createRound } from "./creatRound.js";
 
 export function createHeader() {
     const body = document.querySelector('body');
@@ -47,5 +48,7 @@ export function createHeader() {
     repeatSeq.classList.add('repeat', 'easy');
     repeatSeq.innerText = 'repeat sequence';
     header.appendChild(repeatSeq);
+    // createRound();
     return { header, levelEasy, levelHard, levelMedium, levelWrapper };
+    
 }

@@ -1,4 +1,5 @@
 import { defaultParameters } from "../../index.js";
+import { createKeyboard } from "./createKeyBoard.js";
 
 export function createMain() {
     const body = document.querySelector('body');
@@ -11,6 +12,6 @@ export function createMain() {
     const keyWrapper = document.createElement('div');
     keyWrapper.classList.add('key-wrapper');
     main.appendChild(keyWrapper);
-    return {main, field, keyWrapper};
-
+    // createKeyboard(keyWrapper);
+    // return { main, field, keyWrapper };
 }

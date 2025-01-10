@@ -1,14 +1,18 @@
 import { createHeader } from "./components/creators/createHeader.js";
 import { keyboardDataLetters, keyboardDataNumbers} from './components/keyboardData.js';
 import {createMain} from './components/creators/createMain.js';
+import { createRound } from "./components/creators/creatRound.js";
 
-
-
-createHeader();
-createMain();
-
-export const defaultParameters = {
+export let defaultParameters = {
     isGamestarted: false,
     level: 'easy',
     data: keyboardDataNumbers,
 }
+
+createHeader();
+createMain();
+createRound();
+
+
+
+
