@@ -1,14 +1,21 @@
 import { defaultParameters } from "../index.js";
 import { createRound } from "./creators/creatRound.js";
+import { allowInput } from "./allowInput.js";
 
 export function startGame() {
     defaultParameters.round = 0;
     defaultParameters.round += 1;
+    defaultParameters.isGamestarted = true;
     const score = document.querySelector('.score');
     score.innerText = 'round ' + defaultParameters.round + ' / 5';
     defaultParameters.sequence.length = 0;
-    console.log(defaultParameters.sequence)
     createRound();
     const newGame = document.querySelector('.start');
     newGame.innerText = 'new game';
+    const repeat = document.querySelector('.repeat');
+    if(!repeat.classList.contains('visible')) {
+        repeat.classList.add('visible');
+    } else {
+        return;
+    }
 }
