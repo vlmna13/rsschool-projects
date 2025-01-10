@@ -1,6 +1,7 @@
 import { startGame } from "../startGame.js";
 import { toggleLevel } from "../toggleLevel.js";
 import { defaultParameters } from "../../index.js";
+import { repeatSeq } from "../repeatSeq.js";
 
 export function createHeader() {
     const body = document.querySelector('body');
@@ -43,10 +44,11 @@ export function createHeader() {
     header.appendChild(buttonStart);
 
     //repeat
-    const repeatSeq = document.createElement('button');
-    repeatSeq.classList.add('repeat', 'easy');
-    repeatSeq.innerText = 'repeat sequence';
-    header.appendChild(repeatSeq);
+    const repeat = document.createElement('button');
+    repeat.classList.add('repeat', 'easy');
+    repeat.innerText = 'repeat sequence';
+    repeat.addEventListener('click', repeatSeq);
+    header.appendChild(repeat);
     // createRound();
     // return { header, levelEasy, levelHard, levelMedium, levelWrapper };
     

@@ -10,13 +10,11 @@ export function allowInput() {
         allbuttons.forEach(button => {
             button.disabled = true;
         })
-        console.log('dwork');
     } else {
         document.addEventListener('keydown', connection);
         allbuttons.forEach(button => {
             button.disabled = false;
         });
-        console.log('work');
     }
 
 }
