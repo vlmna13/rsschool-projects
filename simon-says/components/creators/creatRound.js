@@ -6,9 +6,16 @@ import { createMain } from "./createMain.js";
 export function createRound() {
     let min = 0;
     let max = Math.floor(defaultParameters.data.length);
-    for (let i = 0; i < 2; i++) {
-        let number = Math.floor(Math.random() * (max - min) + min);
-        defaultParameters.sequence.push(number);
+    let showSeq = [];
+    for(let j = 0; j < defaultParameters.round; j++){
+        for (let i = 0; i < 2; i++) {
+            let number = Math.floor(Math.random() * (max - min) + min);
+            defaultParameters.sequence.push(number);
+            showSeq.push(defaultParameters.data[number].inside);
+        }
     }
+    console.log('index:  ' + defaultParameters.sequence);
+    console.log('sequence:  ' + showSeq);
+
 }
 

@@ -1,4 +1,5 @@
 import { defaultParameters } from "../../index.js";
+import { checkInput } from "../checkInput.js";
 
 export function createKeyboard() {
     const keyWrapper = document.querySelector('.key-wrapper');
@@ -12,9 +13,10 @@ export function createKeyboard() {
         key.classList.add('key', `${defaultParameters.level}`);
         key.dataset.index = defaultParameters.data[i].code;
         key.innerText = defaultParameters.data[i].inside;
-        key.disabled = 'true';
+        key.disabled = true;
         key.addEventListener('click', function(){
             field.innerText += key.innerText;
+            checkInput(key.innerText);
         });
         lineWrapper.appendChild(key);
     }
