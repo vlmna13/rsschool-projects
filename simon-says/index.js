@@ -8,7 +8,9 @@ export let defaultParameters = {
     level: 'easy',
     data: keyboardDataNumbers,
     round: 0,
-    sequence: []
+    sequence: [],
+    clue: 1,
+    mistakes: 2,
 }
 
 createHeader();

@@ -8,9 +8,10 @@ export function connection(event){
     }
     key.classList.add('active');
     const field = document.querySelector('.field');
-    field.innerText = key.innerText;
+    field.innerText += key.innerText;
     setTimeout(() => {
         key.classList.remove('active');
     }, 100);
     checkInput(key.innerText);
+    console.log(key.innerText)
 }

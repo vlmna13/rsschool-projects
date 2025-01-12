@@ -6,6 +6,9 @@ export function createMain() {
     const main = document.createElement('main');
     main.classList.add('main-wrapper');
     body.appendChild(main);
+    const feedBack = document.createElement('p');
+    feedBack.classList.add('feed-back');
+    main.appendChild(feedBack);
     const field = document.createElement('p');
     field.classList.add('field', 'easy');
     main.appendChild(field);
@@ -13,5 +16,4 @@ export function createMain() {
     keyWrapper.classList.add('key-wrapper');
     main.appendChild(keyWrapper);
     createKeyboard();
-    // return { main, field, keyWrapper };
 }

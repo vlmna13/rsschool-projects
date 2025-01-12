@@ -1,13 +1,13 @@
 import { defaultParameters } from "../index.js";
 import { keyboardDataLetters, keyboardDataNumbers } from "./keyboardData.js";
 import { allowInput } from "./allowInput.js";
+import { repeatSeq } from "./repeatSeq.js";
 
 
 export function lightUp() {
     const sequence = defaultParameters.sequence;
     const keys = document.querySelectorAll('.key');
     let index = 0;
-
     function highlightKey() {
         if (index < sequence.length) {
             let key = keys[sequence[index]];
@@ -21,7 +21,7 @@ export function lightUp() {
                     } else {
                         highlightKey();
                     }
-                }, 2000);
+                }, 1000);
             }
         } else {
             setTimeout(() => {
@@ -33,4 +33,6 @@ export function lightUp() {
 
     highlightKey();
 }
-   
+
+    
+
