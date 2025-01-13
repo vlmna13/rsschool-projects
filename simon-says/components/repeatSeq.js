@@ -8,7 +8,7 @@ import { checkWin } from "./creators/checkWin.js";
 export function repeatSeq() {
     const repeat = document.querySelector('.repeat');
     const field = document.querySelector('.field');
-    field.innerText = '';
+    field.textContent = '';
     defaultParameters.isGamestarted = false;
     defaultParameters.clue = 0;
     allowInput();

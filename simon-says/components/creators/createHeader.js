@@ -14,17 +14,17 @@ export function createHeader() {
     levelWrapper.classList.add('level-wrapper');
     const levelEasy = document.createElement('button');
     levelEasy.classList.add('easy', 'active');
-    levelEasy.innerHTML = 'easy';
+    levelEasy.textContent = 'easy';
     levelEasy.addEventListener('click', toggleLevel);
 
     const levelMedium = document.createElement('button');
     levelMedium.classList.add('medium');
-    levelMedium.innerHTML = 'medium';
+    levelMedium.textContent = 'medium';
     levelMedium.addEventListener('click', toggleLevel);
 
     const levelHard = document.createElement('button');
     levelHard.classList.add('hard');
-    levelHard.innerHTML = 'hard';
+    levelHard.textContent = 'hard';
     levelHard.addEventListener('click', toggleLevel);
     levelWrapper.appendChild(levelEasy);
     levelWrapper.appendChild(levelMedium);
@@ -33,19 +33,19 @@ export function createHeader() {
     //score
     const score = document.createElement('p');
     score.classList.add('score');
-    score.innerText = 'round ' + defaultParameters.round + ' / 5';
+    score.textContent = 'round ' + defaultParameters.round + ' / 5';
     header.appendChild(score);
     //Start
     const buttonStart = document.createElement('button');
     buttonStart.classList.add('start', 'easy');
-    buttonStart.innerText = 'start game';
+    buttonStart.textContent = 'start game';
     buttonStart.addEventListener('click', startGame);
     header.appendChild(buttonStart);
 
     //repeat
     const repeat = document.createElement('button');
     repeat.classList.add('repeat', 'easy');
-    repeat.innerText = 'repeat sequence';
+    repeat.textContent = 'repeat sequence';
     repeat.addEventListener('click', repeatSeq);
     header.appendChild(repeat);
 }
