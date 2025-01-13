@@ -11,7 +11,7 @@ export function toggleLevel(event) {
         el.classList.remove('active');
     })
     event.target.classList.add('active');
-    defaultParameters.level = event.target.innerText;
+    defaultParameters.level = event.target.textContent;
     buttonStart.classList.remove(buttonStart.classList[1]);
     buttonStart.classList.add(defaultParameters.level);
     repeatSeq.classList.remove(repeatSeq.classList[1]);
@@ -30,8 +30,8 @@ export function toggleLevel(event) {
     defaultParameters.round = 0;
     defaultParameters.sequence = [];
     const score = document.querySelector('.score');
-    score.innerText = 'round ' + defaultParameters.round + ' / 5';
-    field.innerText = '';
+    score.textContent = 'round ' + defaultParameters.round + ' / 5';
+    field.textContent = '';
     const fback = document.querySelector('.feed-back');
-    fback.innerText = '';
+    fback.textContent = '';
 }

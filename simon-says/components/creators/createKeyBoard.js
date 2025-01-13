@@ -3,8 +3,12 @@ import { checkInput } from "../checkInput.js";
 
 export function createKeyboard() {
     const keyWrapper = document.querySelector('.key-wrapper');
-    keyWrapper.innerHTML = '';
     const lineWrapper = document.createElement('div');
+    if(keyWrapper.childNodes.length != 0) {
+        keyWrapper.childNodes.forEach(el => {
+            el.remove();
+        })
+    }
     lineWrapper.classList.add('line-wrapper');
     keyWrapper.appendChild(lineWrapper);
     const field = document.querySelector('.field');
@@ -12,14 +16,14 @@ export function createKeyboard() {
         const key = document.createElement('button');
         key.classList.add('key', `${defaultParameters.level}`);
         key.dataset.index = defaultParameters.data[i].code;
-        key.innerText = defaultParameters.data[i].inside;
+        key.textContent = defaultParameters.data[i].inside;
         key.disabled = true;
         key.addEventListener('click', function(){
             if(defaultParameters.isPressed){
                 return;
             }
-            field.innerText += key.innerText;
-            checkInput(key.innerText);
+            field.textContent += key.textContent;
+            checkInput(key.textContent);
         });
         lineWrapper.appendChild(key);
     }

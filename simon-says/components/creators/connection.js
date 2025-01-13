@@ -12,10 +12,10 @@ export function connection(event){
     defaultParameters.isPressed = true;
     key.classList.add('active');
     const field = document.querySelector('.field');
-    field.innerText += key.innerText;
+    field.textContent += key.textContent;
     setTimeout(() => {
         key.classList.remove('active');
-        checkInput(key.innerText);
+        checkInput(key.textContent);
         defaultParameters.isPressed = false;
     }, 500);
 }

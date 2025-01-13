@@ -8,15 +8,15 @@ import { allowInput } from "../allowInput.js";
 export function createLevel(){
     const field = document.querySelector('.field');
     const fBack = document.querySelector('.feed-back');
-    fBack.innerText = '';
-    field.innerText = '';
+    fBack.textContent = '';
+    field.textContent = '';
     defaultParameters.isGamestarted = false;
     const score = document.querySelector('.score');
-    score.innerText = 'round ' + defaultParameters.round + ' / 5';
+    score.textContent = 'round ' + defaultParameters.round + ' / 5';
     defaultParameters.sequence.length = 0;
     createRound();
     const repeat = document.querySelector('.repeat');
-    repeat.innerText = 'repeat sequence';
+    repeat.textContent = 'repeat sequence';
     repeat.removeEventListener('click', createLevel)
     if(!repeat.classList.contains('visible')) {
         repeat.classList.add('visible');
