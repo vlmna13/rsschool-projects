@@ -4,6 +4,7 @@ import { allowInput } from "./allowInput.js";
 import { repeatSeq } from "./repeatSeq.js";
 import { connection } from "./creators/connection.js";
 import { createLevel } from "./creators/creatLevel.js";
+import { checkWin } from "./creators/checkWin.js";
 
 export function checkInput(key) {
     let value = key;
@@ -51,5 +52,6 @@ export function checkInput(key) {
         defaultParameters.round += 1;
         repeat.addEventListener('click', createLevel);
     }
+    checkWin();
 }
 
