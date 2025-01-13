@@ -44,12 +44,12 @@ export function checkInput(key) {
         });
         repeat.removeEventListener('click', repeatSeq);
         repeat.innerText = 'next level';
+        repeat.style.color = '';
         if (!repeat.classList.contains('next-level')) {
-            defaultParameters.round += 1;
             repeat.classList.add('next-level');
         }
+        defaultParameters.round += 1;
         repeat.addEventListener('click', createLevel);
     }
-   
 }
 

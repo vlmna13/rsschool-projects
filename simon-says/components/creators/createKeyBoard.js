@@ -15,6 +15,9 @@ export function createKeyboard() {
         key.innerText = defaultParameters.data[i].inside;
         key.disabled = true;
         key.addEventListener('click', function(){
+            if(defaultParameters.isPressed){
+                return;
+            }
             field.innerText += key.innerText;
             checkInput(key.innerText);
         });

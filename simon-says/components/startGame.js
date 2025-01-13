@@ -19,7 +19,7 @@ export function startGame() {
     newGame.innerText = 'new game';
     const repeat = document.querySelector('.repeat');
     if(!repeat.classList.contains('visible')) {
-        repeat.classList.add('visible');
+        repeat.classList.add('visible');   
     }
     repeat.style.color = '';
     repeat.addEventListener('click', repeatSeq)
