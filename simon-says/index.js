@@ -11,6 +11,7 @@ export let defaultParameters = {
     sequence: [],
     clue: 1,
     mistakes: 2,
+    isPressed: false
 }
 
 createHeader();

@@ -15,7 +15,6 @@ export function createHeader() {
     const levelEasy = document.createElement('button');
     levelEasy.classList.add('easy', 'active');
     levelEasy.innerHTML = 'easy';
-    // levelEasy.style.background = '#90EE90';
     levelEasy.addEventListener('click', toggleLevel);
 
     const levelMedium = document.createElement('button');
@@ -49,7 +48,4 @@ export function createHeader() {
     repeat.innerText = 'repeat sequence';
     repeat.addEventListener('click', repeatSeq);
     header.appendChild(repeat);
-    // createRound();
-    // return { header, levelEasy, levelHard, levelMedium, levelWrapper };
-    
 }

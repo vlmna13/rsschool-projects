@@ -14,8 +14,6 @@ export function createRound() {
             showSeq.push(defaultParameters.data[number].inside);
         }
     }
-    console.log('index:  ' + defaultParameters.sequence);
     console.log('sequence:  ' + showSeq);
-
 }
 
