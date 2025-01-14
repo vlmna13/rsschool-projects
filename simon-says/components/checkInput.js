@@ -25,6 +25,9 @@ export function checkInput(key) {
             feedBack.textContent = 'first mistake';
             field.textContent = '';
             defaultParameters.mistakes -= 1;
+            defaultParameters.clue = 0;
+            repeat.style.color = 'gray';
+            repeat.removeEventListener('click', repeatSeq);
             if (defaultParameters.mistakes === 0) {
                 repeat.style.color = 'gray';
                 repeat.removeEventListener('click', repeatSeq);
