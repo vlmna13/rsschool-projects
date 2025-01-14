@@ -27,6 +27,12 @@ export function lightUp() {
             setTimeout(() => {
                 defaultParameters.isGamestarted = true;
                 allowInput();
+                const easy = document.querySelector('.easy');
+                const medium = document.querySelector('.medium');
+                const hard = document.querySelector('.hard');
+                easy.disabled = true;
+                medium.disabled = true;
+                hard.disabled = true;
             }, 300);
         }
     }

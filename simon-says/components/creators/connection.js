@@ -2,7 +2,7 @@ import { defaultParameters } from "../../index.js";
 import { checkInput } from "../checkInput.js";
 
 export function connection(event){
-    if(defaultParameters.isPressed) {
+    if(event.repeat || defaultParameters.isPressed) {
         return;
     }
     const key = document.querySelector(`[data-index="${event.code}"]`);
