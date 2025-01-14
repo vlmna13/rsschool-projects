@@ -25,9 +25,7 @@ export function checkInput(key) {
             feedBack.textContent = 'first mistake';
             field.textContent = '';
             defaultParameters.mistakes -= 1;
-            defaultParameters.clue = 0;
-            repeat.style.color = 'gray';
-            repeat.removeEventListener('click', repeatSeq);
+            console.log(defaultParameters.mistakes)
             if (defaultParameters.mistakes === 0) {
                 repeat.style.color = 'gray';
                 repeat.removeEventListener('click', repeatSeq);
@@ -36,6 +34,12 @@ export function checkInput(key) {
                 feedBack.textContent = 'game over';
                 allowInput();
                 start.disabled = false;
+                const easy = document.querySelector('.easy');
+                const medium = document.querySelector('.medium');
+                const hard = document.querySelector('.hard');
+                easy.disabled = false;
+                medium.disabled = false;
+                hard.disabled = false;
             }
             return;
         }
