@@ -9,6 +9,8 @@ export function repeatSeq() {
     const repeat = document.querySelector('.repeat');
     const field = document.querySelector('.field');
     field.textContent = '';
+    const fback = document.querySelector('.feed-back');
+    fback.textContent = '';
     defaultParameters.isGamestarted = false;
     defaultParameters.clue = 0;
     defaultParameters.mistakes -= 1;

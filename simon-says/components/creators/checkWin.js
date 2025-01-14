@@ -10,6 +10,7 @@ export function checkWin() {
     if(defaultParameters.round === 6) {
         fback.innerText = 'flawless victory';
         repeat.disabled = true;
+        repeat.textContent = 'repeat sequence';
         allbuttons.forEach(el => {
             el.disabled = true;
         })
