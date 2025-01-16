@@ -13,6 +13,8 @@ export function connection(event){
     key.classList.add('active');
     const field = document.querySelector('.field');
     field.textContent += key.textContent;
+    const fback = document.querySelector('.feed-back');
+    fback.textContent = '';
     setTimeout(() => {
         key.classList.remove('active');
         checkInput(key.textContent);
