@@ -23,6 +23,8 @@ export function createKeyboard() {
                 return;
             }
             field.textContent += key.textContent;
+            const fback = document.querySelector('.feed-back');
+            fback.textContent = '';
             checkInput(key.textContent);
         });
         lineWrapper.appendChild(key);
