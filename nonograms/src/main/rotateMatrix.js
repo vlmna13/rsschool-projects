@@ -1,18 +1,10 @@
 export function rotateMatrix(matrix) {
-    let rotatedConfig = structuredClone(matrix);
-    let arrayResult = [];
-  
-    for (let i = 0; i < matrix.length; i += 1) {
-      arrayResult[i] = [];
-      for (let j = 0; j < matrix.length; j += 1) {
-        arrayResult[i][j] = matrix[i][j];
-      }
+    const rotated = [];
+    for (let i = 0; i < matrix[0].length; i++) {
+        rotated[i] = [];
+        for (let j = matrix.length - 1; j >= 0; j--) {
+            rotated[i].push(matrix[j][i]);
+        }
     }
-    for (let i = 0; i < matrix.length; i += 1) {
-      for (let j = 0; j < matrix.length; j += 1) {
-        rotatedConfig[i][j] = arrayResult[matrix.length - j - 1][i];
-      }
-    }
-    console.log('rotate' + rotatedConfig)
-    return rotatedConfig;
+    return rotated;
 }
