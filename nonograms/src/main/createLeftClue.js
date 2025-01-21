@@ -1,0 +1,35 @@
+import { nonogramsList } from "../nonogramsList.js";
+
+export function createLeftClue(variant, level) {
+    const downside = document.querySelector('.down-side');
+    const leftClue = document.createElement('div');
+    leftClue.classList.add('left-clue');
+    downside.appendChild(leftClue);
+    let choosedLevel = level;
+    let nonogramVariant = nonogramsList[choosedLevel][variant];
+    for(let i = 0; i < nonogramVariant.length; i++) {
+        const leftclueLine = document.createElement('div');
+        leftclueLine.classList.add('left-clue-line');
+        leftClue.appendChild(leftclueLine);
+        let counter = 0;
+        for(let j = 0; j < nonogramVariant[i].length; j++) {
+            if(nonogramVariant[i][j] === 1) {
+                counter += 1;
+            } else {
+                if (counter > 0) {
+                    const clueEl = document.createElement('p');
+                    clueEl.classList.add('clue-el');
+                    clueEl.textContent = counter;
+                    leftclueLine.appendChild(clueEl);
+                    counter = 0;
+                }
+            }
+        }
+        if (counter > 0) {
+            const clueEl = document.createElement('p');
+            clueEl.classList.add('clue-el');
+            clueEl.textContent = counter;
+            leftclueLine.appendChild(clueEl);
+        }
+    }
+}
