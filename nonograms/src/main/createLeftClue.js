@@ -1,20 +1,16 @@
 import { nonogramsList } from "../nonogramsList.js";
 
 export function createLeftClue(matrix) {
-    const upside = document.querySelector('.up-side');
-    const upClue = document.createElement('div');
-    upClue.classList.add('up-clue');
-    const empty = document.createElement('div');
-    empty.classList.add('empty');
-
-    upside.appendChild(empty);
-    upside.appendChild(upClue);
+    const downside = document.querySelector('.down-side');
+    const leftClue = document.createElement('div');
+    leftClue.classList.add('left-clue');
+    downside.appendChild(leftClue);
     // let choosedLevel = level;
     // let nonogramVariant = nonogramsList[choosedLevel][variant];
     for(let i = 0; i < matrix.length; i++) {
-        const upclueLine = document.createElement('div');
-        upclueLine.classList.add('up-clue-line');
-        upClue.appendChild(upclueLine);
+        const leftclueLine = document.createElement('div');
+        leftclueLine.classList.add('left-clue-line');
+        leftClue.appendChild(leftclueLine);
         let counter = 0;
         for(let j = 0; j < matrix[i].length; j++) {
             if(matrix[i][j] === 1) {
@@ -24,7 +20,7 @@ export function createLeftClue(matrix) {
                     const clueEl = document.createElement('p');
                     clueEl.classList.add('clue-el');
                     clueEl.textContent = counter;
-                    upclueLine.appendChild(clueEl);
+                    leftclueLine.appendChild(clueEl);
                     counter = 0;
                 }
             }
@@ -33,7 +29,7 @@ export function createLeftClue(matrix) {
             const clueEl = document.createElement('p');
             clueEl.classList.add('clue-el');
             clueEl.textContent = counter;
-            upclueLine.appendChild(clueEl);
+            leftclueLine.appendChild(clueEl);
         }
     }
 }
