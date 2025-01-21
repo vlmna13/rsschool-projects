@@ -87,34 +87,38 @@ button.active {
     border-collapse: collapse;
 }
 
-.nonogram-field .ceil {
+.ceil {
     border-left: var(--dark-thin-line) solid var(--dark-thin-color);
     border-right: var(--dark-thin-line) solid var(--dark-thin-color);
 }
 
 /* Add top and bottom borders to each line */
-.nonogram-field .field-line {
+.field-line,
+.left-clue-line {
     border-top: var(--dark-thin-line) solid var(--dark-thin-color);
     border-bottom: var(--dark-thin-line) solid var(--dark-thin-color);
 }
 
 /* Apply bold border to every 5th cell in rows */
-.nonogram-field .field-line .ceil:nth-child(5n) {
+.ceil:nth-child(5n) {
     border-right: var(--dark-bold-line) solid var(--dark-bold-color);
 }
 
 /* Apply bold border to every 5th line */
-.nonogram-field .field-line:nth-child(5n) {
+.field-line:nth-child(5n),
+.left-clue-line:nth-child(5n) {
     border-bottom: var(--dark-bold-line) solid var(--dark-bold-color);
 }
 
 /* Add top border to the first line */
-.nonogram-field .field-line:first-child {
+.field-line:first-child,
+.left-clue-line:first-child {
     border-top: var(--dark-bold-line) solid var(--dark-bold-color);
 }
 
 /* Add bold left border to the first element in each line */
-.nonogram-field .field-line .ceil:first-child {
+.field-line .ceil:first-child,
+.left-clue-line {
     border-left: var(--dark-bold-line) solid var(--dark-bold-color);
 }
 
@@ -125,4 +129,21 @@ button.active {
     background-color: aqua;
     /* border: var(--dark-thin-line) solid var(--dark-thin-color); */
     border-collapse: collapse;
+}
+
+.left-clue {
+    display: flex;
+    flex-direction: column;
+}
+
+.left-clue-line {
+    display: flex;
+    justify-content: end;
+}
+
+.clue-el {
+    width: 20px;
+    height: 20px;
+    background-color: bisque;
+    text-align: center;
 }
