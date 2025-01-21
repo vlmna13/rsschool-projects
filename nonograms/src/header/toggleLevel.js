@@ -12,6 +12,11 @@ export function toggleLevel(event) {
         el.classList.remove('active');
     })
     event.target.classList.add('active');
+    const level = event.target.textContent;
     console.log(event.target.textContent);
-    createVariantsButtons(event.target.textContent);
+    createVariantsButtons(level);
+    const upside = document.querySelector('.up-side');
+    upside.innerHTML = '';
+    const downside = document.querySelector('.down-side');
+    downside.innerHTML = '';
 }
