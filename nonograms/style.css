@@ -1,5 +1,5 @@
 * {
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
     margin: 0;
     padding: 0;
 }
@@ -9,6 +9,10 @@
     --dark-text: black;
     --dark-hover-text: white;
     --dark-hover-background: black;
+    --dark-bold-line: 2px;
+    --dark-thin-line: 1px;
+    --dark-bold-color: black;
+    --dark-thin-color: grey;
 }
 
 body {
@@ -46,4 +50,79 @@ button.active {
 .variants-wrapper {
     display: flex;
     gap: 20px;
+}
+
+.main {
+    display: flex;
+    max-width: 100%;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    padding-top: 10px;
+}
+
+.nonogram-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.up-side,
+.down-side {
+    display: flex;
+}
+
+.down-clue,
+.nonogram-field {
+    display: flex;
+    flex-direction: column;
+    border-collapse: collapse;
+}
+
+.field-line {
+    display: flex;
+}
+
+
+.nonogram-field {
+    border-collapse: collapse;
+}
+
+.nonogram-field .ceil {
+    border-left: var(--dark-thin-line) solid var(--dark-thin-color);
+    border-right: var(--dark-thin-line) solid var(--dark-thin-color);
+}
+
+/* Add top and bottom borders to each line */
+.nonogram-field .field-line {
+    border-top: var(--dark-thin-line) solid var(--dark-thin-color);
+    border-bottom: var(--dark-thin-line) solid var(--dark-thin-color);
+}
+
+/* Apply bold border to every 5th cell in rows */
+.nonogram-field .field-line .ceil:nth-child(5n) {
+    border-right: var(--dark-bold-line) solid var(--dark-bold-color);
+}
+
+/* Apply bold border to every 5th line */
+.nonogram-field .field-line:nth-child(5n) {
+    border-bottom: var(--dark-bold-line) solid var(--dark-bold-color);
+}
+
+/* Add top border to the first line */
+.nonogram-field .field-line:first-child {
+    border-top: var(--dark-bold-line) solid var(--dark-bold-color);
+}
+
+/* Add bold left border to the first element in each line */
+.nonogram-field .field-line .ceil:first-child {
+    border-left: var(--dark-bold-line) solid var(--dark-bold-color);
+}
+
+.ceil {
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    background-color: aqua;
+    /* border: var(--dark-thin-line) solid var(--dark-thin-color); */
+    border-collapse: collapse;
 }
