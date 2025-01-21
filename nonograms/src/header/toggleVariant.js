@@ -1,5 +1,6 @@
 import { nonogramsList } from "../nonogramsList.js";
 import { createNonogramField } from "../main/createNonogramField.js";
+import { createLeftClue } from "../main/createLeftClue.js";
 
 export function toggleVariant(event) {
     const variantsWrapper = document.querySelector('.variants-wrapper');
@@ -16,5 +17,13 @@ export function toggleVariant(event) {
     upside.innerHTML = '';
     const downside = document.querySelector('.down-side');
     downside.innerHTML = '';
-    createNonogramField(variant);
+    const allLevels = document.querySelectorAll('.level');
+    let level;
+    allLevels.forEach(el => {
+        if(el.classList.contains('active')){
+            level = el.textContent;
+        }
+    })
+    createLeftClue(variant, level);
+    createNonogramField(variant, level);
 }

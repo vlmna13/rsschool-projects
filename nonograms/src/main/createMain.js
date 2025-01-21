@@ -8,7 +8,7 @@ export function createMain() {
     const nonogramWrapper = document.createElement('div');
     nonogramWrapper.classList.add('nonogram-wrapper');
     main.appendChild(nonogramWrapper); 
-    
+
     const upSide = document.createElement('div');
     upSide.classList.add('up-side');
     nonogramWrapper.appendChild(upSide);
@@ -22,11 +22,4 @@ export function createMain() {
     const downSide = document.createElement('div');
     downSide.classList.add('down-side');
     nonogramWrapper.appendChild(downSide);
-    const downClue = document.createElement('div');
-    downClue.classList.add('down-clue');
-    downSide.appendChild(downClue);
-    const nonogramField = document.createElement('div');
-    nonogramField.classList.add('nonogram-field');
-    downSide.appendChild(nonogramField);
-
 }
