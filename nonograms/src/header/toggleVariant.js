@@ -1,6 +1,7 @@
 import { nonogramsList } from "../nonogramsList.js";
 import { createNonogramField } from "../main/createNonogramField.js";
 import { createLeftClue } from "../main/createLeftClue.js";
+import { createUpClue } from "../main/createUpClue.js";
 
 export function toggleVariant(event) {
     const variantsWrapper = document.querySelector('.variants-wrapper');
@@ -24,6 +25,8 @@ export function toggleVariant(event) {
             level = el.textContent;
         }
     })
-    createLeftClue(variant, level);
-    createNonogramField(variant, level);
+    let matrix = nonogramsList[level][variant];
+    createUpClue(matrix);
+    createLeftClue(matrix);
+    createNonogramField(matrix);
 }

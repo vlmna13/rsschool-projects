@@ -12,12 +12,6 @@ export function createMain() {
     const upSide = document.createElement('div');
     upSide.classList.add('up-side');
     nonogramWrapper.appendChild(upSide);
-    const empty = document.createElement('div');
-    empty.classList.add('empty');
-    const upClue = document.createElement('div');
-    upClue.classList.add('up-clue');
-    upSide.appendChild(empty);
-    upSide.appendChild(upClue);
 
     const downSide = document.createElement('div');
     downSide.classList.add('down-side');
