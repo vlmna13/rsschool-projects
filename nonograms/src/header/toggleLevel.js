@@ -1,5 +1,8 @@
+import { nonogramsList } from "../nonogramsList.js";
+import { createVariantsButtons } from "./createVariantsButtons.js";
+
+
 export function toggleLevel(event) {
-    // console.log(event.textContent)
     const levelsWrapper = document.querySelector('.levels-wrapper');
     const levels = levelsWrapper.querySelectorAll('button');
     if(event.target.classList.contains('.active')) {
@@ -10,4 +13,5 @@ export function toggleLevel(event) {
     })
     event.target.classList.add('active');
     console.log(event.target.textContent);
+    createVariantsButtons(event.target.textContent);
 }
