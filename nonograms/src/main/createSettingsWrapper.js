@@ -1,4 +1,5 @@
 import { resetGame } from "./resetGame.js";
+import { showSolution } from "./showSolution.js";
 
 export function createSetttingsWrapper(){
     const main = document.querySelector('.main');
@@ -26,6 +27,7 @@ export function createSetttingsWrapper(){
     solutionButton.classList.add('settings-button', 'solution');
     solutionButton.textContent = 'show solution';
     settingsWrapper.appendChild(solutionButton);
+    solutionButton.addEventListener('click', showSolution);
 
     const previousButton = document.createElement('button');
     previousButton.classList.add('settings-button', 'previous');
