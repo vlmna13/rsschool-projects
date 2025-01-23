@@ -1,6 +1,10 @@
 import { nonogramsList } from "../nonogramsList.js";
 import { createLevelsButtons } from "./createLevelsButtons.js";
+import { createVariantsButtons } from "./createVariantsButtons.js";
 import { toggleLevel } from "./toggleLevel.js";
+import { settings } from "../../index.js";
+
+
 
 
 export function createHeader() {
@@ -15,4 +19,6 @@ export function createHeader() {
     variantsWrapper.classList.add('variants-wrapper');
     header.appendChild(variantsWrapper);
     createLevelsButtons(levelsWrapper);
+    createVariantsButtons('easy');
+    
 }

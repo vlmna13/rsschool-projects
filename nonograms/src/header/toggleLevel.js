@@ -1,5 +1,6 @@
 import { nonogramsList } from "../nonogramsList.js";
 import { createVariantsButtons } from "./createVariantsButtons.js";
+import { settings } from "../../index.js";
 
 
 export function toggleLevel(event) {
@@ -12,8 +13,8 @@ export function toggleLevel(event) {
         el.classList.remove('active');
     })
     event.target.classList.add('active');
-    const level = event.target.textContent;
-    console.log(event.target.textContent);
+    settings.level = event.target.textContent
+    const level = settings.level;
     createVariantsButtons(level);
     const upside = document.querySelector('.up-side');
     upside.innerHTML = '';

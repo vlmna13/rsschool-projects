@@ -2,6 +2,7 @@ import { nonogramsList } from "../nonogramsList.js";
 import { toggleLevel } from "./toggleLevel.js";
 import { createVariantsButtons } from "./createVariantsButtons.js";
 import { createNonogramField } from "../main/createNonogramField.js";
+import { settings } from "../../index.js";
 
 export function createLevelsButtons(wrapper) {
     const buttonsList = Object.keys(nonogramsList);
@@ -9,9 +10,10 @@ export function createLevelsButtons(wrapper) {
     buttonsList.forEach(el=> {
         const buttonLevel = document.createElement('button');
         buttonLevel.classList.add('level', el)
-        if( el === 'easy') {
+        buttonLevel.classList.add('level', el);
+        if (el === settings.level) {
             buttonLevel.classList.add('active');
-            createVariantsButtons('easy');
+            createVariantsButtons(settings.level);
         }
         buttonLevel.textContent = el;
         levelsWrapper.appendChild(buttonLevel);
