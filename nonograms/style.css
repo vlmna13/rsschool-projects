@@ -9,8 +9,8 @@
     --dark-text: black;
     --dark-hover-text: white;
     --dark-hover-background: black;
-    --dark-bold-line: 2px;
-    --dark-thin-line: 1px;
+    --dark-bold-line: 1.5px;
+    --dark-thin-line: 0.5px;
     --dark-bold-color: black;
     --dark-thin-color: grey;
 }
@@ -86,6 +86,7 @@ button.active {
     flex-direction: column;
     justify-content: end;
 }
+
 .down-clue,
 .nonogram-field {
     display: flex;
@@ -150,9 +151,12 @@ button.active {
     width: 20px;
     height: 20px;
     text-align: center;
-    background-color: aqua;
     /* border: var(--dark-thin-line) solid var(--dark-thin-color); */
     border-collapse: collapse;
+}
+
+.ceil.colored {
+    background-color: var(--dark-hover-background);
 }
 
 .left-clue {
@@ -168,6 +172,5 @@ button.active {
 .clue-el {
     width: 20px;
     height: 20px;
-    background-color: bisque;
     text-align: center;
 }
