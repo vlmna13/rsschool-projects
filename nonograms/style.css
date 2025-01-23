@@ -61,6 +61,14 @@ button.active {
     padding-top: 10px;
 }
 
+.settings-wrapper {
+    display: flex;
+    gap: 20px;
+    padding: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 .nonogram-wrapper {
     display: flex;
     flex-direction: column;

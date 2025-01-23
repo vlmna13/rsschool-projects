@@ -1,3 +1,5 @@
+import { resetGame } from "./resetGame.js";
+
 export function createSetttingsWrapper(){
     const main = document.querySelector('.main');
     const settingsWrapper = document.createElement('div');
@@ -8,6 +10,7 @@ export function createSetttingsWrapper(){
     resetButton.classList.add('settings-button', 'reset');
     resetButton.textContent = 'reset game';
     settingsWrapper.appendChild(resetButton);
+    resetButton.addEventListener('click', resetGame)
 
     const saveButton = document.createElement('button');
     saveButton.classList.add('settings-button', 'save');
