@@ -1,10 +1,13 @@
-
+import { createSetttingsWrapper } from "./createSettingsWrapper.js";
 
 export function createMain() {
     const body = document.querySelector('body');
     const main = document.createElement('main');
     main.classList.add('main');
     body.appendChild(main);
+
+    createSetttingsWrapper();
+
     const nonogramWrapper = document.createElement('div');
     nonogramWrapper.classList.add('nonogram-wrapper');
     main.appendChild(nonogramWrapper); 
