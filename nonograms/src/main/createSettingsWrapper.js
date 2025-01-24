@@ -1,6 +1,7 @@
 import { resetGame } from "./resetGame.js";
 import { showSolution } from "./showSolution.js";
 import { randomGame } from "./randomGame.js";
+import { saveGame } from "./saveGame.js";
 
 export function createSetttingsWrapper(){
     const main = document.querySelector('.main');
@@ -18,6 +19,7 @@ export function createSetttingsWrapper(){
     saveButton.classList.add('settings-button', 'save');
     saveButton.textContent = 'save game';
     settingsWrapper.appendChild(saveButton);
+    saveButton.addEventListener('click', saveGame);
 
     const randomButton = document.createElement('button');
     randomButton.classList.add('settings-button', 'random');

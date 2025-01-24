@@ -21,7 +21,6 @@ export function toggleLevel(event) {
     const level = settings.level;
     settings.matrix = nonogramsList[settings.level][settings.variant];
     createVariantsButtons(level);
-    console.log(settings)
     const upside = document.querySelector('.up-side');
     upside.innerHTML = '';
     const downside = document.querySelector('.down-side');

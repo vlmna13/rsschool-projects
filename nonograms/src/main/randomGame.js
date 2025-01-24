@@ -24,10 +24,7 @@ export function randomGame() {
             createUpClue(settings.matrix);
             createLeftClue(settings.matrix);
             createNonogramField(settings.matrix);
+            settings.userMatrix = Array.from({ length: settings.matrix.length }, () => Array(settings.matrix.length).fill(0));
         }
     });
-
-    console.log(settings.level, settings.variant)
-    
-
 }

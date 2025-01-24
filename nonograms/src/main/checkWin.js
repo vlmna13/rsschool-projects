@@ -1,7 +1,9 @@
+import { settings } from "../../index.js";
 import { nonogramsList } from "../nonogramsList.js";
 
 export function checkWin(matrix) {
     let userMatrix = Array.from({ length: matrix.length }, () => Array(matrix.length).fill(0));
+    settings.userMatrix = userMatrix;
     const ceilsWrapper = document.querySelector('.nongram-wrapper');
     const allCeils = document.querySelectorAll('.colored');
     allCeils.forEach(el => {
@@ -11,5 +13,5 @@ export function checkWin(matrix) {
     let matrixFlat = matrix.flat();
     if(userMatrixFlat.every((element, index) => element === matrixFlat[index])) {
         console.log('win');
-    }    
+    }   
 }

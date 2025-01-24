@@ -14,6 +14,7 @@ export function createVariantsButtons(data) {
     upside.innerHTML = '';
     const downside = document.querySelector('.down-side');
     downside.innerHTML = '';
+    settings.matrix = nonogramsList[data][settings.variant]
     variants.forEach(el => {
         const variantButton = document.createElement('button');
         variantsWrapper.appendChild(variantButton);
@@ -22,10 +23,10 @@ export function createVariantsButtons(data) {
         variantButton.addEventListener('click', toggleVariant);
         if(el === settings.variant) {
             variantButton.classList.add('active');
-            // createUpClue(settings.matrix);
-            // createLeftClue(settings.matrix);
-            // createNonogramField(settings.matrix);
+            let userMatrix = Array.from({ length: settings.matrix.length }, () => Array(settings.matrix.length).fill(0));
+            settings.userMatrix = userMatrix;
         }
     })
+    
 
 }
