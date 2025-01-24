@@ -1,5 +1,6 @@
 import { resetGame } from "./resetGame.js";
 import { showSolution } from "./showSolution.js";
+import { randomGame } from "./randomGame.js";
 
 export function createSetttingsWrapper(){
     const main = document.querySelector('.main');
@@ -22,6 +23,7 @@ export function createSetttingsWrapper(){
     randomButton.classList.add('settings-button', 'random');
     randomButton.textContent = 'random game';
     settingsWrapper.appendChild(randomButton);
+    randomButton.addEventListener('click', randomGame);
 
     const solutionButton = document.createElement('button');
     solutionButton.classList.add('settings-button', 'solution');
