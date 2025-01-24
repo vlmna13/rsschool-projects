@@ -10,8 +10,6 @@ export function createUpClue(matrix) {
     const upClue = document.createElement('div');
     upClue.classList.add('up-clue');
     upside.appendChild(upClue);
-
-
     for (let i = 0; i < newMatrix.length; i++) {
         const upclueLine = document.createElement('div');
         upclueLine.classList.add('up-clue-line');
@@ -27,14 +25,14 @@ export function createUpClue(matrix) {
                     clueEl.textContent = counter;
                     upclueLine.appendChild(clueEl);
                     counter = 0;
-                }
-            }
-        }
+                };
+            };
+        };
         if (counter > 0) {
             const clueEl = document.createElement('p');
             clueEl.classList.add('clue-el');
             clueEl.textContent = counter;
             upclueLine.appendChild(clueEl);
-        }
-    }
+        };
+    };
 }

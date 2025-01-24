@@ -9,9 +9,10 @@ import { settings } from "../../index.js";
 
 export function createHeader() {
     const body = document.querySelector('body');
+    const main = document.querySelector('.main');
     const header = document.createElement('header');
     header.classList.add('header');
-    body.appendChild(header);
+    body.insertBefore(header, main);
     const levelsWrapper = document.createElement('div');
     levelsWrapper.classList.add('levels-wrapper');
     header.appendChild(levelsWrapper);
@@ -20,5 +21,4 @@ export function createHeader() {
     header.appendChild(variantsWrapper);
     createLevelsButtons(levelsWrapper);
     createVariantsButtons('easy');
-    
 }
