@@ -7,7 +7,7 @@ import { settings } from "../../index.js";
 export function toggleVariant(event) {
     const variantsWrapper = document.querySelector('.variants-wrapper');
     const allVariants = variantsWrapper.querySelectorAll('button');
-    if(event.target.classList.contains('.active')) {
+    if(event.target.classList.contains('active')) {
         return;
     }
     allVariants.forEach(el => {
@@ -26,4 +26,5 @@ export function toggleVariant(event) {
     createUpClue(matrix);
     createLeftClue(matrix);
     createNonogramField(matrix);
+
 }
