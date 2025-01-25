@@ -1,5 +1,6 @@
 import { settings } from "../../index.js";
 import { nonogramsList } from "../nonogramsList.js";
+import { fillTable } from "./fillTable.js";
 
 export function checkWin(matrix) {
     let userMatrix = Array.from({ length: matrix.length }, () => Array(matrix.length).fill(0));
@@ -18,8 +19,11 @@ export function checkWin(matrix) {
     });
 
     if(userMatrixFlat.every((element, index) => element === matrixFlat[index])) {
+        console.log(settings.isGameStarted, settings.intervalId)
         settings.isGameStarted = false;
-        clearInterval(settings.intervalId); 
+        settings.intervalId = clearInterval(settings.intervalId);
+        console.log(settings.isGameStarted, settings.intervalId)
+
         let gameInfo = [settings.level, settings.variant, settings.minutes, settings.seconds];
         let winTable = JSON.parse(localStorage.getItem('winTable')) || [];
         if(winTable.length >= 5) {
@@ -27,5 +31,6 @@ export function checkWin(matrix) {
         }
         winTable.push(gameInfo);
         localStorage.setItem('winTable', JSON.stringify(winTable));
+        fillTable();
     } 
 }

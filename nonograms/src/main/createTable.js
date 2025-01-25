@@ -13,13 +13,17 @@ export function createTable() {
     for(let i = 0; i < 5; i++) {
         const winLine = document.createElement('div');
         winLine.classList.add('win-line');
-        modal.appendChild(winLine);
+        const number = document.createElement('p');
+        number.classList.add('number');
+        number.textContent = i+ 1 + '. ';
         const tableLevel = document.createElement('p');
         tableLevel.classList.add('table-level');
         const tableVariant = document.createElement('p');
         tableVariant.classList.add('table-variant');
         const tableTime = document.createElement('p');
         tableTime.classList.add('table-time');
+        modal.appendChild(winLine);
+        winLine.appendChild(number);
         winLine.appendChild(tableLevel);
         winLine.appendChild(tableVariant);
         winLine.appendChild(tableTime);
@@ -28,4 +32,8 @@ export function createTable() {
     closeButton.classList.add('button', 'close');
     closeButton.textContent = 'close';
     modal.appendChild(closeButton);
+    closeButton.addEventListener('click', function(){
+        modal.classList.remove('open');
+        modalWrapper.classList.remove('open');
+    })
 }
