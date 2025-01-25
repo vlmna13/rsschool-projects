@@ -28,4 +28,8 @@ export function toggleLevel(event) {
     createUpClue(settings.matrix);
     createLeftClue(settings.matrix);
     createNonogramField(settings.matrix);
+    settings.isGameStarted = false;
+    settings.intervalId = clearInterval(settings.intervalId);
+    const timerWrapper = document.querySelector('.timer-wrapper');
+    timerWrapper.textContent = 'Timer:  0 : 0'; 
 }

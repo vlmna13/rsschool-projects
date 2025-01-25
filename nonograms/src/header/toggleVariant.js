@@ -4,6 +4,7 @@ import { createLeftClue } from "../main/createLeftClue.js";
 import { createUpClue } from "../main/createUpClue.js";
 import { settings } from "../../index.js";
 
+
 export function toggleVariant(event) {
     const variantsWrapper = document.querySelector('.variants-wrapper');
     const allVariants = variantsWrapper.querySelectorAll('button');
@@ -26,5 +27,9 @@ export function toggleVariant(event) {
     createUpClue(matrix);
     createLeftClue(matrix);
     createNonogramField(matrix);
+    settings.isGameStarted = false;
+    settings.intervalId = clearInterval(settings.intervalId);
+    const timerWrapper = document.querySelector('.timer-wrapper');
+    timerWrapper.textContent = 'Timer:  0 : 0'; 
 
 }

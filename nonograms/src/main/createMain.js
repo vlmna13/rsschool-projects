@@ -8,6 +8,13 @@ export function createMain() {
 
     createSetttingsWrapper();
 
+    const timerWrapper = document.createElement('div');
+    timerWrapper.classList.add('timer-wrapper');
+    main.appendChild(timerWrapper);
+    let second = 0;
+    let minute = 0;
+    timerWrapper.textContent = 'Time    ' + minute + ' : ' + second;
+
     const nonogramWrapper = document.createElement('div');
     nonogramWrapper.classList.add('nonogram-wrapper');
     main.appendChild(nonogramWrapper); 

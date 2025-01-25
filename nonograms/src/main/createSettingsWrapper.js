@@ -2,6 +2,7 @@ import { resetGame } from "./resetGame.js";
 import { showSolution } from "./showSolution.js";
 import { randomGame } from "./randomGame.js";
 import { saveGame } from "./saveGame.js";
+import { previousGame } from "./previousGame.js";
 
 export function createSetttingsWrapper(){
     const main = document.querySelector('.main');
@@ -37,4 +38,5 @@ export function createSetttingsWrapper(){
     previousButton.classList.add('settings-button', 'previous');
     previousButton.textContent = 'previous game';
     settingsWrapper.appendChild(previousButton);
+    previousButton.addEventListener('click', previousGame)
 }
