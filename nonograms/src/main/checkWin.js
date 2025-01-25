@@ -18,16 +18,14 @@ export function checkWin(matrix) {
     });
 
     if(userMatrixFlat.every((element, index) => element === matrixFlat[index])) {
-        console.log('win');
         settings.isGameStarted = false;
-        settings.intervalId = clearInterval(settings.intervalId);
+        clearInterval(settings.intervalId); 
         let gameInfo = [settings.level, settings.variant, settings.minutes, settings.seconds];
-        let winTable = JSON.parse(localStorage.getItem('winTable')).slice(1);
+        let winTable = JSON.parse(localStorage.getItem('winTable')) || [];
         if(winTable.length >= 5) {
             winTable = winTable.slice(1);
         }
         winTable.push(gameInfo);
-        localStorage.setItem('wintable',JSON.stringify(winTable));
-        console.log(winTable);
+        localStorage.setItem('winTable', JSON.stringify(winTable));
     } 
 }
