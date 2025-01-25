@@ -13,6 +13,8 @@ export function resetGame() {
     }
     settings.isGameStarted = false;
     settings.intervalId = clearInterval(settings.intervalId);
+    settings.seconds = 0;
+    settings.minutes = 0;
     const timerWrapper = document.querySelector('.timer-wrapper');
     timerWrapper.textContent = 'Time:  0 : 0'; 
 

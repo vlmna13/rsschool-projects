@@ -27,6 +27,9 @@ export function createVariantsButtons(data) {
             settings.userMatrix = userMatrix;
         }
     })
-    
 
+    settings.seconds = 0;
+    settings.minutes = 0;
+    settings.intervalId = clearInterval(settings.intervalId);
+    settings.isGameStarted = false;
 }

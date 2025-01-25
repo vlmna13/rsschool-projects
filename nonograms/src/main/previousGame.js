@@ -23,12 +23,12 @@ export function previousGame() {
             createUpClue(settings.matrix);
             createLeftClue(settings.matrix);
             createNonogramField(settings.matrix);
+            // settings.isGameStarted = false;
+            // settings.intervalId = clearInterval(settings.intervalId);
+            settings.minutes = savedSettings.minutes;
+            settings.seconds = savedSettings.seconds;
             const timerWrapper = document.querySelector('.timer-wrapper');
             timerWrapper.textContent = 'Time:  ' + settings.minutes + ' : ' + settings.seconds;
-            settings.isGameStarted = false;
-            settings.intervalId = clearInterval(settings.intervalId);
-            
         }
-    })
-    console.log(settings)
+    });
 }

@@ -31,5 +31,7 @@ export function toggleLevel(event) {
     settings.isGameStarted = false;
     settings.intervalId = clearInterval(settings.intervalId);
     const timerWrapper = document.querySelector('.timer-wrapper');
+    settings.seconds = 0;
+    settings.minutes = 0;
     timerWrapper.textContent = 'Timer:  0 : 0'; 
 }
