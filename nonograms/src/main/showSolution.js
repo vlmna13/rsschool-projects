@@ -11,13 +11,16 @@ export function showSolution() {
     const timerWrapper = document.querySelector('.timer-wrapper');
     timerWrapper.textContent = 'Timer:  0 : 0'; 
     allCeils.forEach((el, index) => {
-        if(matrix[index] === 1){
-            el.classList.add('colored');
-            el.textContent = '';
-        } else {
-            el.classList.remove('colored');
-            el.textContent = '';
-        }
+        el.classList.remove('colored');
+        el.textContent = '';
+    });
+
+    matrix.forEach((value, index) => {
+        setTimeout(() => {
+            if (value === 1) {
+                allCeils[index].classList.add('colored');
+            }
+        }, index * 50); // Adjust the delay as needed
     });
 
 }
