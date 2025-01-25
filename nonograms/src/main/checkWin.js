@@ -11,7 +11,14 @@ export function checkWin(matrix) {
     });
     let userMatrixFlat = userMatrix.flat();
     let matrixFlat = matrix.flat();
+    userMatrixFlat.forEach(el => {
+        if(el === 'X'){
+            el = 0;
+        }
+    })
     if(userMatrixFlat.every((element, index) => element === matrixFlat[index])) {
         console.log('win');
+        settings.isGameStarted = false;
+        settings.intervalId = clearInterval(settings.intervalId);
     }   
 }

@@ -1,4 +1,5 @@
 import { createSetttingsWrapper } from "./createSettingsWrapper.js";
+import { settings } from "../../index.js";
 
 export function createMain() {
     const body = document.querySelector('body');
@@ -11,9 +12,7 @@ export function createMain() {
     const timerWrapper = document.createElement('div');
     timerWrapper.classList.add('timer-wrapper');
     main.appendChild(timerWrapper);
-    let second = 0;
-    let minute = 0;
-    timerWrapper.textContent = 'Time    ' + minute + ' : ' + second;
+    timerWrapper.textContent = 'Time   ' + settings.minutes + ' : ' + settings.seconds;
 
     const nonogramWrapper = document.createElement('div');
     nonogramWrapper.classList.add('nonogram-wrapper');

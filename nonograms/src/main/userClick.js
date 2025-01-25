@@ -19,5 +19,6 @@ export function userClick(event, matrix ) {
         settings.userMatrix[event.target.dataset.row][event.target.dataset.col] = 1;
     }
     checkWin(matrix);
-    playPauseTimer()
+    playPauseTimer();
+    console.log(settings)
 }

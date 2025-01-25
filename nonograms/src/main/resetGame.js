@@ -14,6 +14,6 @@ export function resetGame() {
     settings.isGameStarted = false;
     settings.intervalId = clearInterval(settings.intervalId);
     const timerWrapper = document.querySelector('.timer-wrapper');
-    timerWrapper.textContent = 'Timer:  0 : 0'; 
+    timerWrapper.textContent = 'Time:  0 : 0'; 
 
 }
