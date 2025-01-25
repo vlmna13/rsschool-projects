@@ -14,7 +14,6 @@ export function previousGame() {
         settings[key] = savedSettings[key];
     });
     const allLevels = document.querySelectorAll('.level');
-    const allCeils = document.querySelectorAll('.ceil');
     allLevels.forEach(el=> {
         el.classList.remove('active');
         if(el.classList.contains(settings.level)) {
@@ -29,6 +28,17 @@ export function previousGame() {
             settings.seconds = savedSettings.seconds;
             const timerWrapper = document.querySelector('.timer-wrapper');
             timerWrapper.textContent = 'Time:  ' + settings.minutes + ' : ' + settings.seconds;
+            settings.userMatrix = savedSettings.userMatrix;
+            console.log(settings.userMatrix)
+            const allCeils = document.querySelectorAll('.ceil');
+            allCeils.forEach(el => {
+                const row = el.dataset.row;
+                const col = el.dataset.col;
+                if (settings.userMatrix[row][col] === 1) {
+                    console.log(el)
+                    el.classList.add('colored');
+                }
+            })
         }
     });
 }
