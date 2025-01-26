@@ -5,8 +5,6 @@ export function createLeftClue(matrix) {
     const leftClue = document.createElement('div');
     leftClue.classList.add('left-clue');
     downside.appendChild(leftClue);
-    // let choosedLevel = level;
-    // let nonogramVariant = nonogramsList[choosedLevel][variant];
     for(let i = 0; i < matrix.length; i++) {
         const leftclueLine = document.createElement('div');
         leftclueLine.classList.add('left-clue-line');

@@ -4,7 +4,8 @@ import { settings } from "../../index.js";
 import { playPauseTimer } from "./playPauseTimer.js";
 
 
-export function userClick(event, matrix ) {
+export function userClick(event) {
+    playPauseTimer();
     let audioColored = new Audio('../sounds/colored.mp3');
     let audioWhite = new Audio('../sounds/white.mp3');
     if(event.target.classList.contains('colored')) {
@@ -18,7 +19,5 @@ export function userClick(event, matrix ) {
         audioColored.play();
         settings.userMatrix[event.target.dataset.row][event.target.dataset.col] = 1;
     }
-    checkWin(matrix);
-    playPauseTimer();
-    console.log(settings)
+    checkWin();
 }

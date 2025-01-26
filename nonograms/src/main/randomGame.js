@@ -33,4 +33,5 @@ export function randomGame() {
     settings.minutes = 0;
     const timerWrapper = document.querySelector('.timer-wrapper');
     timerWrapper.textContent = 'Time:  0 : 0'; 
+    // console.log('random :   ' +settings);
 }

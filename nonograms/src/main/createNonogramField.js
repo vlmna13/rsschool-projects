@@ -1,7 +1,10 @@
 import { nonogramsList } from "../nonogramsList.js";
 import { userClick } from "./userClick.js";
 import { rightClick } from "./rightClick.js";
-
+export  function removeRightClick(event){
+    event.preventDefault();
+    rightClick(event);
+}
 export function createNonogramField(matrix) {
     const downside = document.querySelector('.down-side');
     const nonogramField = document.createElement('div');
@@ -17,11 +20,8 @@ export function createNonogramField(matrix) {
             ceil.dataset.row = i;
             ceil.dataset.col = j;
             fieldLine.appendChild(ceil);
-            ceil.addEventListener('click', (event) => userClick(event, matrix));
-            ceil.addEventListener('contextmenu', (event)=> {
-                event.preventDefault();
-                rightClick(event, matrix);
-            });
+            ceil.addEventListener('click', userClick);
+            ceil.addEventListener('contextmenu', removeRightClick);
             // let touchStartTime;
             // let rightClickCalled = false;
 

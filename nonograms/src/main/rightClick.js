@@ -3,7 +3,9 @@ import { checkWin } from "./checkWin.js";
 import { settings } from "../../index.js";
 import { playPauseTimer } from "./playPauseTimer.js";
 
-export function rightClick(event, matrix) {
+export function rightClick(event) {
+    playPauseTimer();
+
     let audioCross = new Audio('../sounds/cross.mp3');
     if (event.target.classList.contains('colored')) {
         event.target.classList.remove('colored');
@@ -20,6 +22,6 @@ export function rightClick(event, matrix) {
         audioCross.play();
         settings.userMatrix[event.target.dataset.row][event.target.dataset.col] = 'X';
     }
-    checkWin(matrix);
-    playPauseTimer();
+    checkWin();
+    
 }

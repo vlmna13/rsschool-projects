@@ -1,5 +1,8 @@
 import { nonogramsList } from "../nonogramsList.js";
 import { settings } from "../../index.js";
+import { userClick } from "./userClick.js";
+import { rightClick } from "./rightClick.js";
+import { removeRightClick } from "./createNonogramField.js";
 
 export function showSolution() {
     const allCeils = document.querySelectorAll('.ceil');
@@ -13,6 +16,8 @@ export function showSolution() {
     allCeils.forEach((el, index) => {
         el.classList.remove('colored');
         el.textContent = '';
+        el.removeEventListener('click', userClick);
+        el.removeEventListener('contextmenu', removeRightClick);
     });
 
     matrix.forEach((value, index) => {

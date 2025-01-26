@@ -16,7 +16,7 @@ export function createMain() {
     const bamboo = document.createElement('img');
     bamboo.src = '../images/bamboo.svg';
     bamboo.alt = 'bamboo';
-    bamboo.classList.add('bamboo');
+    bamboo.classList.add('bamboo', 'active');
     themeTimeWrapper.appendChild(bamboo);
     bamboo.addEventListener('click', switchTheme);
 
