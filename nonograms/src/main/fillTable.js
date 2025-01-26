@@ -12,6 +12,7 @@ export function fillTable() {
         const tableTime = line.querySelector('.table-time');
         tableLevel.textContent = 'level : ' + el[0];
         tableVariant.textContent = 'game : ' + el[1];
-        tableTime.textContent = 'time : ' + el[2] + ' : ' + el[3];
+        let sec = el[2] * 60 + el[3];
+        tableTime.textContent = 'time : ' + sec + ' sec';
     })
 }

@@ -22,23 +22,19 @@ export function previousGame() {
             createUpClue(settings.matrix);
             createLeftClue(settings.matrix);
             createNonogramField(settings.matrix);
-            // settings.isGameStarted = false;
-            // settings.intervalId = clearInterval(settings.intervalId);
             settings.minutes = savedSettings.minutes;
             settings.seconds = savedSettings.seconds;
             const timerWrapper = document.querySelector('.timer-wrapper');
             timerWrapper.textContent = 'Time:  ' + settings.minutes + ' : ' + settings.seconds;
             settings.userMatrix = savedSettings.userMatrix;
-            console.log(settings.userMatrix)
             const allCeils = document.querySelectorAll('.ceil');
             allCeils.forEach(el => {
                 const row = el.dataset.row;
                 const col = el.dataset.col;
                 if (settings.userMatrix[row][col] === 1) {
-                    console.log(el)
                     el.classList.add('colored');
                 }
-            })
+            });
         }
     });
 }

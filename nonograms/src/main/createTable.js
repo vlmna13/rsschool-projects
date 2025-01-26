@@ -6,6 +6,9 @@ export function createTable() {
     const modal = document.createElement('div');
     modal.classList.add('modal');
     modalWrapper.appendChild(modal);
+    const congrat = document.createElement('p');
+    congrat.textContent = 'You win!';
+    modal.appendChild(congrat);
     const modalHeader = document.createElement('p');
     modalHeader.classList.add('modal-header');
     modalHeader.textContent = 'Score :';

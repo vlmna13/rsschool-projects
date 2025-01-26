@@ -40,5 +40,6 @@ export function createNonogramField(matrix) {
             // }, { passive: true });
         };
     };
+    
 }
 

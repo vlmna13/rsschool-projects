@@ -1,5 +1,6 @@
 import { createSetttingsWrapper } from "./createSettingsWrapper.js";
 import { settings } from "../../index.js";
+import { switchTheme } from "./switchTheme.js";
 
 export function createMain() {
     const body = document.querySelector('body');
@@ -8,11 +9,28 @@ export function createMain() {
     body.appendChild(main);
 
     createSetttingsWrapper();
+    const themeTimeWrapper = document.createElement('div');
+    main.appendChild(themeTimeWrapper)
+    themeTimeWrapper.classList.add('theme-timer');
+
+    const bamboo = document.createElement('img');
+    bamboo.src = '../images/bamboo.svg';
+    bamboo.alt = 'bamboo';
+    bamboo.classList.add('bamboo');
+    themeTimeWrapper.appendChild(bamboo);
+    bamboo.addEventListener('click', switchTheme);
 
     const timerWrapper = document.createElement('div');
     timerWrapper.classList.add('timer-wrapper');
-    main.appendChild(timerWrapper);
+    themeTimeWrapper.appendChild(timerWrapper);
     timerWrapper.textContent = 'Time   ' + settings.minutes + ' : ' + settings.seconds;
+
+    const paifang = document.createElement('img');
+    paifang.src = '../images/paifang.svg';
+    paifang.alt = 'paifang';
+    paifang.classList.add('paifang');
+    themeTimeWrapper.appendChild(paifang);
+    paifang.addEventListener('click', switchTheme);
 
     const nonogramWrapper = document.createElement('div');
     nonogramWrapper.classList.add('nonogram-wrapper');
