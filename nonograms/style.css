@@ -35,7 +35,7 @@ body.green {
     --dark-thin-line: 0.5px;
     --dark-bold-color: #274649;
     --dark-thin-color: #c2cabf;
-    --dark-back-color: rgba(255, 255, 255, 0.7);
+    --dark-back-color: rgba(228, 227, 222, 0.5);
     background-image: url('./images/color.jpg');
 }
 
@@ -115,6 +115,11 @@ button.active {
     transition: 0.5s ease;
 }
 
+.paifang {
+    width: 30px;
+    height: 30px;
+}
+
 .bamboo.active,
 .bamboo:hover {
     filter: brightness(0) saturate(100%) invert(15%) sepia(68%) saturate(6854%) hue-rotate(351deg) brightness(97%) contrast(74%);
@@ -122,7 +127,7 @@ button.active {
 
 .paifang.active,
 .paifang:hover {
-    filter: brightness(0) saturate(100%) invert(52%) sepia(48%) saturate(3426%) hue-rotate(317deg) brightness(110%) contrast(84%);
+    filter: brightness(0) saturate(100%) invert(13%) sepia(100%) saturate(3630%) hue-rotate(345deg) brightness(81%) contrast(92%);
 }
 
 .nonogram-wrapper {
@@ -148,9 +153,10 @@ button.active {
 
 .up-clue-line {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     justify-content: end;
     padding-top: 10px;
+    
 }
 
 .down-clue,
