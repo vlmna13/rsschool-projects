@@ -3,14 +3,15 @@ import { nonogramsList } from "../nonogramsList.js";
 import { fillTable } from "./fillTable.js";
 
 export function checkWin(matrix) {
-    let userMatrix = Array.from({ length: matrix.length }, () => Array(matrix.length).fill(0));
-    settings.userMatrix = userMatrix;
-    const ceilsWrapper = document.querySelector('.nonogram-wrapper');
-    const allCeils = document.querySelectorAll('.colored');
-    allCeils.forEach(el => {
-        userMatrix[el.dataset.row][el.dataset.col] = 1;
-    });
-    let userMatrixFlat = userMatrix.flat();
+    // console.log('passs  ' +matrix)
+    // let userMatrix = Array.from({ length: matrix.length }, () => Array(matrix.length).fill(0));
+    // settings.userMatrix = userMatrix;
+    // const ceilsWrapper = document.querySelector('.nonogram-wrapper');
+    // const allCeils = document.querySelectorAll('.colored');
+    // allCeils.forEach(el => {
+    //     userMatrix[el.dataset.row][el.dataset.col] = 1;
+    // });
+    let userMatrixFlat = settings.userMatrix.flat();
     let matrixFlat = matrix.flat();
     userMatrixFlat.forEach(el => {
         if(el === 'X'){

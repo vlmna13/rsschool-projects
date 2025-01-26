@@ -34,6 +34,9 @@ export function previousGame() {
                 if (settings.userMatrix[row][col] === 1) {
                     el.classList.add('colored');
                 }
+                if(settings.userMatrix[row][col] == 'X') {
+                    el.textContent = 'X';
+                }
             });
         }
     });
