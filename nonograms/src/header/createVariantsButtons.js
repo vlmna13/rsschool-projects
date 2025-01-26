@@ -15,6 +15,7 @@ export function createVariantsButtons(data) {
     const downside = document.querySelector('.down-side');
     downside.innerHTML = '';
     settings.matrix = nonogramsList[data][settings.variant];
+    settings.blockedCeil = true;
     variants.forEach(el => {
         const variantButton = document.createElement('button');
         variantsWrapper.appendChild(variantButton);

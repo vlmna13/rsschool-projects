@@ -24,6 +24,7 @@ export function toggleVariant(event) {
     let level = settings.level;
     settings.matrix = nonogramsList[level][variant];
     let matrix = settings.matrix;
+    settings.blockedCeil = true;
     createUpClue(matrix);
     createLeftClue(matrix);
     createNonogramField(matrix);

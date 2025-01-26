@@ -41,6 +41,7 @@ export function checkWin() {
         localStorage.setItem('winTable', JSON.stringify(winTable));
         const appl = new Audio('../sounds/aplodismentu.mp3');
         appl.play();
+        settings.blockedCeil = false;
         fillTable();
     } 
 }
