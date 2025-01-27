@@ -7,11 +7,14 @@ export function playPauseTimer() {
         settings.isGameStarted = true;
         settings.intervalId = setInterval(() => {
             settings.seconds = settings.seconds + 1;
-            timerWrapper.textContent = 'Time: '+ settings.minutes + ':' + settings.seconds;
+            // timerWrapper.textContent = 'Time: '+ settings.minutes + ':' + settings.seconds;
             if(settings.seconds === 59){
                 settings.minutes = settings.minutes + 1;
                 settings.seconds = 0;
             }
+            const formattedMinutes = settings.minutes < 10 ? '0' + settings.minutes : settings.minutes;
+            const formattedSeconds = settings.seconds < 10 ? '0' + settings.seconds : settings.seconds;
+            timerWrapper.textContent = 'Time: ' + formattedMinutes + ':' + formattedSeconds;
         }, 1000)
     }
 

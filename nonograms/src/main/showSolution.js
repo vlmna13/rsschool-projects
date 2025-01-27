@@ -12,7 +12,7 @@ export function showSolution() {
     settings.isGameStarted = false;
     settings.intervalId = clearInterval(settings.intervalId);
     const timerWrapper = document.querySelector('.timer-wrapper');
-    timerWrapper.textContent = 'Time:  0 : 0';
+    timerWrapper.textContent = 'Time:  00 : 00';
     const theme = document.querySelector('.paifang');
     allCeils.forEach((el) => {
         el.classList.remove('colored');

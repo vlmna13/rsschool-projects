@@ -44,7 +44,7 @@ export function resetGame() {
     settings.seconds = 0;
     settings.minutes = 0;
     const timerWrapper = document.querySelector('.timer-wrapper');
-    timerWrapper.textContent = 'Time:  0 : 0';
+    timerWrapper.textContent = 'Time:  00 : 00';
     // allCeils.forEach(el => {
     //     el.classList.remove('colored');
     //     el.textContent = '';

@@ -25,7 +25,10 @@ export function previousGame() {
             settings.minutes = savedSettings.minutes;
             settings.seconds = savedSettings.seconds;
             const timerWrapper = document.querySelector('.timer-wrapper');
-            timerWrapper.textContent = 'Time:  ' + settings.minutes + ' : ' + settings.seconds;
+            const formattedMinutes = settings.minutes < 10 ? '0' + settings.minutes : settings.minutes;
+            const formattedSeconds = settings.seconds < 10 ? '0' + settings.seconds : settings.seconds;
+            timerWrapper.textContent = 'Time: ' + formattedMinutes + ':' + formattedSeconds;
+            // timerWrapper.textContent = 'Time:  ' + settings.minutes + ' : ' + settings.seconds;
             settings.userMatrix = savedSettings.userMatrix;
             const allCeils = document.querySelectorAll('.ceil');
             allCeils.forEach(el => {
