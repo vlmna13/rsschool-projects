@@ -13,7 +13,10 @@ export function previousGame() {
     Object.keys(savedSettings).forEach(key => {
         settings[key] = savedSettings[key];
     });
+    const audioLeaf = new Audio('../sounds/leaves.mp3')
+    audioLeaf.play();
     const allLevels = document.querySelectorAll('.level');
+    const theme = document.querySelector('.paifang');
     allLevels.forEach(el=> {
         el.classList.remove('active');
         if(el.classList.contains(settings.level)) {
@@ -31,14 +34,57 @@ export function previousGame() {
             // timerWrapper.textContent = 'Time:  ' + settings.minutes + ' : ' + settings.seconds;
             settings.userMatrix = savedSettings.userMatrix;
             const allCeils = document.querySelectorAll('.ceil');
-            allCeils.forEach(el => {
-                const row = el.dataset.row;
-                const col = el.dataset.col;
-                if (settings.userMatrix[row][col] === 1) {
-                    el.classList.add('colored');
-                }
-                if(settings.userMatrix[row][col] == 'X') {
-                    el.textContent = 'X';
+
+            // allCeils.forEach(el => {
+            //     const row = el.dataset.row;
+            //     const col = el.dataset.col;
+            //     if (settings.userMatrix[row][col] === 1) {
+            //         el.classList.add('colored');
+            //     }
+            //     if(settings.userMatrix[row][col] == 'X') {
+            //         el.textContent = 'X';
+            //     }
+            // });
+            const leafContainer = document.querySelector('.leaf-container');
+            leafContainer.innerHTML = ''; // Clear existing leaves
+            leafContainer.classList.add('open');
+            let matrix = savedSettings.userMatrix.flat();
+            matrix.forEach((value, index) => {
+                if (value === 1 || value === 'X') {
+                    const leaf = document.createElement('div');
+                    leaf.classList.add('leaf-back');
+                    if(theme.classList.contains('active')) {
+                        leaf.classList.add('active');
+                    }
+                    const randomX = Math.random();
+                    const randomY = Math.random();
+                    leaf.style.setProperty('--random-x', randomX);
+                    leaf.style.setProperty('--random-y', randomY);
+                    leaf.style.left = `${window.innerWidth * randomX}px`;
+                    leaf.style.top = `${window.innerHeight * randomY}px`;
+                    leafContainer.appendChild(leaf);
+
+                    const targetRect = allCeils[index].getBoundingClientRect();
+                    setTimeout(() => {
+                        leaf.style.left = `${targetRect.left}px`;
+                        leaf.style.top = `${targetRect.top}px`;
+                    }, 0);
+
+                    leaf.addEventListener('animationend', () => {
+                        if (matrix[index] === 1) {
+                            allCeils[index].classList.add('colored');
+                        }
+                        if (matrix[index] === 'X') {
+                            allCeils[index].textContent = 'X';
+                        }
+                        leaf.remove();
+                        leaf.remove();
+                        if (leafContainer.children.length === 0) {
+                            leafContainer.classList.remove('open');
+                            audioLeaf.pause();
+                            audioLeaf.currentTime = 0;
+                        }
+                    }, { once: true });
                 }
             });
         }
