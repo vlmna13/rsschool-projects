@@ -12,20 +12,48 @@ export function showSolution() {
     settings.isGameStarted = false;
     settings.intervalId = clearInterval(settings.intervalId);
     const timerWrapper = document.querySelector('.timer-wrapper');
-    timerWrapper.textContent = 'Timer:  0 : 0'; 
-    allCeils.forEach((el, index) => {
+    timerWrapper.textContent = 'Time:  0 : 0';
+    const theme = document.querySelector('.paifang');
+    allCeils.forEach((el) => {
         el.classList.remove('colored');
         el.textContent = '';
         el.removeEventListener('click', userClick);
         el.removeEventListener('contextmenu', removeRightClick);
     });
 
+    const leafContainer = document.querySelector('.leaf-container');
+    leafContainer.innerHTML = ''; // Clear existing leaves
+    leafContainer.classList.add('open');
     matrix.forEach((value, index) => {
-        setTimeout(() => {
-            if (value === 1) {
-                allCeils[index].classList.add('colored');
+        if (value === 1) {
+            const leaf = document.createElement('div');
+            leaf.classList.add('leaf-back');
+            if(theme.classList.contains('active')) {
+                leaf.classList.add('active');
             }
-        }, index * 50); // Adjust the delay as needed
+            const randomX = Math.random();
+            const randomY = Math.random();
+            leaf.style.setProperty('--random-x', randomX);
+            leaf.style.setProperty('--random-y', randomY);
+            leaf.style.left = `${window.innerWidth * randomX}px`;
+            leaf.style.top = `${window.innerHeight * randomY}px`;
+            leafContainer.appendChild(leaf);
+
+            const targetRect = allCeils[index].getBoundingClientRect();
+            setTimeout(() => {
+                leaf.style.left = `${targetRect.left}px`;
+                leaf.style.top = `${targetRect.top}px`;
+            }, 0);
+
+            leaf.addEventListener('animationend', () => {
+                allCeils[index].classList.add('colored');
+                console.log(1)
+                leaf.remove();
+                if (leafContainer.children.length === 0) {
+                    leafContainer.classList.remove('open');
+                }
+            }, { once: true });
+        }
     });
 
 }

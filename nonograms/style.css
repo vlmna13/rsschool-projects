@@ -312,21 +312,6 @@ button.active {
     color: var(--dark-bold-color)
 }
 
-/* @keyframes windEffect {
-    0% {
-        opacity: 1;
-        transform: translateX(0);
-    }
-    100% {
-        opacity: 0;
-        transform: translateX(100px);
-    }
-}
-
-.wind-blow {
-    animation: windEffect 1s forwards;
-} */
-
 @keyframes flyEffect {
     0% {
         opacity: 1;
@@ -338,6 +323,17 @@ button.active {
     }
 }
 
+@keyframes flyEffectFromNonogram {
+    0% {
+        opacity: 0;
+        transform: translate(calc(100vw * (var(--random-x) - 0.5)), calc(100vh * (var(--random-y) - 0.5)));
+    }
+    100% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+}
+
 .leaf {
     position: absolute;
     width: 20px;
@@ -346,7 +342,28 @@ button.active {
     background-size: contain;
     animation: flyEffect 2s forwards;
 }
+
+.leaf.active,
+.leaf-back.active {
+    filter: brightness(0) saturate(100%) invert(46%) sepia(6%) saturate(1511%) hue-rotate(135deg) brightness(96%) contrast(84%);}
+
+.leaf-back {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: url('./images/leaf.svg') no-repeat center center;
+    background-size: contain;
+    animation: flyEffectFromNonogram 1s forwards;
+}
+
 .leaf-container {
-    width: 0px;
-    height: 0px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+.leaf-container.open {
+    opacity: 1;
+    width: 100%;
+    height: 100vh;
 }

@@ -11,14 +11,19 @@ export function resetGame() {
     const allCeilsBlow = document.querySelectorAll('.ceil.colored');
     // const allCeils = document.querySelectorAll('.ceil.colored');
     const leafContainer = document.querySelector('.leaf-container');
+    leafContainer.classList.add('open');
 
     allCeils.forEach((el) => {
         el.classList.remove('colored');
         el.textContent = '';
     });
+    const theme = document.querySelector('.paifang')
     allCeilsBlow.forEach((el, index) => {
         const leaf = document.createElement('div');
         leaf.classList.add('leaf');
+        if(theme.classList.contains('active')) {
+            leaf.classList.add('active');
+        }
         const rect = el.getBoundingClientRect();
         leaf.style.left = `${rect.left}px`;
         leaf.style.top = `${rect.top}px`;
@@ -29,9 +34,9 @@ export function resetGame() {
         leafContainer.appendChild(leaf);
         leaf.addEventListener('animationend', () => {
             leaf.remove();
-            // if (leafContainer.children.length === 0) {
-            //     leafContainer.remove();
-            // }
+            if (leafContainer.children.length === 0) {
+                leafContainer.classList.remove('open');
+            }
         }, { once: true });
     });
     settings.isGameStarted = false;
