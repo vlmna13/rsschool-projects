@@ -5,7 +5,7 @@
 }
 
 body {
-    padding: 20px;
+    /* padding: 20px; */
     min-width: 100vw;
     min-height: 100vh;
     background-size: cover;
@@ -62,6 +62,7 @@ button.active {
 }
 
 .header {
+    padding-top: 20px;
     max-width: 100%;
     display: flex;
     flex-direction: column;
@@ -82,6 +83,7 @@ button.active {
     gap: 20px;
     align-items: center;
     padding-top: 10px;
+    padding-bottom: 20px;
 }
 
 .settings-wrapper {
@@ -310,3 +312,41 @@ button.active {
     color: var(--dark-bold-color)
 }
 
+/* @keyframes windEffect {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+}
+
+.wind-blow {
+    animation: windEffect 1s forwards;
+} */
+
+@keyframes flyEffect {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(calc(100vw * (var(--random-x) - 0.5)), calc(100vh * (var(--random-y) - 0.5)));
+    }
+}
+
+.leaf {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: url('./images/leaf.svg') no-repeat center center;
+    background-size: contain;
+    animation: flyEffect 2s forwards;
+}
+.leaf-container {
+    width: 0px;
+    height: 0px;
+}

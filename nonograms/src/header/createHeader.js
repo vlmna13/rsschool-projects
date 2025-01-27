@@ -9,10 +9,13 @@ import { settings } from "../../index.js";
 
 export function createHeader() {
     const body = document.querySelector('body');
+    const leafContainer = document.createElement('div');
     const main = document.querySelector('.main');
     const header = document.createElement('header');
     header.classList.add('header');
     body.insertBefore(header, main);
+    body.insertBefore(leafContainer, header);
+    leafContainer.classList.add('leaf-container');
     const levelsWrapper = document.createElement('div');
     levelsWrapper.classList.add('levels-wrapper');
     header.appendChild(levelsWrapper);
