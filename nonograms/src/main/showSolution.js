@@ -5,6 +5,8 @@ import { rightClick } from "./rightClick.js";
 import { removeRightClick } from "./createNonogramField.js";
 
 export function showSolution() {
+    const audioLeaf = new Audio('../sounds/leaves.mp3')
+    audioLeaf.play();
     const allCeils = document.querySelectorAll('.ceil');
     const level = document.querySelector('.level.active').textContent;
     const variant = document.querySelector('.variant.active').textContent;
@@ -47,10 +49,11 @@ export function showSolution() {
 
             leaf.addEventListener('animationend', () => {
                 allCeils[index].classList.add('colored');
-                console.log(1)
                 leaf.remove();
                 if (leafContainer.children.length === 0) {
                     leafContainer.classList.remove('open');
+                    audioLeaf.pause();
+                    audioLeaf.currentTime = 0;
                 }
             }, { once: true });
         }

@@ -3,8 +3,17 @@ import { removeRightClick } from "./createNonogramField.js";
 import { userClick } from "./userClick.js";
 
 export function resetGame() {
+    if (!settings.userMatrix.some(row => row.includes(1) || row.includes('X'))) {
+        return;
+    }
     const allCeils = document.querySelectorAll('.ceil');
-    const header = document.querySelector('.header')
+    const header = document.querySelector('.header');
+    const audioLeaf = new Audio('../sounds/leaves.mp3');
+    allCeils.forEach(el => {
+        el.addEventListener('click', userClick);
+        el.addEventListener('contextmenu', removeRightClick);
+    });
+    audioLeaf.play();
     if(!settings.blockedCeil){
         settings.blockedCeil = true;
     }
@@ -36,6 +45,8 @@ export function resetGame() {
             leaf.remove();
             if (leafContainer.children.length === 0) {
                 leafContainer.classList.remove('open');
+                audioLeaf.pause();
+                audioLeaf.currentTime = 0;
             }
         }, { once: true });
     });
@@ -45,12 +56,6 @@ export function resetGame() {
     settings.minutes = 0;
     const timerWrapper = document.querySelector('.timer-wrapper');
     timerWrapper.textContent = 'Time:  00 : 00';
-    // allCeils.forEach(el => {
-    //     el.classList.remove('colored');
-    //     el.textContent = '';
-    //     el.addEventListener('click', userClick);
-    //     el.addEventListener('contextmenu', removeRightClick)
-    // });
     for(let i = 0; i < settings.userMatrix.length; i++){
         for(let j = 0; j < settings.userMatrix[i].length; j++){
             settings.userMatrix[i][j] = 0;
