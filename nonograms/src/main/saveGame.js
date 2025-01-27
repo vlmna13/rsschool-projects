@@ -2,7 +2,8 @@ import { nonogramsList } from "../nonogramsList.js";
 import { settings } from "../../index.js";
 
 export function saveGame() {
-    if(!settings.blockedCeil) {
+    if(!settings.blockedCeil || !settings.isGameStarted) {
+        console.log(JSON.parse(localStorage.getItem('settings')))
         return;
     }
     localStorage.setItem('settings', JSON.stringify(settings));
