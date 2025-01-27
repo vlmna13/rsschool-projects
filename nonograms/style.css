@@ -340,7 +340,7 @@ button.active {
     height: 20px;
     background: url('./images/leaf.svg') no-repeat center center;
     background-size: contain;
-    animation: flyEffect 2s forwards;
+    animation: flyEffect 4s forwards;
 }
 
 .leaf.active,
@@ -353,7 +353,7 @@ button.active {
     height: 20px;
     background: url('./images/leaf.svg') no-repeat center center;
     background-size: contain;
-    animation: flyEffectFromNonogram 1s forwards;
+    animation: flyEffectFromNonogram 4s forwards;
 }
 
 .leaf-container {
