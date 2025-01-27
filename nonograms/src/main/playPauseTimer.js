@@ -14,7 +14,7 @@ export function playPauseTimer() {
             }
             const formattedMinutes = settings.minutes < 10 ? '0' + settings.minutes : settings.minutes;
             const formattedSeconds = settings.seconds < 10 ? '0' + settings.seconds : settings.seconds;
-            timerWrapper.textContent = 'Time: ' + formattedMinutes + ':' + formattedSeconds;
+            timerWrapper.textContent = 'Time: ' + formattedMinutes + ' : ' + formattedSeconds;
         }, 1000)
     }
 

@@ -1,3 +1,5 @@
+import { settings } from "../../index.js";
+
 export function createTable() {
     const body = document.querySelector('body');
     const modalWrapper = document.createElement('div');
@@ -7,7 +9,7 @@ export function createTable() {
     modal.classList.add('modal');
     modalWrapper.appendChild(modal);
     const congrat = document.createElement('p');
-    congrat.textContent = 'You win!';
+    congrat.classList.add('congrat');
     modal.appendChild(congrat);
     const modalHeader = document.createElement('p');
     modalHeader.classList.add('modal-header');

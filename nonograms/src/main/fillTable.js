@@ -1,18 +1,26 @@
+import { settings } from "../../index.js";
+
 export function fillTable() {
-    const settings = JSON.parse(localStorage.getItem('winTable'));
+    let settingsSave = JSON.parse(localStorage.getItem('winTable'));
     const modalWrapper = document.querySelector('.modal-wrapper');
     modalWrapper.classList.add('open');
     const modal = document.querySelector('.modal');
     modal.classList.add('open');
     const allLines = document.querySelectorAll('.win-line');
-    settings.forEach((el, index) => {
+    const congrat = document.querySelector('.congrat');
+    let sec = settings.minutes * 60 + settings.seconds;
+    const formattedSec = sec < 10 ? '0' + sec : sec;
+    congrat.textContent = 'Great! You have solved the nonogram in ' + formattedSec + ' seconds';
+
+    settingsSave.forEach((el, index) => {
         const line = allLines[index];
         const tableLevel = line.querySelector('.table-level');
         const tableVariant = line.querySelector('.table-variant');
         const tableTime = line.querySelector('.table-time');
         tableLevel.textContent = 'level : ' + el[0];
         tableVariant.textContent = 'game : ' + el[1];
-        let sec = el[2] * 60 + el[3];
-        tableTime.textContent = 'time : ' + sec + ' sec';
+        const formattedMinutes = el[2] < 10 ? '0' + el[2] : el[2];
+        const formattedSeconds = el[3] < 10 ? '0' + el[3] : el[3];
+        tableTime.textContent = 'time : ' + formattedMinutes + ' : ' + formattedSeconds;
     })
 }
