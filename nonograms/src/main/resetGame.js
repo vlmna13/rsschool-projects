@@ -3,10 +3,13 @@ import { removeRightClick } from "./createNonogramField.js";
 import { userClick } from "./userClick.js";
 
 export function resetGame() {
-    if (!settings.userMatrix.some(row => row.includes(1) || row.includes('X'))) {
-        return;
-    }
     const allCeils = document.querySelectorAll('.ceil');
+    if (!Array.from(allCeils).some(el => el.classList.contains('colored') || el.textContent === 'X')) {
+        return;
+    } 
+    if(!settings.isGameStarted){
+        settings.isGameStarted = true;
+    }
     const header = document.querySelector('.header');
     const audioLeaf = new Audio('../sounds/leaves.mp3');
     allCeils.forEach(el => {
@@ -18,7 +21,6 @@ export function resetGame() {
         settings.blockedCeil = true;
     }
     const allCeilsBlow = document.querySelectorAll('.ceil.colored');
-    // const allCeils = document.querySelectorAll('.ceil.colored');
     const leafContainer = document.querySelector('.leaf-container');
     leafContainer.classList.add('open');
 

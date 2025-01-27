@@ -8,7 +8,8 @@ export function previousGame() {
     if(!JSON.parse(localStorage.getItem('settings'))){
         alert('you do not have saved game')
         return;
-    } 
+    }
+
     let savedSettings = JSON.parse(localStorage.getItem('settings'));
     Object.keys(savedSettings).forEach(key => {
         settings[key] = savedSettings[key];
@@ -31,20 +32,8 @@ export function previousGame() {
             const formattedMinutes = settings.minutes < 10 ? '0' + settings.minutes : settings.minutes;
             const formattedSeconds = settings.seconds < 10 ? '0' + settings.seconds : settings.seconds;
             timerWrapper.textContent = 'Time: ' + formattedMinutes + ' : ' + formattedSeconds;
-            // timerWrapper.textContent = 'Time:  ' + settings.minutes + ' : ' + settings.seconds;
             settings.userMatrix = savedSettings.userMatrix;
             const allCeils = document.querySelectorAll('.ceil');
-
-            // allCeils.forEach(el => {
-            //     const row = el.dataset.row;
-            //     const col = el.dataset.col;
-            //     if (settings.userMatrix[row][col] === 1) {
-            //         el.classList.add('colored');
-            //     }
-            //     if(settings.userMatrix[row][col] == 'X') {
-            //         el.textContent = 'X';
-            //     }
-            // });
             const leafContainer = document.querySelector('.leaf-container');
             leafContainer.innerHTML = ''; // Clear existing leaves
             leafContainer.classList.add('open');
@@ -77,7 +66,6 @@ export function previousGame() {
                         if (matrix[index] === 'X') {
                             allCeils[index].textContent = 'X';
                         }
-                        leaf.remove();
                         leaf.remove();
                         if (leafContainer.children.length === 0) {
                             leafContainer.classList.remove('open');
