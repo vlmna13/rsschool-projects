@@ -112,24 +112,28 @@ button.active {
 }
 
 .bamboo, 
-.paifang {
+.paifang,
+.sound {
     cursor: pointer;
     transition: 0.5s ease;
 }
 
-.paifang {
+.paifang,
+.sound {
     width: 30px;
     height: 30px;
 }
 
 .bamboo.active,
 .bamboo:hover,
-.sound:hover  {
+.sound.active:hover {
     filter: brightness(0) saturate(100%) invert(15%) sepia(68%) saturate(6854%) hue-rotate(351deg) brightness(97%) contrast(74%);
 }
 
 .paifang.active,
-.paifang:hover {
+.paifang:hover,
+.sound:hover,
+.sound.active {
     filter: brightness(0) saturate(100%) invert(13%) sepia(100%) saturate(3630%) hue-rotate(345deg) brightness(81%) contrast(92%);
 }
 
@@ -395,9 +399,3 @@ button.active {
     height: 100vh;
 }
 
-.sound {
-    cursor: pointer;
-    transition: 0.5s ease;
-    width: 30px;
-    height: 30px;
-}
