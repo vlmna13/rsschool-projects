@@ -14,7 +14,7 @@ export function createMain() {
     themeTimeWrapper.classList.add('theme-timer');
 
     const bamboo = document.createElement('img');
-    bamboo.src = '../images/bamboo.svg';
+    bamboo.src = './images/bamboo.svg';
     bamboo.alt = 'bamboo';
     bamboo.classList.add('bamboo', 'active');
     themeTimeWrapper.appendChild(bamboo);
@@ -29,7 +29,7 @@ export function createMain() {
     timerWrapper.textContent = formattedMinutes + ':' + formattedSeconds;
 
     const paifang = document.createElement('img');
-    paifang.src = '../images/paifang.svg';
+    paifang.src = './images/paifang.svg';
     paifang.alt = 'paifang';
     paifang.classList.add('paifang');
     themeTimeWrapper.appendChild(paifang);

@@ -11,7 +11,7 @@ export function resetGame() {
         settings.isGameStarted = true;
     }
     const header = document.querySelector('.header');
-    const audioLeaf = new Audio('../sounds/leaves.mp3');
+    const audioLeaf = new Audio('./sounds/leaves.mp3');
     allCeils.forEach(el => {
         el.addEventListener('click', userClick);
         el.addEventListener('contextmenu', removeRightClick);
@@ -49,9 +49,6 @@ export function resetGame() {
             leaf.remove();
             if (leafContainer.children.length === 0) {
                 leafContainer.classList.remove('open');
-                // if(!settings.isMute){
-                    
-                // }
                 audioLeaf.pause();
                 audioLeaf.currentTime = 0;
             }

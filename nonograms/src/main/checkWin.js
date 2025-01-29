@@ -39,7 +39,7 @@ export function checkWin() {
         }
         winTable.push(gameInfo);
         localStorage.setItem('winTable', JSON.stringify(winTable));
-        const appl = new Audio('../sounds/aplodismentu.mp3');
+        const appl = new Audio('./sounds/aplodismentu.mp3');
         if(!settings.isMute){
             appl.play();
         }

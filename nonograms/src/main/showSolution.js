@@ -5,7 +5,7 @@ import { rightClick } from "./rightClick.js";
 import { removeRightClick } from "./createNonogramField.js";
 
 export function showSolution() {
-    const audioLeaf = new Audio('../sounds/leaves.mp3');
+    const audioLeaf = new Audio('./sounds/leaves.mp3');
     if(!settings.isMute) {
         audioLeaf.play();
     }
