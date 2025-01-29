@@ -234,7 +234,6 @@ button.active {
     width: 20px;
     height: 20px;
     text-align: center;
-    /* border: var(--dark-thin-line) solid var(--dark-thin-color); */
     border-collapse: collapse;
 }
 
@@ -273,6 +272,7 @@ button.active {
     height: 100vh;
     background: rgba(41, 41, 41, 0.6);
     opacity: 0;
+    /* opacity: 1; */
     pointer-events: none;
     transition: 0.5s all;
     z-index: 2;
@@ -288,10 +288,10 @@ button.active {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0);
+    /* transform: translate(-50%, -50%) scale(1); */
     background: #fff;
     max-width: 480px;
     width: 100%;
-    /* margin: 5px; */
     height: auto;
     transition: 0.5s all;
     border-radius: 9px;
@@ -304,41 +304,54 @@ button.active {
     z-index: 2;
 }
 
-/* .win-line:not(:last-child) {
-    border-bottom: 1px solid var(--dark-thin-color); 
-    color: var(--dark-bold-color)
-} */
+.headers-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border-bottom: 1px solid var(--dark-bold-color);
+}
+
+.container-header:not(:first-child),
+.table-level,
+.table-variant,
+.table-time {
+    color: var(--dark-bold-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-basis: 0;
+    flex-grow: 1;
+    height: 30px;
+    border-right: 1px solid var(--dark-bold-color);
+}
+
+
+.number,
+.congrat,
+.modal-header {
+    color: var(--dark-bold-color);
+}
+
+.container-header:first-child,
+.win-line p:first-child {
+    width: 30px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    border-right: 1px solid var(--dark-bold-color);
+}
 
 .score-container {
-    display: grid;
-    grid-template-columns: 20px repeat(3, 1fr);
-    grid-template-rows: repeat(6, 1fr);
-    min-width: 100%;
-    /* gap: 5px; */
-}
-
-.container-header {
-    color: var(--dark-bold-color);
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    width: 100%;
 }
 
-.win-wrapper {
-    height: 20px;
-    /* background-color: red; */
-    min-width: 100%;
+.win-line {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--dark-bold-color);
+    border-bottom: 1px solid var(--dark-bold-color);
 }
-
-.win-wrapper,
-.container-header {
-    border-right: 1px var(--dark-thin-color) solid;
-}
-
 
 @keyframes flyEffect {
     0% {
