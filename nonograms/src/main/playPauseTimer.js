@@ -2,7 +2,6 @@ import { settings } from "../../index.js";
 
 export function playPauseTimer() {
     const timerWrapper = document.querySelector('.timer-wrapper');
-    
     if(settings.isGameStarted == false){
         settings.isGameStarted = true;
         settings.intervalId = setInterval(() => {
@@ -14,7 +13,7 @@ export function playPauseTimer() {
             }
             const formattedMinutes = settings.minutes < 10 ? '0' + settings.minutes : settings.minutes;
             const formattedSeconds = settings.seconds < 10 ? '0' + settings.seconds : settings.seconds;
-            timerWrapper.textContent = 'Time: ' + formattedMinutes + ' : ' + formattedSeconds;
+            timerWrapper.textContent = formattedMinutes + ' : ' + formattedSeconds;
         }, 1000)
     }
 

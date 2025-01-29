@@ -26,7 +26,7 @@ export function createMain() {
     // timerWrapper.textContent = 'Time   ' + settings.minutes + ' : ' + settings.seconds;
     const formattedMinutes = settings.minutes < 10 ? '0' + settings.minutes : settings.minutes;
     const formattedSeconds = settings.seconds < 10 ? '0' + settings.seconds : settings.seconds;
-    timerWrapper.textContent = 'Time: ' + formattedMinutes + ':' + formattedSeconds;
+    timerWrapper.textContent = formattedMinutes + ':' + formattedSeconds;
 
     const paifang = document.createElement('img');
     paifang.src = '../images/paifang.svg';

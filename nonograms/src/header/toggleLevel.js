@@ -34,5 +34,5 @@ export function toggleLevel(event) {
     const timerWrapper = document.querySelector('.timer-wrapper');
     settings.seconds = 0;
     settings.minutes = 0;
-    timerWrapper.textContent = 'Time:  0 : 0'; 
+    timerWrapper.textContent = '00 : 00'; 
 }
