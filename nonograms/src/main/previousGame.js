@@ -14,7 +14,7 @@ export function previousGame() {
     Object.keys(savedSettings).forEach(key => {
         settings[key] = savedSettings[key];
     });
-    const audioLeaf = new Audio('../sounds/leaves.mp3');
+    const audioLeaf = new Audio('./sounds/leaves.mp3');
     if(!settings.isMute) {
         audioLeaf.play();
     };
@@ -38,7 +38,7 @@ export function previousGame() {
             settings.userMatrix = savedSettings.userMatrix;
             const allCeils = document.querySelectorAll('.ceil');
             const leafContainer = document.querySelector('.leaf-container');
-            leafContainer.innerHTML = ''; // Clear existing leaves
+            // leafContainer.innerHTML = ''; // Clear existing leaves
             leafContainer.classList.add('open');
             let matrix = savedSettings.userMatrix.flat();
             matrix.forEach((value, index) => {

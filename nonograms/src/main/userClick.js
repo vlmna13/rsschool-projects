@@ -6,8 +6,8 @@ import { playPauseTimer } from "./playPauseTimer.js";
 
 export function userClick(event) {
     playPauseTimer();
-    let audioColored = new Audio('../sounds/colored.mp3');
-    let audioWhite = new Audio('../sounds/white.mp3');
+    let audioColored = new Audio('./sounds/colored.mp3');
+    let audioWhite = new Audio('./sounds/white.mp3');
     if(event.target.classList.contains('colored')) {
         event.target.classList.remove('colored');
         event.target.textContent = '';

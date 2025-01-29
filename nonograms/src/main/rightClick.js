@@ -6,7 +6,7 @@ import { playPauseTimer } from "./playPauseTimer.js";
 export function rightClick(event) {
     playPauseTimer();
 
-    let audioCross = new Audio('../sounds/cross.mp3');
+    let audioCross = new Audio('./sounds/cross.mp3');
     if (event.target.classList.contains('colored')) {
         event.target.classList.remove('colored');
         event.target.textContent = 'X';
@@ -16,7 +16,7 @@ export function rightClick(event) {
         settings.userMatrix[event.target.dataset.row][event.target.dataset.col] = 'X';
     } else if(event.target.textContent == 'X'){
         event.target.textContent = '';
-        let audioWhite = new Audio('../sounds/white.mp3');
+        let audioWhite = new Audio('./sounds/white.mp3');
         if(!settings.isMute){
             audioWhite.play();
         }
