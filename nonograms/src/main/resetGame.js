@@ -16,7 +16,9 @@ export function resetGame() {
         el.addEventListener('click', userClick);
         el.addEventListener('contextmenu', removeRightClick);
     });
-    audioLeaf.play();
+    if(!settings.isMute){
+        audioLeaf.play();
+    }
     if(!settings.blockedCeil){
         settings.blockedCeil = true;
     }
@@ -47,6 +49,9 @@ export function resetGame() {
             leaf.remove();
             if (leafContainer.children.length === 0) {
                 leafContainer.classList.remove('open');
+                // if(!settings.isMute){
+                    
+                // }
                 audioLeaf.pause();
                 audioLeaf.currentTime = 0;
             }
@@ -57,7 +62,7 @@ export function resetGame() {
     settings.seconds = 0;
     settings.minutes = 0;
     const timerWrapper = document.querySelector('.timer-wrapper');
-    timerWrapper.textContent = 'Time:  00 : 00';
+    timerWrapper.textContent = '00 : 00';
     for(let i = 0; i < settings.userMatrix.length; i++){
         for(let j = 0; j < settings.userMatrix[i].length; j++){
             settings.userMatrix[i][j] = 0;

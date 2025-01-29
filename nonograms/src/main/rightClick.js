@@ -10,18 +10,23 @@ export function rightClick(event) {
     if (event.target.classList.contains('colored')) {
         event.target.classList.remove('colored');
         event.target.textContent = 'X';
-        audioCross.play();
+        if(!settings.isMute){
+            audioCross.play();
+        }
         settings.userMatrix[event.target.dataset.row][event.target.dataset.col] = 'X';
     } else if(event.target.textContent == 'X'){
         event.target.textContent = '';
         let audioWhite = new Audio('../sounds/white.mp3');
-        audioWhite.play();
+        if(!settings.isMute){
+            audioWhite.play();
+        }
         settings.userMatrix[event.target.dataset.row][event.target.dataset.col] = 0;
     } else {
         event.target.textContent = 'X';
-        audioCross.play();
+        if(!settings.isMute){
+            audioCross.play();
+        }
         settings.userMatrix[event.target.dataset.row][event.target.dataset.col] = 'X';
     }
-    checkWin();
-    
+    checkWin();   
 }

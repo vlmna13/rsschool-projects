@@ -15,7 +15,8 @@ export let settings = {
     intervalId: 0,
     seconds: 0,
     minutes: 0,
-    blockedCeil: true
+    blockedCeil: true,
+    isMute: false
 }
 
 const body = document.querySelector('body');
@@ -28,10 +29,8 @@ createLeftClue(settings.matrix);
 createNonogramField(settings.matrix);
 let winTable = [];
 localStorage.setItem('winTable', JSON.stringify(winTable));
-createTable()
+createTable();
 
-
-console.log(settings)
 
 
 

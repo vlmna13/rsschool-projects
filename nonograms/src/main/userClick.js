@@ -11,12 +11,16 @@ export function userClick(event) {
     if(event.target.classList.contains('colored')) {
         event.target.classList.remove('colored');
         event.target.textContent = '';
-        audioWhite.play();
+        if(!settings.isMute){
+            audioWhite.play();
+        }
         settings.userMatrix[event.target.dataset.row][event.target.dataset.col] = 0;
     } else {
         event.target.classList.add('colored');
         event.target.textContent = '';
-        audioColored.play();
+        if(!settings.isMute){
+            audioColored.play();
+        }
         settings.userMatrix[event.target.dataset.row][event.target.dataset.col] = 1;
     }
     checkWin();

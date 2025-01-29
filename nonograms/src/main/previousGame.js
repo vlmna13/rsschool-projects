@@ -14,8 +14,11 @@ export function previousGame() {
     Object.keys(savedSettings).forEach(key => {
         settings[key] = savedSettings[key];
     });
-    const audioLeaf = new Audio('../sounds/leaves.mp3')
-    audioLeaf.play();
+    const audioLeaf = new Audio('../sounds/leaves.mp3');
+    if(!settings.isMute) {
+        audioLeaf.play();
+    };
+
     const allLevels = document.querySelectorAll('.level');
     const theme = document.querySelector('.paifang');
     allLevels.forEach(el=> {
@@ -69,6 +72,9 @@ export function previousGame() {
                         leaf.remove();
                         if (leafContainer.children.length === 0) {
                             leafContainer.classList.remove('open');
+                            // if(settings.isMute) {
+                                
+                            // }
                             audioLeaf.pause();
                             audioLeaf.currentTime = 0;
                         }

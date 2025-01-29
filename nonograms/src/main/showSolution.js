@@ -5,8 +5,10 @@ import { rightClick } from "./rightClick.js";
 import { removeRightClick } from "./createNonogramField.js";
 
 export function showSolution() {
-    const audioLeaf = new Audio('../sounds/leaves.mp3')
-    audioLeaf.play();
+    const audioLeaf = new Audio('../sounds/leaves.mp3');
+    if(!settings.isMute) {
+        audioLeaf.play();
+    }
     const allCeils = document.querySelectorAll('.ceil');
     const level = document.querySelector('.level.active').textContent;
     const variant = document.querySelector('.variant.active').textContent;
@@ -14,7 +16,7 @@ export function showSolution() {
     settings.isGameStarted = false;
     settings.intervalId = clearInterval(settings.intervalId);
     const timerWrapper = document.querySelector('.timer-wrapper');
-    timerWrapper.textContent = 'Time:  00 : 00';
+    timerWrapper.textContent = '00 : 00';
     const theme = document.querySelector('.paifang');
     allCeils.forEach((el) => {
         el.classList.remove('colored');
@@ -58,5 +60,4 @@ export function showSolution() {
             }, { once: true });
         }
     });
-
 }
