@@ -18,7 +18,7 @@ export function createHeader() {
     leafContainer.classList.add('leaf-container');
     const sound = document.createElement('img');
     sound.classList.add('sound');
-    sound.src = './../images/sound.svg';
+    sound.src = '/images/sound.svg';
     sound.alt = 'sound';
     header.appendChild(sound);
     sound.addEventListener('click', toggleSilence)
