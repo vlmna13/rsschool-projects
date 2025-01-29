@@ -1,0 +1,414 @@
+* {
+    /* box-sizing: border-box; */
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    /* padding: 20px; */
+    min-width: 100vw;
+    min-height: 100vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+body.black {
+    --dark-border: black;
+    --dark-text: black;
+    --dark-hover-text: white;
+    --dark-hover-background: black;
+    --dark-bold-line: 1.5px;
+    --dark-thin-line: 0.5px;
+    --dark-bold-color: black;
+    --dark-thin-color: grey;
+    --dark-back-color: rgba(255, 255, 255, 0.7);
+    background-image: url('./images/black.jpg');
+}
+
+body.green {
+    --dark-border: #274649;
+    --dark-text: #274649;
+    --dark-hover-text: #eb677f;
+    --dark-hover-background: #597b7d;
+    --dark-bold-line: 1.5px;
+    --dark-thin-line: 0.5px;
+    --dark-bold-color: #274649;
+    --dark-thin-color: #c2cabf;
+    --dark-back-color: rgba(228, 227, 222, 0.5);
+    background-image: url('./images/color.jpg');
+}
+
+button {
+    cursor: pointer;
+    display: flex;
+    padding: 7px;
+    border: 1px solid var(--dark-border);
+    border-radius: 10px;
+    background-color: transparent;
+    transition: 0.5s ease;
+    color: var(--dark-text);
+}
+
+button:hover {
+    background-color: var(--dark-hover-background);
+    color: var(--dark-hover-text);
+}
+
+button.active {
+    background-color: var(--dark-hover-background);
+    color: var(--dark-hover-text);
+    transition: 0.5s ease;
+}
+
+.header {
+    padding-top: 20px;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.levels-wrapper, 
+.variants-wrapper {
+    display: flex;
+    gap: 20px;
+}
+
+.main {
+    display: flex;
+    max-width: 100%;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+.settings-wrapper {
+    display: flex;
+    gap: 20px;
+    padding: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.theme-timer {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--dark-back-color);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.timer-wrapper {
+    color: var(--dark-text);
+    min-width: 80px;
+    display: flex;
+    justify-content: center;
+}
+
+.bamboo, 
+.paifang,
+.sound {
+    cursor: pointer;
+    transition: 0.5s ease;
+}
+
+.paifang,
+.sound {
+    width: 30px;
+    height: 30px;
+}
+
+.bamboo.active,
+.bamboo:hover,
+.sound.active:hover {
+    filter: brightness(0) saturate(100%) invert(15%) sepia(68%) saturate(6854%) hue-rotate(351deg) brightness(97%) contrast(74%);
+}
+
+.paifang.active,
+.paifang:hover,
+.sound:hover,
+.sound.active {
+    filter: brightness(0) saturate(100%) invert(13%) sepia(100%) saturate(3630%) hue-rotate(345deg) brightness(81%) contrast(92%);
+}
+
+.nonogram-wrapper {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--dark-back-color);
+}
+
+.up-side,
+.down-side {
+    display: flex;
+}
+
+.empty {
+    display: flex;
+    width: 100%;
+    min-height: 100%;
+}
+
+.up-clue {
+    display: flex;
+}
+
+.up-clue-line {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: end;
+    padding-top: 10px;
+    
+}
+
+.down-clue,
+.nonogram-field {
+    display: flex;
+    flex-direction: column;
+    border-collapse: collapse;
+}
+
+.field-line {
+    display: flex;
+}
+
+.nonogram-field {
+    border-collapse: collapse;
+}
+
+.ceil {
+    border-left: var(--dark-thin-line) solid var(--dark-thin-color);
+    border-right: var(--dark-thin-line) solid var(--dark-thin-color);
+}
+
+/* Add top and bottom borders to each line */
+.field-line,
+.left-clue-line {
+    border-top: var(--dark-thin-line) solid var(--dark-thin-color);
+    border-bottom: var(--dark-thin-line) solid var(--dark-thin-color);
+}
+
+.up-clue-line {
+    border-left: var(--dark-thin-line) solid var(--dark-thin-color);
+    border-right: var(--dark-thin-line) solid var(--dark-thin-color);
+}
+
+/* Apply bold border to every 5th cell in rows */
+.ceil:nth-child(5n),
+.up-clue-line:nth-child(5n) {
+    border-right: var(--dark-bold-line) solid var(--dark-bold-color);
+}
+
+/* Apply bold border to every 5th line */
+.field-line:nth-child(5n),
+.left-clue-line:nth-child(5n) {
+    border-bottom: var(--dark-bold-line) solid var(--dark-bold-color);
+}
+
+/* Add top border to the first line */
+.field-line:first-child,
+.left-clue-line:first-child,
+.up-clue-line,
+.empty {
+    border-top: var(--dark-bold-line) solid var(--dark-bold-color);
+}
+
+/* Add bold left border to the first element in each line */
+.field-line .ceil:first-child,
+.left-clue-line,
+.up-clue-line:first-child,
+.empty {
+    border-left: var(--dark-bold-line) solid var(--dark-bold-color);
+}
+
+.left-clue-line {
+    padding-left: 10px;
+}
+
+.ceil {
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+.ceil.colored {
+    background-color: var(--dark-hover-background);
+}
+
+.left-clue {
+    display: flex;
+    flex-direction: column;
+}
+
+.left-clue-line {
+    display: flex;
+    justify-content: end;
+}
+
+.clue-el {
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    color: var(--dark-text);
+}
+
+.modal-wrapper.open {
+    opacity: 1;
+    pointer-events: all;
+    transition: 0.5s all;
+}
+
+.modal-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(41, 41, 41, 0.6);
+    opacity: 0;
+    /* opacity: 1; */
+    pointer-events: none;
+    transition: 0.5s all;
+    z-index: 2;
+}
+
+.modal.open {
+    transform: translate(-50%, -50%) scale(1);
+    transition: 0.5s all;
+}
+
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    /* transform: translate(-50%, -50%) scale(1); */
+    background: #fff;
+    max-width: 480px;
+    width: 100%;
+    height: auto;
+    transition: 0.5s all;
+    border-radius: 9px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    gap: 20px;
+    z-index: 2;
+}
+
+.headers-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border-bottom: 1px solid var(--dark-bold-color);
+}
+
+.container-header:not(:first-child),
+.table-level,
+.table-variant,
+.table-time {
+    color: var(--dark-bold-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-basis: 0;
+    flex-grow: 1;
+    height: 30px;
+    border-right: 1px solid var(--dark-bold-color);
+}
+
+
+.number,
+.congrat,
+.modal-header {
+    color: var(--dark-bold-color);
+}
+
+.container-header:first-child,
+.win-line p:first-child {
+    width: 30px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    border-right: 1px solid var(--dark-bold-color);
+}
+
+.score-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.win-line {
+    display: flex;
+    border-bottom: 1px solid var(--dark-bold-color);
+}
+
+@keyframes flyEffect {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(calc(100vw * (var(--random-x) - 0.5)), calc(100vh * (var(--random-y) - 0.5)));
+    }
+}
+
+@keyframes flyEffectFromNonogram {
+    0% {
+        opacity: 0;
+        transform: translate(calc(100vw * (var(--random-x) - 0.5)), calc(100vh * (var(--random-y) - 0.5)));
+    }
+    100% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+}
+
+.leaf {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: url('./images/leaf.svg') no-repeat center center;
+    background-size: contain;
+    animation: flyEffect 4s forwards;
+}
+
+.leaf.active,
+.leaf-back.active,
+.sound.active {
+    filter: brightness(0) saturate(100%) invert(46%) sepia(6%) saturate(1511%) hue-rotate(135deg) brightness(96%) contrast(84%);
+}
+
+.leaf-back {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: url('./images/leaf.svg') no-repeat center center;
+    background-size: contain;
+    animation: flyEffectFromNonogram 4s forwards;
+}
+
+.leaf-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+.leaf-container.open {
+    opacity: 1;
+    width: 100%;
+    height: 100vh;
+}
+
