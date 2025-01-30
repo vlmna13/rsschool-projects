@@ -20,7 +20,8 @@ export function showSolution() {
     const theme = document.querySelector('.paifang');
     allCeils.forEach((el) => {
         el.classList.remove('colored');
-        el.textContent = '';
+        el.classList.remove('cross');
+        // el.textContent = '';
         el.removeEventListener('click', userClick);
         el.removeEventListener('contextmenu', removeRightClick);
     });
