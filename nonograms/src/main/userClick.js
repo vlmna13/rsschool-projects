@@ -10,14 +10,17 @@ export function userClick(event) {
     let audioWhite = new Audio('./sounds/white.mp3');
     if(event.target.classList.contains('colored')) {
         event.target.classList.remove('colored');
-        event.target.textContent = '';
+        event.target.classList.remove('cross');
+        // event.target.textContent = '';
         if(!settings.isMute){
             audioWhite.play();
         }
         settings.userMatrix[event.target.dataset.row][event.target.dataset.col] = 0;
+        console.log('click   ' + settings.userMatrix)
     } else {
         event.target.classList.add('colored');
-        event.target.textContent = '';
+        // event.target.textContent = '';
+        event.target.classList.remove('cross');
         if(!settings.isMute){
             audioColored.play();
         }

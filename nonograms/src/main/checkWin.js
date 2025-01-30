@@ -14,7 +14,7 @@ export function checkWin() {
         if(el.classList.contains('colored')) {
             userMatrix[el.dataset.row][el.dataset.col] = 1;
         }
-        if(el.textContent === 'X') {
+        if(el.classList.contains('cross')) {
             userMatrix[el.dataset.row][el.dataset.col] = 'X';
         }
     });

@@ -24,6 +24,7 @@ body.black {
     --dark-thin-color: grey;
     --dark-back-color: rgba(255, 255, 255, 0.7);
     background-image: url('./images/black.jpg');
+    color: black;
 }
 
 body.green {
@@ -37,6 +38,7 @@ body.green {
     --dark-thin-color: #c2cabf;
     --dark-back-color: rgba(228, 227, 222, 0.5);
     background-image: url('./images/color.jpg');
+    color: #597b7d;
 }
 
 button {
@@ -411,4 +413,20 @@ button.active {
     width: 100%;
     height: 100vh;
 }
+
+.cross {
+    background-image: url('./images/cross.svg');
+    /* background-position: center; */
+    /* background-repeat: no-repeat; */
+    /* background-size: cover; */
+    /* background-size: 30px 30px; */
+    /* border: none; */
+}
+
+body.green .cross {
+    background-image: url('./images/cross-green.svg');
+}
+
+
+
 
