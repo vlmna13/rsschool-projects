@@ -4,7 +4,7 @@ import { userClick } from "./userClick.js";
 
 export function resetGame() {
     const allCeils = document.querySelectorAll('.ceil');
-    if (!Array.from(allCeils).some(el => el.classList.contains('colored') || el.textContent === 'X')) {
+    if (!Array.from(allCeils).some(el => el.classList.contains('colored') || el.classList.contains('cross'))) {
         return;
     } 
     if(!settings.isGameStarted){
@@ -22,13 +22,15 @@ export function resetGame() {
     if(!settings.blockedCeil){
         settings.blockedCeil = true;
     }
-    const allCeilsBlow = document.querySelectorAll('.ceil.colored');
+    const allColored = document.querySelectorAll('.colored');
+    const allCrossed = document.querySelectorAll('.cross');
+    const allCeilsBlow = [...allColored, ...allCrossed];
     const leafContainer = document.querySelector('.leaf-container');
     leafContainer.classList.add('open');
 
     allCeils.forEach((el) => {
         el.classList.remove('colored');
-        el.textContent = '';
+        el.classList.remove('cross');
     });
     const theme = document.querySelector('.paifang')
     allCeilsBlow.forEach((el, index) => {

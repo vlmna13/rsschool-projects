@@ -67,7 +67,7 @@ export function previousGame() {
                             allCeils[index].classList.add('colored');
                         }
                         if (matrix[index] === 'X') {
-                            allCeils[index].textContent = 'X';
+                            allCeils[index].classList.add('cross');
                         }
                         leaf.remove();
                         if (leafContainer.children.length === 0) {
