@@ -2,7 +2,8 @@ import { nonogramsList } from "../nonogramsList.js";
 import { rotateMatrix } from "./rotateMatrix.js";
 
 export function createUpClue(matrix) {
- let newMatrix = rotateMatrix(matrix);
+    let newMatrix = rotateMatrix(matrix);
+ 
     const upside = document.querySelector('.up-side');
     const empty = document.createElement('div');
     empty.classList.add('empty');
@@ -15,7 +16,7 @@ export function createUpClue(matrix) {
         upclueLine.classList.add('up-clue-line');
         upClue.appendChild(upclueLine);
         let counter = 0;
-        for (let j = 0; j < newMatrix[i].length; j++) {
+        for (let j = newMatrix[i].length - 1; j >= 0; j--) {
             if (newMatrix[i][j] === 1) {
                 counter += 1;
             } else {

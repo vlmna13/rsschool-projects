@@ -6,7 +6,6 @@ import { settings } from "../../index.js";
 
 export function previousGame() {
     if(!JSON.parse(localStorage.getItem('settings'))){
-        alert('you do not have saved game')
         return;
     }
 
@@ -15,9 +14,14 @@ export function previousGame() {
         settings[key] = savedSettings[key];
     });
     const audioLeaf = new Audio('./sounds/leaves.mp3');
+    const sound = document.querySelector('.sound');
+
     if(!settings.isMute) {
         audioLeaf.play();
-    };
+        sound.src = './images/sound.svg';
+    } else {
+        sound.src = './images/mute.svg';
+    }
 
     const allLevels = document.querySelectorAll('.level');
     const theme = document.querySelector('.paifang');
@@ -72,9 +76,6 @@ export function previousGame() {
                         leaf.remove();
                         if (leafContainer.children.length === 0) {
                             leafContainer.classList.remove('open');
-                            // if(settings.isMute) {
-                                
-                            // }
                             audioLeaf.pause();
                             audioLeaf.currentTime = 0;
                         }
