@@ -162,7 +162,8 @@ button.active {
 
 .up-clue-line {
     display: flex;
-    flex-direction: column-reverse;
+    /* flex-direction: column-reverse; */
+    flex-direction: column;
     justify-content: end;
     padding-top: 10px;
     
@@ -425,6 +426,10 @@ button.active {
 
 body.green .cross {
     background-image: url('./images/cross-green.svg');
+}
+
+.strike {
+    text-decoration: line-through;
 }
 
 
