@@ -21,7 +21,6 @@ export function showSolution() {
     allCeils.forEach((el) => {
         el.classList.remove('colored');
         el.classList.remove('cross');
-        // el.textContent = '';
         el.removeEventListener('click', userClick);
         el.removeEventListener('contextmenu', removeRightClick);
     });

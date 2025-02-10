@@ -22,22 +22,6 @@ export function createNonogramField(matrix) {
             fieldLine.appendChild(ceil);
             ceil.addEventListener('click', userClick);
             ceil.addEventListener('contextmenu', removeRightClick);
-            // let touchStartTime;
-            // let rightClickCalled = false;
-
-            // ceil.addEventListener('touchstart', (event) => {
-            //     touchStartTime = Date.now();
-            //     rightClickCalled = false;
-            // }, { passive: true });
-
-            // ceil.addEventListener('touchend', (event) => {
-            //     event.preventDefault();
-            //     const touchDuration = Date.now() - touchStartTime;
-            //     if (touchDuration >= 700 && !rightClickCalled) { // 700ms for long press
-            //         rightClick(event, matrix);
-            //         rightClickCalled = true;
-            //     }
-            // }, { passive: true });
         };
     };
     

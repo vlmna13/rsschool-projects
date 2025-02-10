@@ -9,14 +9,12 @@ export function rightClick(event) {
     let audioCross = new Audio('./sounds/cross.mp3');
     if (event.target.classList.contains('colored')) {
         event.target.classList.remove('colored');
-        // event.target.textContent = 'X';
         event.target.classList.add('cross');
         if(!settings.isMute){
             audioCross.play();
         }
         settings.userMatrix[event.target.dataset.row][event.target.dataset.col] = 'X';
     } else if(event.target.classList.contains('cross')){
-        // event.target.textContent = '';
         event.target.classList.remove('cross');
         let audioWhite = new Audio('./sounds/white.mp3');
         if(!settings.isMute){
@@ -24,7 +22,6 @@ export function rightClick(event) {
         }
         settings.userMatrix[event.target.dataset.row][event.target.dataset.col] = 0;
     } else {
-        // event.target.textContent = 'X';
         event.target.classList.add('cross');
         if(!settings.isMute){
             audioCross.play();

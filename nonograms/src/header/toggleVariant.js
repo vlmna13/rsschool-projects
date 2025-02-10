@@ -34,5 +34,4 @@ export function toggleVariant(event) {
     timerWrapper.textContent = '00 : 00'; 
     settings.seconds = 0;
     settings.minutes = 0;
-    // console.log('toggleVarian    ' + settings)
 }
