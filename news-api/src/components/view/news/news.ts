@@ -14,7 +14,7 @@ class News {
             const newsItem = newsClone.querySelector<HTMLElement>('.news__item');
             if (idx % 2 && newsItem) newsItem.classList.add('alt');
             const metaPhoto = newsClone.querySelector<HTMLElement>('.news__meta-photo');
-            if (metaPhoto) metaPhoto.style.backgroundImage = `url(${item.urlToImage || 'img/news_placeholder.jpg'})`;
+            if (metaPhoto) metaPhoto.style.backgroundImage = `url(${item.urlToImage || './img/news_placeholder.jpg'})`;
             const metaAuthor = newsClone.querySelector<HTMLElement>('.news__meta-author');
             if (metaAuthor) metaAuthor.textContent = item.author || item.source.name;
             const metaDate = newsClone.querySelector<HTMLElement>('.news__meta-date');
