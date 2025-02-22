@@ -15,3 +15,11 @@ export interface Article {
     url: string;
     urlToImage: string | null;
 }
+
+export type Categories = {
+    [category: string]: string;
+}
+
+export type CommonClass<T> = {
+    draw(data: T[]): void;
+};

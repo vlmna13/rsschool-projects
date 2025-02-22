@@ -1,7 +1,7 @@
 import './sources.css';
-import { Source } from '../../../utils/index';
+import { Source, CommonClass } from '../../../utils/index';
 
-class Sources {
+class Sources implements CommonClass<Source> {
     public draw(data: Source[]): void {
         const fragment: DocumentFragment = document.createDocumentFragment();
         const sourceItemTemp = document.querySelector<HTMLTemplateElement>('#sourceItemTemp');

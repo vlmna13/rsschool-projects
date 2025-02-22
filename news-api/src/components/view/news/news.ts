@@ -1,8 +1,8 @@
 import './news.css';
-import { Article } from '../../../utils/index';
+import { Article, CommonClass } from '../../../utils/index';
 
-class News {
-    draw(data: Article[]) {
+class News implements CommonClass<Article> {
+    public draw(data: Article[]) {
         const news: Article[] = data.length >= 10 ? data.filter((_item: Article, idx: number) => idx < 10) : data;
         const fragment: DocumentFragment = document.createDocumentFragment();
         const newsItemTemp = document.querySelector<HTMLTemplateElement>('#newsItemTemp');
