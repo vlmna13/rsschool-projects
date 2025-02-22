@@ -58,3 +58,12 @@ export interface RequestOptions {
 export interface RequestCallback {
     (jsonData: ResponseDataSources | ResponseDataArticles): void;
 }
+
+export interface Baseloader {
+    baseLink: string;
+    options: object;
+    getResp(requestOptions: RequestOptions, callback: RequestCallback): void;
+    errorHandler(response: Response): Response;
+    makeUrl(requestOptions: RequestOptions): string;
+    load(method: string, requestOptions: RequestOptions, callback: RequestCallback): void;
+}

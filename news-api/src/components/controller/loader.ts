@@ -1,6 +1,12 @@
-import { RequestOptions, RequestCallback, ResponseDataSources, ResponseDataArticles } from '../../utils/index';
+import {
+    RequestOptions,
+    RequestCallback,
+    ResponseDataSources,
+    ResponseDataArticles,
+    Baseloader,
+} from '../../utils/index';
 
-class Loader {
+class Loader implements Baseloader {
     baseLink: string;
     options: object;
     constructor(baseLink: string, options: object) {
