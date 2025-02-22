@@ -18,8 +18,18 @@ export interface Article {
 
 export type Categories = {
     [category: string]: string;
-}
+};
 
 export type CommonClass<T> = {
     draw(data: T[]): void;
 };
+
+export enum Answers {
+    Ok = 'ok',
+    Error = 'error',
+}
+
+export interface ResponseData<T> {
+    status: Answers;
+    items: T[];
+}
