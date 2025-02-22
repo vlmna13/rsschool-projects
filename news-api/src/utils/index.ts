@@ -11,10 +11,10 @@ export interface Article {
     publishedAt: string;
     title: string;
     url: string;
-    urlToImage: string;
+    urlToImage: string | null;
 }
 
-export type Categories = {
+export type QueryOptions = {
     [category: string]: string;
 };
 
@@ -37,4 +37,24 @@ export interface ResponseDataArticles {
     status: Answers;
     totalResults: number;
     articles: Article[];
+}
+
+export interface ResponseData<Type> {
+    status: string;
+    items: Type[];
+}
+
+export enum EndpointVar {
+    Source = 'sources',
+    News = 'everything',
+}
+
+export interface RequestOptions {
+    endpoint: string;
+    itemsKey: EndpointVar;
+    options?: QueryOptions;
+}
+
+export interface RequestCallback {
+    (jsonData: ResponseDataSources | ResponseDataArticles): void;
 }
