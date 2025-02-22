@@ -4,8 +4,6 @@ export interface Source {
 }
 
 export interface Article {
-    id: string;
-    name: string;
     source: Source;
     author: string | null;
     content: string;
@@ -13,7 +11,7 @@ export interface Article {
     publishedAt: string;
     title: string;
     url: string;
-    urlToImage: string | null;
+    urlToImage: string;
 }
 
 export type Categories = {
@@ -29,7 +27,14 @@ export enum Answers {
     Error = 'error',
 }
 
-export interface ResponseData<T> {
+export interface ResponseDataSources {
     status: Answers;
-    items: T[];
+    totalResults: number;
+    sources: Source[];
+}
+
+export interface ResponseDataArticles {
+    status: Answers;
+    totalResults: number;
+    articles: Article[];
 }
