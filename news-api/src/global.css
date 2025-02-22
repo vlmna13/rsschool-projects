@@ -17,19 +17,31 @@ footer {
     height: 100px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
 }
-footer .copyright {
+
+footer .copyright,
+.developer {
     font-size: 14px;
     color: #333;
     text-align: center;
 }
-footer .copyright a {
+
+footer .copyright a,
+.developer {
     color: #444;
 }
-footer .copyright a:hover {
+
+footer .copyright a:hover,
+.developer:hover {
     color: #555;
 }
+
 footer .copyright:before {
     content: '©';
+}
+
+.rsschool img {
+    width: 64px;
+    height: 64px;
 }
