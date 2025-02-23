@@ -14,7 +14,7 @@ class Loader implements Baseloader {
         this.options = options;
     }
 
-    getResp(requestOptions: RequestOptions, callback: RequestCallback) {
+    getResp(requestOptions: RequestOptions, callback: RequestCallback): void {
         this.load('GET', requestOptions, callback);
     }
 
