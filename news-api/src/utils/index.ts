@@ -1,6 +1,7 @@
 export interface Source {
     id: string;
     name: string;
+    category?: string;
 }
 
 export interface Article {
@@ -19,7 +20,7 @@ export type QueryOptions = {
 };
 
 export type CommonClass<T> = {
-    draw(data: T[]): void;
+    draw(data: T[], category?: string): void;
 };
 
 export enum Answers {
@@ -65,5 +66,5 @@ export interface Baseloader {
 }
 
 export interface RequestCallback {
-    (jsonData: ResponseDataSources | ResponseDataArticles): void;
+    (jsonData: ResponseDataSources | ResponseDataArticles, category?: string): void;
 }
