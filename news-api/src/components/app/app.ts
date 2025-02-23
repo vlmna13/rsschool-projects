@@ -10,13 +10,18 @@ class App {
     }
 
     start() {
-        const callback: RequestCallback = (data) => this.view.drawNews(data as ResponseDataArticles);
-        const clickHandler = (e: Event) => this.controller.getNews(e, callback);
+        const callbackNews: RequestCallback = (data) => this.view.drawNews(data as ResponseDataArticles);
+        const clickHandlerNews = (e: Event) => this.controller.getNews(e, callbackNews);
+        const callbackCategory: RequestCallback = (data) => this.view.drawSources(data as ResponseDataSources);
+        const clickHandlerCategory = (e: Event) => this.controller.getSources(e, callbackCategory);
         if (document) {
+            const categories = document.querySelector<HTMLElement>('.categories');
             const sources = document.querySelector<HTMLElement>('.sources');
-            if (sources) sources.addEventListener('click', clickHandler);
+            if (sources) sources.addEventListener('click', clickHandlerNews);
+            if (categories) categories.addEventListener('click', clickHandlerCategory);
         }
-        this.controller.getSources((data) => this.view.drawSources(data as ResponseDataSources));
+        // this.controller.getSources((data) => this.view.drawSources(data as ResponseDataSources));
+        this.controller.getCategories((data) => this.view.drawCategories(data as ResponseDataSources));
     }
 }
 

@@ -2,7 +2,7 @@ import AppLoader from './appLoader';
 import { RequestCallback, EndpointVar, Baseloader } from '../../utils/index';
 
 class AppController extends AppLoader implements Baseloader {
-    getSources(callback: RequestCallback): void {
+    getCategories(callback: RequestCallback): void {
         super.getResp(
             {
                 endpoint: EndpointVar.Source,
@@ -10,6 +10,44 @@ class AppController extends AppLoader implements Baseloader {
             },
             callback
         );
+    }
+
+    // getSources(callback: RequestCallback): void {
+    //     super.getResp(
+    //         {
+    //             endpoint: EndpointVar.Source,
+    //             itemsKey: EndpointVar.Source,
+    //         },
+    //         callback
+    //     );
+    // }
+
+    getSources(e: Event, callback: RequestCallback): void {
+        let target = e.target;
+        const sourcesContainer = e.currentTarget;
+        if (!sourcesContainer || !(sourcesContainer instanceof HTMLElement)) return;
+        while (target !== sourcesContainer) {
+            if (!target || !(target instanceof HTMLElement)) return;
+            if (target.classList.contains('categories__item')) {
+                const categoriesId = target.getAttribute('data-categories-id');
+                if (!categoriesId) return;
+                if (sourcesContainer.getAttribute('data-category') !== categoriesId) {
+                    sourcesContainer.setAttribute('data-category', categoriesId);
+                    super.getResp(
+                        {
+                            endpoint: EndpointVar.Source,
+                            itemsKey: EndpointVar.Source,
+                            options: {
+                                sources: categoriesId,
+                            },
+                        },
+                        callback
+                    );
+                }
+                return;
+            }
+            target = target.parentNode;
+        }
     }
 
     getNews(e: Event, callback: RequestCallback): void {
