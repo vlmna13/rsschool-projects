@@ -45,3 +45,11 @@ footer .copyright:before {
     width: 64px;
     height: 64px;
 }
+
+.visibility-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+

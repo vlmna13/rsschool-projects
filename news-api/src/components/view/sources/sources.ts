@@ -2,6 +2,9 @@ import './sources.css';
 import { Source, CommonClass } from '../../../utils/index';
 
 class Sources implements CommonClass<Source> {
+    constructor() {
+        this.addToggleSourcesButtonListener();
+    }
     public draw(data: Source[]): void {
         const categoryDiv = document.querySelector<HTMLElement>('[data-category]');
         if (!categoryDiv) return;
@@ -29,6 +32,23 @@ class Sources implements CommonClass<Source> {
                 sources.innerHTML = '';
                 sources.append(fragment);
             }
+        }
+        const toggleButton = document.querySelector<HTMLElement>('.toggle-visibility');
+        if (toggleButton) {
+            toggleButton.classList.add('active');
+        }
+    }
+    private addToggleSourcesButtonListener(): void {
+        const toggleButton = document.querySelector<HTMLElement>('.toggle-visibility');
+        if (toggleButton) {
+            toggleButton.addEventListener('click', () => {
+                const sources = document.querySelector<HTMLElement>('.sources');
+                if (sources) {
+                    const isHidden = sources.style.display === 'none';
+                    sources.style.display = isHidden ? 'flex' : 'none';
+                    toggleButton.textContent = isHidden ? 'Hide Sources' : 'Show Sources';
+                }
+            });
         }
     }
 }
