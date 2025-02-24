@@ -1,15 +1,15 @@
 import AppController from '../controller/controller';
 import { AppView } from '../view/appView';
-import { ResponseDataArticles, RequestCallback, ResponseDataSources } from '../../utils/index';
+import { ResponseDataArticles, RequestCallback, ResponseDataSources } from '../../utils/utiles';
 class App {
-    controller: AppController;
-    view: AppView;
+    private controller: AppController;
+    private view: AppView;
     constructor() {
         this.controller = new AppController();
         this.view = new AppView();
     }
 
-    start() {
+    public start() {
         const callbackNews: RequestCallback = (data) => this.view.drawNews(data as ResponseDataArticles);
         const clickHandlerNews = (e: Event) => this.controller.getNews(e, callbackNews);
         const callbackCategory: RequestCallback = (data) => this.view.drawSources(data as ResponseDataSources);

@@ -1,5 +1,5 @@
 import './sources.css';
-import { Source, CommonClass } from '../../../utils/index';
+import { Source, CommonClass } from '../../../utils/utiles';
 
 class Sources implements CommonClass<Source> {
     constructor() {

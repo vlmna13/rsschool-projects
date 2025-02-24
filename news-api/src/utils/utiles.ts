@@ -56,15 +56,6 @@ export interface RequestOptions {
     options?: QueryOptions;
 }
 
-export interface Baseloader {
-    baseLink: string;
-    options: object;
-    getResp(requestOptions: RequestOptions, callback: RequestCallback): void;
-    errorHandler(response: Response): Response;
-    makeUrl(requestOptions: RequestOptions): string;
-    load(method: string, requestOptions: RequestOptions, callback: RequestCallback): void;
-}
-
 export interface RequestCallback {
     (jsonData: ResponseDataSources | ResponseDataArticles, category?: string): void;
 }

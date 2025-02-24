@@ -1,24 +1,18 @@
-import {
-    RequestOptions,
-    RequestCallback,
-    ResponseDataSources,
-    ResponseDataArticles,
-    Baseloader,
-} from '../../utils/index';
+import { RequestOptions, RequestCallback, ResponseDataSources, ResponseDataArticles } from '../../utils/utiles';
 
-class Loader implements Baseloader {
-    baseLink: string;
-    options: object;
+class Loader {
+    public baseLink: string;
+    public options: object;
     constructor(baseLink: string, options: object) {
         this.baseLink = baseLink;
         this.options = options;
     }
 
-    getResp(requestOptions: RequestOptions, callback: RequestCallback): void {
+    public getResp(requestOptions: RequestOptions, callback: RequestCallback): void {
         this.load('GET', requestOptions, callback);
     }
 
-    errorHandler(response: Response): Response {
+    protected errorHandler(response: Response): Response {
         if (!response.ok) {
             if (response.status === 401 || response.status === 404)
                 console.log(`Sorry, but there is ${response.status} error: ${response.statusText}`);
@@ -27,7 +21,7 @@ class Loader implements Baseloader {
         return response;
     }
 
-    makeUrl({ options, endpoint }: RequestOptions) {
+    protected makeUrl({ options, endpoint }: RequestOptions) {
         const urlOptions = { ...this.options, ...options };
         let url: string = `${this.baseLink}${endpoint}?`;
         Object.keys(urlOptions).forEach((key: string) => {
@@ -36,7 +30,7 @@ class Loader implements Baseloader {
         return url.slice(0, -1);
     }
 
-    load(method: string, requestOptions: RequestOptions, callback: RequestCallback) {
+    protected load(method: string, requestOptions: RequestOptions, callback: RequestCallback) {
         fetch(this.makeUrl(requestOptions), { method })
             .then((response) => this.errorHandler(response))
             .then((response) => response.json())

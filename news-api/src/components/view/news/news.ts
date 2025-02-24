@@ -1,5 +1,5 @@
 import './news.css';
-import { Article, CommonClass } from '../../../utils/index';
+import { Article, CommonClass } from '../../../utils/utiles';
 
 class News implements CommonClass<Article> {
     public draw(data: Article[]): void {

@@ -1,8 +1,8 @@
 import AppLoader from './appLoader';
-import { RequestCallback, EndpointVar, Baseloader } from '../../utils/index';
+import { RequestCallback, EndpointVar } from '../../utils/utiles';
 
-class AppController extends AppLoader implements Baseloader {
-    getCategories(callback: RequestCallback): void {
+class AppController extends AppLoader {
+    public getCategories(callback: RequestCallback): void {
         super.getResp(
             {
                 endpoint: EndpointVar.Source,
@@ -12,17 +12,7 @@ class AppController extends AppLoader implements Baseloader {
         );
     }
 
-    // getSources(callback: RequestCallback): void {
-    //     super.getResp(
-    //         {
-    //             endpoint: EndpointVar.Source,
-    //             itemsKey: EndpointVar.Source,
-    //         },
-    //         callback
-    //     );
-    // }
-
-    getSources(e: Event, callback: RequestCallback): void {
+    public getSources(e: Event, callback: RequestCallback): void {
         let target = e.target;
         const sourcesContainer = e.currentTarget;
         if (!sourcesContainer || !(sourcesContainer instanceof HTMLElement)) return;
@@ -50,7 +40,7 @@ class AppController extends AppLoader implements Baseloader {
         }
     }
 
-    getNews(e: Event, callback: RequestCallback): void {
+    public getNews(e: Event, callback: RequestCallback): void {
         let target = e.target;
         const newsContainer = e.currentTarget;
         if (!newsContainer || !(newsContainer instanceof HTMLElement)) return;

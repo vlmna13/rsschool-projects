@@ -1,5 +1,5 @@
 import './categories.css';
-import { Source, CommonClass } from '../../../utils/index';
+import { Source, CommonClass } from '../../../utils/utiles';
 
 class Categories implements CommonClass<Source> {
     public draw(data: Source[]): void {
