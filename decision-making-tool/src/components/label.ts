@@ -1,15 +1,17 @@
-import Creator from '../util/creator';
-import { LabelParams } from '../util/types';
+import { createElement } from '../utils/createElement';
+import './componentsStyles.css';
 
-export default class Label extends Creator<HTMLLabelElement> {
-  constructor(params: LabelParams) {
-    super({
-      tag: 'label',
-      classNames: params.classNames,
-      textContent: params.textContent,
-    });
+interface LabelOptions {
+  textContent: string;
+  htmlFor: string;
+}
 
-    const element = this.getElement();
-    element.htmlFor = params.htmlFor;
-  }
+export function createLabel(options: LabelOptions): HTMLLabelElement {
+  const label = createElement<HTMLLabelElement>({
+    tag: 'label',
+    classNames: ['label'],
+    textContent: options.textContent,
+  });
+  label.htmlFor = options.htmlFor;
+  return label;
 }

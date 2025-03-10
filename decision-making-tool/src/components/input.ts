@@ -1,28 +1,48 @@
-import Creator from '../util/creator';
-import { defaultInputValue, InputParams } from '../util/types';
+import { createElement } from '../utils/createElement';
+import './componentsStyles.css';
 
-export default class Input extends Creator<HTMLInputElement> {
-  constructor(params: InputParams) {
-    super({
-      tag: 'input',
-      classNames: ['input'],
-    });
+export enum choice {
+  title = 'Title',
+  weight = 'Weight',
+}
 
-    const element = this.getElement();
-    element.id = params.id;
-    element.value = '';
-    element.placeholder = params.placeholder || defaultInputValue.title;
+export interface InputOptions {
+  id: string;
+  value: string;
+  placeholder: choice;
+  name: choice;
+  type?: 'number';
+  events?: { [key: string]: (element: HTMLInputElement, event: Event) => void };
+}
 
-    if (params.type === 'number') {
-      element.type = 'number';
-      element.addEventListener('input', this.validateNumberInput);
-    }
+export function validateNumberInput(
+  this: HTMLInputElement,
+  event: Event,
+): void {
+  const value = this.value;
+  if (!/^[\d.,]*$/.test(value)) {
+    this.value = value.replace(/[^\d.,]/g, '');
   }
-  private validateNumberInput(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    const value = input.value;
-    if (!/^\d*$/.test(value)) {
-      input.value = value.replace(/[^\d]/g, '');
-    }
+}
+
+export function createInput(options: InputOptions): HTMLInputElement {
+  const input = createElement<HTMLInputElement>({
+    tag: 'input',
+    classNames:
+      options.type === 'number'
+        ? ['label', 'number-input']
+        : ['label', 'text-input'],
+  });
+
+  input.id = options.id;
+  input.value = options.value;
+  input.placeholder = options.placeholder;
+  input.name = options.name;
+  input.type = options.type || 'text';
+
+  if (options.type === 'number') {
+    input.addEventListener('input', validateNumberInput);
   }
+
+  return input;
 }
