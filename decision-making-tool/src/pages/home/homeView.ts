@@ -4,26 +4,15 @@ import {
   createButtonClear,
   createButtonInsert,
 } from './buttonsInteraction';
-import { createMain } from './main';
+import { createMain } from './mainElement';
 import { createTasksList } from './tasksList';
-import { createTaskWrapper } from './taskWrapper';
 import { initState } from '../../utils/functionInit';
 
 export function homeView() {
   const data = initState();
-  console.log(data);
   const main = createMain();
   const header = createHeader();
-  const tasksList = createTasksList();
-  data.optionsList.list.forEach((item) => {
-    const taskWrapper = createTaskWrapper({
-      id: item.id,
-      title: item.title,
-      weight: item.weight,
-    });
-
-    tasksList.appendChild(taskWrapper);
-  });
+  const tasksList = createTasksList(data.optionsList.list);
 
   main.appendChild(header);
   main.appendChild(tasksList);
