@@ -1,0 +1,44 @@
+.main-container {
+  display: grid;
+  grid-template:
+    'heading heading' min-content
+    'option-list option-list' min-content
+    'add-option-button add-option-button' min-content
+    'paste-list-button paste-list-button' min-content
+    'clear-list-button clear-list-button' min-content
+    'save-list-button load-list-button' min-content
+    'start-button start-button' min-content / 1fr 1fr;
+  gap: 1rem;
+
+  width: 100%;
+  max-width: 48rem;
+  margin-inline: auto;
+  padding: 1rem;
+}
+
+.task-wrapper {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+
+  padding: 0.6rem 0.8rem;
+  border-radius: 0.5rem;
+
+  background-image: linear-gradient(#66baba, #005454);
+}
+
+.header {
+  grid-area: heading;
+  color: #e6f4f4;
+  text-align: center;
+  text-shadow: 0 0 0.25rem #e6f4f4;
+}
+
+.tasks-list {
+  display: flex;
+  grid-area: option-list;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  padding-left: 0;
+}
