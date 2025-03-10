@@ -4,4 +4,4 @@ cd decision-making-tool
 # npx prettier --write .
 # npx eslint --fix .
 # npx stylelint --fix "**/*.{css,scss}"
-npm run format
+npx lint-staged
