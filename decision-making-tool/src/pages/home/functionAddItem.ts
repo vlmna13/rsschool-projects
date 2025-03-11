@@ -8,11 +8,11 @@ export function addItem(taskList: HTMLUListElement) {
     return;
   }
   const data: DecisionState = JSON.parse(storedState);
-  const lastId = data.optionsList.lastId;
-  const newTask: TaskWrapperOptions = { id: (lastId +1).toString(), title: '', weight: '' };
+  const newId = data.optionsList.lastId + 1;
+  const newTask: TaskWrapperOptions = { id: newId.toString(), title: '', weight: '' };
 
-  data.optionsList.list[lastId] = newTask;
-  data.optionsList.lastId = lastId + 1;
+  data.optionsList.list[newTask.id] = newTask;
+  data.optionsList.lastId = newId;
   localStorage.setItem('decisionState', JSON.stringify(data));
 
   const taskWrapper = createTaskWrapper(newTask);
