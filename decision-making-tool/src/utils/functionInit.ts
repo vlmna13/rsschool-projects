@@ -1,6 +1,6 @@
 export interface DecisionState {
   optionsList: {
-    list: { id: string; title: string; weight: string }[];
+    list: { [id: string]: { id: string; title: string; weight: string } };
     lastId: number;
   };
 }
@@ -8,7 +8,9 @@ export interface DecisionState {
 export function initState(): DecisionState {
   const defaultState: DecisionState = {
     optionsList: {
-      list: [{ id: '#1', title: '', weight: '' }],
+      list: {
+        '1': { id: '1', title: '', weight: '' },
+      },
       lastId: 1,
     },
   };

@@ -1,5 +1,6 @@
 import { createElement } from '../utils/createElement';
 import './componentsStyles.css';
+import { whatchInputChange } from '../pages/home/functionChangeInput';
 
 export enum choice {
   title = 'Title',
@@ -33,16 +34,14 @@ export function createInput(options: InputOptions): HTMLInputElement {
         ? ['label', 'number-input']
         : ['label', 'text-input'],
   });
-
   input.id = options.id;
   input.value = options.value;
   input.placeholder = options.placeholder;
   input.name = options.name;
   input.type = options.type || 'text';
-
   if (options.type === 'number') {
     input.addEventListener('input', validateNumberInput);
   }
-
+  input.addEventListener('keyup', () => whatchInputChange(input))
   return input;
 }

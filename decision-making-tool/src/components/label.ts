@@ -10,7 +10,7 @@ export function createLabel(options: LabelOptions): HTMLLabelElement {
   const label = createElement<HTMLLabelElement>({
     tag: 'label',
     classNames: ['label'],
-    textContent: options.textContent,
+    textContent: '#' + options.textContent,
   });
   label.htmlFor = options.htmlFor;
   return label;

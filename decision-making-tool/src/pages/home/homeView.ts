@@ -3,20 +3,21 @@ import {
   createButtonAdd,
   createButtonClear,
   createButtonInsert,
-} from './buttonsInteraction';
-import { createMain } from './mainElement';
-import { createTasksList } from './tasksList';
+} from './homeComponents/buttonsInteraction';
+import { createMain } from './homeComponents/mainElement';
+import { createTasksList } from './homeComponents/tasksList';
 import { initState } from '../../utils/functionInit';
+import { addItem } from './functionAddItem';
 
 export function homeView() {
   const data = initState();
   const main = createMain();
   const header = createHeader();
-  const tasksList = createTasksList(data.optionsList.list);
-
+  const tasksList = createTasksList(Object.values(data.optionsList.list));
   main.appendChild(header);
   main.appendChild(tasksList);
   const buttonAdd = createButtonAdd();
+  buttonAdd.addEventListener('click', () => addItem(tasksList));
   main.appendChild(buttonAdd);
   const buttonInsert = createButtonInsert();
   main.appendChild(buttonInsert);
