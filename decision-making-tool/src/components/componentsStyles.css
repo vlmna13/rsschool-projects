@@ -27,5 +27,9 @@
   padding: 0.5rem;
   border-radius: 0.2rem;
 
+  color: #e6f4f4;
   text-align: center;
+
+  background-image: linear-gradient(#66baba, #005454);
+  box-shadow: 0 0 0.25rem 0.1rem #008c8c;
 }

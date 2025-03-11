@@ -42,3 +42,22 @@
 
   padding-left: 0;
 }
+
+.button-add {
+  grid-area: add-option-button;
+}
+
+.button-insert {
+  grid-area: paste-list-button;
+}
+
+.button-clear {
+  grid-area: clear-list-button;
+}
+
+.text-input {
+  flex-grow: 1;
+  width: 100%;
+  min-width: 5rem;
+  color: #e6f4f4;
+}
