@@ -1,10 +1,7 @@
 import { createElement } from '../../../utils/createElement';
 import '../home.css';
 import '../../../components/componentsStyles.css';
-
 export function pastList() {}
-
-export function clearList() {}
 
 export function createButtonDelete(): HTMLButtonElement {
   const buttonDelete = createElement<HTMLButtonElement>({
@@ -41,9 +38,6 @@ export function createButtonClear(): HTMLButtonElement {
     tag: 'button',
     classNames: ['button', 'button-clear'],
     textContent: 'Clear',
-    events: {
-      click: clearList,
-    },
   });
   return buttonClear;
 }

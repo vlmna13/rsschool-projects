@@ -14,7 +14,7 @@ export interface TaskWrapperOptions {
 export function createTaskWrapper(options: TaskWrapperOptions): HTMLLIElement {
   const taskWrapper = createElement<HTMLLIElement>({
     tag: 'li',
-    classNames: ['task-wrapper' ],
+    classNames: ['task-wrapper'],
   });
   taskWrapper.dataset.index = options.id;
 
@@ -39,7 +39,7 @@ export function createTaskWrapper(options: TaskWrapperOptions): HTMLLIElement {
   });
 
   const buttonDelete = createButtonDelete();
-  buttonDelete.addEventListener('click', () => deleteItem(taskWrapper))
+  buttonDelete.addEventListener('click', () => deleteItem(taskWrapper));
 
   taskWrapper.appendChild(label);
   taskWrapper.appendChild(inputTitle);
