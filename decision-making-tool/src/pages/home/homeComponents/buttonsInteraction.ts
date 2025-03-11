@@ -1,24 +1,16 @@
 import { createElement } from '../../../utils/createElement';
 import '../home.css';
 import '../../../components/componentsStyles.css';
-import { addItem } from '../functionAddItem';
 
 export function pastList() {}
 
 export function clearList() {}
-
-export function deleteItem(element: HTMLButtonElement, event: Event): void {
-  console.log();
-}
 
 export function createButtonDelete(): HTMLButtonElement {
   const buttonDelete = createElement<HTMLButtonElement>({
     tag: 'button',
     classNames: ['button', 'button-delete'],
     textContent: 'Delete',
-    events: {
-      click: deleteItem,
-    },
   });
   return buttonDelete;
 }

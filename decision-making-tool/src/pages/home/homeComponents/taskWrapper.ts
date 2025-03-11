@@ -3,6 +3,7 @@ import '../home.css';
 import { createLabel } from '../../../components/label';
 import { createInput, choice } from '../../../components/input';
 import { createButtonDelete } from './buttonsInteraction';
+import { deleteItem } from '../functiomDeleteItem';
 
 export interface TaskWrapperOptions {
   id: string;
@@ -13,8 +14,9 @@ export interface TaskWrapperOptions {
 export function createTaskWrapper(options: TaskWrapperOptions): HTMLLIElement {
   const taskWrapper = createElement<HTMLLIElement>({
     tag: 'li',
-    classNames: ['task-wrapper'],
+    classNames: ['task-wrapper' ],
   });
+  taskWrapper.dataset.index = options.id;
 
   const label = createLabel({
     textContent: options.id,
@@ -37,6 +39,7 @@ export function createTaskWrapper(options: TaskWrapperOptions): HTMLLIElement {
   });
 
   const buttonDelete = createButtonDelete();
+  buttonDelete.addEventListener('click', () => deleteItem(taskWrapper))
 
   taskWrapper.appendChild(label);
   taskWrapper.appendChild(inputTitle);
