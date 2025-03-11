@@ -8,6 +8,7 @@ import { createMain } from './homeComponents/mainElement';
 import { createTasksList } from './homeComponents/tasksList';
 import { initState } from '../../utils/functionInit';
 import { addItem } from './functionAddItem';
+import { clearList } from './functionClearList';
 
 export function homeView() {
   const data = initState();
@@ -22,6 +23,7 @@ export function homeView() {
   const buttonInsert = createButtonInsert();
   main.appendChild(buttonInsert);
   const buttonClear = createButtonClear();
+  buttonClear.addEventListener('click', () => clearList(tasksList));
   main.appendChild(buttonClear);
   document.body.appendChild(main);
 }
