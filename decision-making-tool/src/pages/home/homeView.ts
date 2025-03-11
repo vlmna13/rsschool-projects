@@ -9,6 +9,11 @@ import { createTasksList } from './homeComponents/tasksList';
 import { initState } from '../../utils/functionInit';
 import { addItem } from './functionAddItem';
 import { clearList } from './functionClearList';
+import {
+  createLoadFileButton,
+  createSaveFileButton,
+} from './homeComponents/buttonsUserControl';
+import { saveFile } from './functionSaveFile';
 
 export function homeView() {
   const data = initState();
@@ -25,5 +30,10 @@ export function homeView() {
   const buttonClear = createButtonClear();
   buttonClear.addEventListener('click', () => clearList(tasksList));
   main.appendChild(buttonClear);
+  const buttonSave = createSaveFileButton();
+  buttonSave.addEventListener('click', saveFile);
+  main.appendChild(buttonSave);
+  const buttonLoad = createLoadFileButton();
+  main.appendChild(buttonLoad);
   document.body.appendChild(main);
 }

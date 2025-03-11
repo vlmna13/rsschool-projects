@@ -55,6 +55,14 @@
   grid-area: clear-list-button;
 }
 
+.button-save {
+  grid-area: save-list-button;
+}
+
+.button-load {
+  grid-area: load-list-button;
+}
+
 .text-input {
   flex-grow: 1;
   width: 100%;
