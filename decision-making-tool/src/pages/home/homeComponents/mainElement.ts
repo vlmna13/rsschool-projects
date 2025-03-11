@@ -1,5 +1,5 @@
-import './home.css';
-import { createElement } from '../../utils/createElement';
+import '../home.css';
+import { createElement } from '../../../utils/createElement';
 
 export function createMain(): HTMLElement {
   const main = createElement<HTMLElement>({

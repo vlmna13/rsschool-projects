@@ -1,7 +1,7 @@
-import { createElement } from '../../utils/createElement';
-import './home.css';
-import '../../components/componentsStyles.css';
-import { addItem } from './functionAddItem';
+import { createElement } from '../../../utils/createElement';
+import '../home.css';
+import '../../../components/componentsStyles.css';
+import { addItem } from '../functionAddItem';
 
 export function pastList() {}
 
@@ -28,9 +28,6 @@ export function createButtonAdd(): HTMLButtonElement {
     tag: 'button',
     classNames: ['button', 'button-add'],
     textContent: 'Add Option',
-    events: {
-      click: addItem,
-    },
   });
   return buttonAdd;
 }

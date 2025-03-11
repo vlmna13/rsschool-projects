@@ -1,7 +1,7 @@
-import { createElement } from '../../utils/createElement';
-import './home.css';
-import { createLabel } from '../../components/label';
-import { createInput, choice } from '../../components/input';
+import { createElement } from '../../../utils/createElement';
+import '../home.css';
+import { createLabel } from '../../../components/label';
+import { createInput, choice } from '../../../components/input';
 import { createButtonDelete } from './buttonsInteraction';
 
 export interface TaskWrapperOptions {
@@ -18,11 +18,11 @@ export function createTaskWrapper(options: TaskWrapperOptions): HTMLLIElement {
 
   const label = createLabel({
     textContent: options.id,
-    htmlFor: `task-input-${options.id}`,
+    htmlFor: `title-input-${options.id}`,
   });
 
   const inputTitle = createInput({
-    id: `task-input-${options.id}`,
+    id: `title-input-${options.id}`,
     value: options.title,
     placeholder: choice.title,
     name: choice.title,

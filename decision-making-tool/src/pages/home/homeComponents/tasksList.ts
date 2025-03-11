@@ -1,5 +1,5 @@
-import { createElement } from '../../utils/createElement';
-import './home.css';
+import { createElement } from '../../../utils/createElement';
+import '../home.css';
 import { createTaskWrapper } from './taskWrapper';
 
 export interface TaskWrapperOptions {
