@@ -1,3 +1,15 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  min-height: 100dvh;
+
+  color: #e6f4f4;
+
+  background-color: #008c8c;
+}
+
 .main-container {
   display: grid;
   grid-template:
@@ -67,5 +79,77 @@
   flex-grow: 1;
   width: 100%;
   min-width: 5rem;
+  color: inherit;
+}
+
+.dialog-wrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  max-width: calc(100% - 2em - 6px);
+  height: 100%;
+  max-height: calc(100% - 2em - 6px);
+  padding: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+
+  background-color: transparent;
+}
+
+.dialog-wrapper[open] {
+  display: flex;
+}
+
+.dialog-wrapper::backdrop {
+  /* -webkit-backdrop-filter: blur(0.1875rem); */
+  backdrop-filter: blur(0.1875rem);
+  transition-duration: 0.25ms;
+  transition-property: backdrop-filter;
+}
+
+.form-element {
+  display: grid;
+  grid-template:
+    'textarea textarea' min-content
+    'cancel confirm' min-content / 1fr 1fr;
+  gap: 1rem;
+
+  margin-inline: auto;
+  padding: 1rem;
+  border-radius: 0.5rem;
+
+  background-color: #66baba;
+  box-shadow: 0 0 0.25rem 0.1rem #99d1d1;
+}
+
+.textarea-element {
+  grid-area: textarea;
+
+  padding: 0.5rem;
+  border: none;
+
+  line-height: normal;
   color: #e6f4f4;
+
+  background-color: #003838;
+  outline: none;
+  box-shadow: 0 0 0.25rem 0.1rem #99d1d1;
+
+  transition-duration: 0.25ms;
+  transition-property: box-shadow;
+}
+
+.button-cancel {
+  grid-area: cancel;
+}
+
+.button-confirm {
+  grid-area: confirm;
 }
