@@ -9,6 +9,16 @@ export function createDialog(): HTMLDialogElement {
     classNames: ['dialog-wrapper'],
   });
 
+  dialog.addEventListener('close', () => {
+    dialog.remove();
+    document.body.style.overflow = 'auto';
+  });
+
+  dialog.addEventListener('click', () => {
+    dialog.remove();
+    document.body.style.overflow = 'auto';
+  })
+
   const form = createElement<HTMLFormElement>({
     tag: 'form',
     classNames: ['form-element'],
@@ -29,19 +39,13 @@ export function createDialog(): HTMLDialogElement {
   textareaElement.cols = 64;
   form.appendChild(textareaElement);
 
-  const buttonCancel = createButtonClose();
+  const buttonCancel = createButtonClose(dialog);
 
   form.appendChild(buttonCancel);
   document.body.style.overflow = 'hidden';
-  buttonCancel.addEventListener('click', () => {
-    dialog.close();
-    document.body.style.overflow = 'auto';
-  });
   const buttonConfirm = createButtonConfirm();
   form.appendChild(buttonConfirm);
   document.body.appendChild(dialog);
   dialog.showModal();
-  document.body.style.overflow = 'hidden';
-
   return dialog;
 }
