@@ -3,8 +3,11 @@ import '../home.css';
 import '../../../components/componentsStyles.css';
 import { createButtonClose, createButtonConfirm } from './buttonsDialog';
 import { createDialogElement } from './dialogElement';
+import { userInsertInput } from '../functionUserInsertInput';
 
-export function createDialogWrapper(): HTMLDialogElement {
+export function createDialogWrapper(
+  taskList: HTMLUListElement,
+): HTMLDialogElement {
   const dialog = createDialogElement();
   const form = createElement<HTMLFormElement>({
     tag: 'form',
@@ -27,10 +30,13 @@ export function createDialogWrapper(): HTMLDialogElement {
   form.appendChild(textareaElement);
 
   const buttonCancel = createButtonClose(dialog);
-
   form.appendChild(buttonCancel);
   document.body.style.overflow = 'hidden';
+
   const buttonConfirm = createButtonConfirm();
+  buttonConfirm.addEventListener('click', () => {
+    userInsertInput(taskList, textareaElement);
+  });
   form.appendChild(buttonConfirm);
   document.body.appendChild(dialog);
   dialog.showModal();
