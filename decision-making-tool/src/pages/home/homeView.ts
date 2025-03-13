@@ -15,6 +15,7 @@ import {
 } from './homeComponents/buttonsUserControl';
 import { saveFile } from './functionSaveFile';
 import { loadFile } from './functionLoadFile';
+import { createDialogWrapper } from './homeComponents/dialogWrapper';
 
 export function homeView() {
   const data = initState();
@@ -28,6 +29,9 @@ export function homeView() {
   main.appendChild(buttonAdd);
   const buttonInsert = createButtonInsert();
   main.appendChild(buttonInsert);
+  buttonInsert.addEventListener('click', () => {
+    createDialogWrapper(tasksList);
+  });
   const buttonClear = createButtonClear();
   buttonClear.addEventListener('click', () => clearList(tasksList));
   main.appendChild(buttonClear);
@@ -37,5 +41,8 @@ export function homeView() {
   const buttonLoad = createLoadFileButton();
   buttonLoad.addEventListener('click', () => loadFile(tasksList));
   main.appendChild(buttonLoad);
+  while (document.body.firstChild) {
+    document.body.removeChild(document.body.firstChild);
+  }
   document.body.appendChild(main);
 }
