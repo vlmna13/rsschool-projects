@@ -1,7 +1,7 @@
 import { createElement } from '../../../utils/createElement';
 import '../home.css';
 import '../../../components/componentsStyles.css';
-export function pastList() {}
+import { createDialogWrapper } from './dialogWrapper';
 
 export function createButtonDelete(): HTMLButtonElement {
   const buttonDelete = createElement<HTMLButtonElement>({
@@ -27,7 +27,7 @@ export function createButtonInsert(): HTMLButtonElement {
     classNames: ['button', 'button-insert'],
     textContent: 'Past List',
     events: {
-      click: pastList,
+      click: createDialogWrapper,
     },
   });
   return buttonInsert;

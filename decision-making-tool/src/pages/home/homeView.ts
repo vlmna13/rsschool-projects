@@ -14,6 +14,7 @@ import {
   createSaveFileButton,
 } from './homeComponents/buttonsUserControl';
 import { saveFile } from './functionSaveFile';
+import { loadFile } from './functionLoadFile';
 
 export function homeView() {
   const data = initState();
@@ -34,6 +35,7 @@ export function homeView() {
   buttonSave.addEventListener('click', saveFile);
   main.appendChild(buttonSave);
   const buttonLoad = createLoadFileButton();
+  buttonLoad.addEventListener('click', () => loadFile(tasksList));
   main.appendChild(buttonLoad);
   document.body.appendChild(main);
 }
