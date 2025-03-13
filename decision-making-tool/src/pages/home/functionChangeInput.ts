@@ -1,13 +1,13 @@
-import { DecisionState } from "../../utils/functionInit";
+import { DecisionState } from '../../utils/functionInit';
 
 export function whatchInputChange(input: HTMLInputElement): void {
   let dataString = localStorage.getItem('decisionState');
-  if(!dataString){
+  if (!dataString) {
     return;
   }
   const data: DecisionState = JSON.parse(dataString);
   const idPart = input.id.substring(input.id.lastIndexOf('-') + 1);
-  const typePart = input.id.substring(0, input.id.indexOf('-')); 
+  const typePart = input.id.substring(0, input.id.indexOf('-'));
 
   if (data.optionsList.list[idPart]) {
     if (typePart === 'title') {

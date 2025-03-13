@@ -3,7 +3,7 @@ import '../home.css';
 import { createLabel } from '../../../components/label';
 import { createInput, choice } from '../../../components/input';
 import { createButtonDelete } from './buttonsInteraction';
-import { deleteItem } from '../functiomDeleteItem';
+import { deleteItem } from '../functionDeleteItem';
 
 export interface TaskWrapperOptions {
   id: string;

@@ -2,23 +2,10 @@ import { createElement } from '../../../utils/createElement';
 import '../home.css';
 import '../../../components/componentsStyles.css';
 import { createButtonClose, createButtonConfirm } from './buttonsDialog';
+import { createDialogElement } from './dialogElement';
 
-export function createDialog(): HTMLDialogElement {
-  const dialog = createElement<HTMLDialogElement>({
-    tag: 'dialog',
-    classNames: ['dialog-wrapper'],
-  });
-
-  dialog.addEventListener('close', () => {
-    dialog.remove();
-    document.body.style.overflow = 'auto';
-  });
-
-  dialog.addEventListener('click', () => {
-    dialog.remove();
-    document.body.style.overflow = 'auto';
-  })
-
+export function createDialogWrapper(): HTMLDialogElement {
+  const dialog = createDialogElement();
   const form = createElement<HTMLFormElement>({
     tag: 'form',
     classNames: ['form-element'],

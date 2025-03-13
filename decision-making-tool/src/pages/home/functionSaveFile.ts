@@ -6,6 +6,7 @@ export function saveFile() {
     return;
   }
   const data: DecisionState = JSON.parse(stringData);
+
   const jsonString = JSON.stringify(data, null, 2); //Преобразуем данные в строку JSON с отступами для удобства чтения.
   const blob = new Blob([jsonString], { type: 'application/json' }); //Создаем объект Blob из строки JSON.
   const url = URL.createObjectURL(blob); //Создаем URL для объекта Blob.

@@ -4,12 +4,16 @@ import { TaskWrapperOptions } from './homeComponents/taskWrapper';
 
 export function addItem(taskList: HTMLUListElement) {
   const storedState = localStorage.getItem('decisionState');
-  if(!storedState) {
+  if (!storedState) {
     return;
   }
   const data: DecisionState = JSON.parse(storedState);
   const newId = data.optionsList.lastId + 1;
-  const newTask: TaskWrapperOptions = { id: newId.toString(), title: '', weight: '' };
+  const newTask: TaskWrapperOptions = {
+    id: newId.toString(),
+    title: '',
+    weight: '',
+  };
 
   data.optionsList.list[newTask.id] = newTask;
   data.optionsList.lastId = newId;

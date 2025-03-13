@@ -1,12 +1,6 @@
 import { createElement } from '../../../utils/createElement';
 import '../home.css';
-import { createTaskWrapper } from './taskWrapper';
-
-export interface TaskWrapperOptions {
-  id: string;
-  title: string;
-  weight: string;
-}
+import { createTaskWrapper, TaskWrapperOptions } from './taskWrapper';
 
 export function createTasksList(tasks: TaskWrapperOptions[]): HTMLUListElement {
   const tasksList = createElement<HTMLUListElement>({

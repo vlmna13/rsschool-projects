@@ -31,8 +31,8 @@ export function createInput(options: InputOptions): HTMLInputElement {
     tag: 'input',
     classNames:
       options.type === 'number'
-        ? ['label', 'number-input']
-        : ['label', 'text-input'],
+        ? ['input', 'number-input']
+        : ['input', 'text-input'],
   });
   input.id = options.id;
   input.value = options.value;
@@ -42,6 +42,6 @@ export function createInput(options: InputOptions): HTMLInputElement {
   if (options.type === 'number') {
     input.addEventListener('input', validateNumberInput);
   }
-  input.addEventListener('keyup', () => whatchInputChange(input))
+  input.addEventListener('keyup', () => whatchInputChange(input));
   return input;
 }
