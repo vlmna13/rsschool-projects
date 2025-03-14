@@ -88,7 +88,7 @@ body {
 
 .dialog-wrapper {
   position: fixed;
-  top: 50%;
+  top: 100%;
   left: 50%;
   transform: translate(-50%, -50%);
 
@@ -119,10 +119,7 @@ body:has(.dialog-wrapper[open]) {
 }
 
 .dialog-wrapper::backdrop {
-  /* -webkit-backdrop-filter: blur(0.1875rem); */
   backdrop-filter: blur(0.1875rem);
-  transition-duration: 0.25ms;
-  transition-property: backdrop-filter;
 }
 
 .form-element {
@@ -152,9 +149,6 @@ body:has(.dialog-wrapper[open]) {
   background-color: #003838;
   outline: none;
   box-shadow: 0 0 0.25rem 0.1rem #99d1d1;
-
-  transition-duration: 0.25ms;
-  transition-property: box-shadow;
 }
 
 .button-cancel {

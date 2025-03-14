@@ -35,7 +35,7 @@ export function createDialogWrapper(
 
   const buttonConfirm = createButtonConfirm();
   buttonConfirm.addEventListener('click', () => {
-    userInsertInput(taskList, textareaElement);
+    userInsertInput(taskList, textareaElement, dialog);
   });
   form.appendChild(buttonConfirm);
   document.body.appendChild(dialog);
