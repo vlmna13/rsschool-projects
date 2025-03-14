@@ -31,7 +31,7 @@ export function createDialogWrapper(
 
   const buttonCancel = createButtonClose(dialog);
   form.appendChild(buttonCancel);
-  document.body.style.overflow = 'hidden';
+  // document.body.style.overflow = 'hidden';
 
   const buttonConfirm = createButtonConfirm();
   buttonConfirm.addEventListener('click', () => {
@@ -42,3 +42,4 @@ export function createDialogWrapper(
   dialog.showModal();
   return dialog;
 }
+export { createDialogElement };

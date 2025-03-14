@@ -6,7 +6,9 @@ export function userInsertInput(
   textareaElement: HTMLTextAreaElement,
 ) {
   const defaultState = validateUserInput(textareaElement.value);
-  console.log(defaultState);
+  if (!defaultState) {
+    return;
+  }
   defaultState.forEach((el) => {
     let task = createTaskWrapper(el);
     taskList.appendChild(task);

@@ -16,10 +16,7 @@ export interface InputOptions {
   events?: { [key: string]: (element: HTMLInputElement, event: Event) => void };
 }
 
-export function validateNumberInput(
-  this: HTMLInputElement,
-  event: Event,
-): void {
+export function validateNumberInput(this: HTMLInputElement): void {
   const value = this.value;
   if (!/^[\d.,]*$/.test(value)) {
     this.value = value.replace(/[^\d.,]/g, '');
