@@ -2,7 +2,7 @@ import { DecisionState } from '../../utils/functionInit';
 
 export function validateUserInput(value: string) {
   if (value.length === 0) {
-    return '';
+    return [];
   }
   const itemsList = value.split('\n');
   const storedState = localStorage.getItem('decisionState');
@@ -16,35 +16,35 @@ export function validateUserInput(value: string) {
         lastId: 0,
       },
     };
-  };
-  const newItems = itemsList.map((item) => {
-    let lastComa = item.lastIndexOf(',');
-    let title: string;
-    let weight: string;
-    if (lastComa === -1) {
-      // Если запятая отсутствует, записываем всю строку в title
-      title = item.trim();
-      weight = '';
-    } else {
-      // Если запятая есть, разделяем строку на title и weight
-      title = item.substring(0, lastComa).trim();
-      weight = item.substring(lastComa + 1).trim();
-    };
-    // Проверяем корректность weight
-    if (!weight || isNaN(Number(weight))) {
-      weight = '';
-    };
-    const newId = `${defaultState.optionsList.lastId + 1}`;
-    defaultState.optionsList.lastId += 1;
-    return {
-      id: newId,
-      title: title,
-      weight: weight,
-    };
-  });
+  }
+  const newItems = itemsList
+    .map((item) => {
+      if (!item.includes(',')) {
+        return undefined; // Пропускаем строку, если запятых нет
+      }
+      const lastComa = item.lastIndexOf(',');
+      const title = item.substring(0, lastComa).trim();
+      const weightPart = item.substring(lastComa + 1).trim();
+      if (weightPart && isNaN(Number(weightPart))) {
+        return undefined; // Пропускаем строку, если weight не является числом
+      }
+      const weight = weightPart || ''; // Если weightPart пустой, оставляем weight пустым
+      const newId = `${defaultState.optionsList.lastId + 1}`;
+      defaultState.optionsList.lastId += 1;
+      return {
+        id: newId,
+        title: title,
+        weight: weight,
+      };
+    })
+    .filter((item) => item !== undefined); // Убираем строки, которые были пропущены
   newItems.forEach((item) => {
-    defaultState.optionsList.list[item.id] = item;
+    if (item) {
+      defaultState.optionsList.list[item.id] = item;
+    }
   });
+
   localStorage.setItem('decisionState', JSON.stringify(defaultState));
-  return newItems;
+
+  return newItems; // Возвращаем массив новых элементов
 }
