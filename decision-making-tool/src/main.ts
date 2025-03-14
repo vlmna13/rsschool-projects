@@ -4,7 +4,7 @@ import { errorView } from './pages/error/errorView';
 import { router } from './utils/router';
 import { createLayout } from './pages/layout';
 
-const main = createLayout();
+const main = createLayout(['main-home-container']);
 
 document.addEventListener('DOMContentLoaded', () => {
   router.addRoute('home', () => homeView(main));

@@ -10,7 +10,7 @@ body {
   background-color: #008c8c;
 }
 
-.main-container {
+.main-home-container {
   display: grid;
   grid-template:
     'heading heading' min-content

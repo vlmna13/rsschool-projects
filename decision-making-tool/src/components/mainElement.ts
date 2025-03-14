@@ -1,10 +1,11 @@
 import '../pages/home/home.css';
+
 import { createElement } from '../utils/createElement';
 
-export function createMain(): HTMLElement {
+export function createMain(classNames: string[]): HTMLElement {
   const main = createElement<HTMLElement>({
     tag: 'main',
-    classNames: ['main-container'],
+    classNames: classNames,
   });
 
   return main;

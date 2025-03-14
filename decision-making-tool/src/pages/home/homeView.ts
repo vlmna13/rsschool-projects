@@ -1,10 +1,8 @@
-import { createHeader } from '../../components/header';
 import {
   createButtonAdd,
   createButtonClear,
   createButtonInsert,
 } from './homeComponents/buttonsInteraction';
-import { createMain } from './homeComponents/mainElement';
 import { createTasksList } from './homeComponents/tasksList';
 import { initState } from '../../utils/functionInit';
 import { addItem } from './functionAddItem';
@@ -19,12 +17,14 @@ import { loadFile } from './functionLoadFile';
 import { createDialogWrapper } from './homeComponents/dialogWrapper';
 import { validateStart } from './functionValidateStart';
 
-export function homeView() {
+export function homeView(main: HTMLElement) {
+  while (main.children.length > 1) {
+    main.removeChild(main.lastChild!);
+  }
+  main.classList.remove('main-wheel-container');
+  main.className = 'main-home-container';
   const data = initState();
-  const main = createMain();
-  const header = createHeader();
   const tasksList = createTasksList(Object.values(data.optionsList.list));
-  main.appendChild(header);
   main.appendChild(tasksList);
   const buttonAdd = createButtonAdd();
   buttonAdd.addEventListener('click', () => addItem(tasksList));
@@ -46,8 +46,4 @@ export function homeView() {
   const buttonStart = createButtonStart();
   buttonStart.addEventListener('click', validateStart);
   main.appendChild(buttonStart);
-  while (document.body.firstChild) {
-    document.body.removeChild(document.body.firstChild);
-  }
-  document.body.appendChild(main);
 }
