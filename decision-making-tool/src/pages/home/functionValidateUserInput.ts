@@ -1,10 +1,12 @@
 import { DecisionState } from '../../utils/functionInit';
 
 export function validateUserInput(value: string) {
+  if (value.length === 0) {
+    return '';
+  }
   const itemsList = value.split('\n');
   const storedState = localStorage.getItem('decisionState');
   let defaultState: DecisionState;
-
   if (storedState) {
     defaultState = JSON.parse(storedState);
   } else {
@@ -19,18 +21,14 @@ export function validateUserInput(value: string) {
     let lastComa = item.lastIndexOf(',');
     let title = item.substring(0, lastComa).trim();
     let weight = item.substring(lastComa + 1).trim();
-
     if (!title) {
       title = '';
     }
-
     if (!weight || isNaN(Number(weight))) {
       weight = '';
     }
-
     const newId = `${defaultState.optionsList.lastId + 1}`;
     defaultState.optionsList.lastId += 1;
-
     return {
       id: newId,
       title: title,
@@ -41,6 +39,5 @@ export function validateUserInput(value: string) {
     defaultState.optionsList.list[item.id] = item;
   });
   localStorage.setItem('decisionState', JSON.stringify(defaultState));
-
   return newItems;
 }
