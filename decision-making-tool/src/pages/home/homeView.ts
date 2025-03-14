@@ -10,12 +10,14 @@ import { initState } from '../../utils/functionInit';
 import { addItem } from './functionAddItem';
 import { clearList } from './functionClearList';
 import {
+  createButtonStart,
   createLoadFileButton,
   createSaveFileButton,
 } from './homeComponents/buttonsUserControl';
 import { saveFile } from './functionSaveFile';
 import { loadFile } from './functionLoadFile';
 import { createDialogWrapper } from './homeComponents/dialogWrapper';
+import { validateStart } from './functionValidateStart';
 
 export function homeView() {
   const data = initState();
@@ -41,6 +43,9 @@ export function homeView() {
   const buttonLoad = createLoadFileButton();
   buttonLoad.addEventListener('click', () => loadFile(tasksList));
   main.appendChild(buttonLoad);
+  const buttonStart = createButtonStart();
+  buttonStart.addEventListener('click', validateStart);
+  main.appendChild(buttonStart);
   while (document.body.firstChild) {
     document.body.removeChild(document.body.firstChild);
   }

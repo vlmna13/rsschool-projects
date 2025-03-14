@@ -19,3 +19,12 @@ export function createLoadFileButton() {
   });
   return buttonLoad;
 }
+
+export function createButtonStart() {
+  const buttonStart = createElement<HTMLButtonElement>({
+    tag: 'button',
+    classNames: ['button', 'button-start'],
+    textContent: 'Start',
+  });
+  return buttonStart;
+}
