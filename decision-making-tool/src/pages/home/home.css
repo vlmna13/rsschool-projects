@@ -55,6 +55,11 @@ body {
   padding-left: 0;
 }
 
+.task-label {
+  overflow: hidden;
+  width: 3em;
+}
+
 .button-add {
   grid-area: add-option-button;
 }
@@ -82,8 +87,11 @@ body {
 .text-input {
   flex-grow: 1;
   width: 100%;
-  min-width: 5rem;
   color: inherit;
+}
+
+.number-input {
+  max-width: 5rem;
 }
 
 .dialog-wrapper {

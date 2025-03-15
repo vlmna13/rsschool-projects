@@ -23,6 +23,8 @@ export function createTaskWrapper(options: TaskWrapperOptions): HTMLLIElement {
     htmlFor: `title-input-${options.id}`,
   });
 
+  label.classList.add('task-label');
+
   const inputTitle = createInput({
     id: `title-input-${options.id}`,
     value: options.title,

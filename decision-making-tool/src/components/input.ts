@@ -16,13 +16,6 @@ export interface InputOptions {
   events?: { [key: string]: (element: HTMLInputElement, event: Event) => void };
 }
 
-export function validateNumberInput(this: HTMLInputElement): void {
-  const value = this.value;
-  if (!/^[\d.,]*$/.test(value)) {
-    this.value = value.replace(/[^\d.,]/g, '');
-  }
-}
-
 export function createInput(options: InputOptions): HTMLInputElement {
   const input = createElement<HTMLInputElement>({
     tag: 'input',
@@ -36,9 +29,6 @@ export function createInput(options: InputOptions): HTMLInputElement {
   input.placeholder = options.placeholder;
   input.name = options.name;
   input.type = options.type || 'text';
-  if (options.type === 'number') {
-    input.addEventListener('input', validateNumberInput);
-  }
   input.addEventListener('keyup', () => whatchInputChange(input));
   return input;
 }
