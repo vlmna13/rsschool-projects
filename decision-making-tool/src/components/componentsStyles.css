@@ -48,3 +48,20 @@
   transition-duration: 0.25ms;
   transition-property: box-shadow;
 }
+
+
+input[type="number"] {
+  /* stylelint-disable-next-line property-no-vendor-prefix */
+  -moz-appearance: textfield; /* Для Firefox */
+  /* stylelint-disable-next-line property-no-vendor-prefix */
+  -webkit-appearance: none; /* Для WebKit-браузеров */
+  appearance: none; /* Для современных браузеров */
+}
+
+/* Убираем стрелочки у WebKit-браузеров */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  margin: 0;
+  /* stylelint-disable-next-line property-no-vendor-prefix */
+  -webkit-appearance: none;
+}
