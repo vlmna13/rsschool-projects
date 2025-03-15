@@ -1,10 +1,11 @@
 import { createElement } from '../../utils/createElement';
+import { checkDuration } from './functionCheckDuration';
 import {
   createButtonBack,
   createButtonSpin,
   createToggleSoundButton,
 } from './wheelComponents/controlsButton';
-import { createInputElement } from './wheelComponents/inputElement';
+import { createDurationField } from './wheelComponents/inputElement';
 import './wheelView.css';
 
 export function createControlWrapper() {
@@ -15,8 +16,10 @@ export function createControlWrapper() {
   const buttonBack = createButtonBack();
   const buttonSound = createToggleSoundButton();
   const { labelElement: labelDuration, inputElement: inputDuration } =
-    createInputElement();
+    createDurationField();
   const buttonSpin = createButtonSpin();
+  buttonSpin.addEventListener('click', () => {
+    checkDuration(inputDuration)});
   controlWrapper.append(buttonBack, buttonSound, labelDuration, buttonSpin);
   return controlWrapper;
 }
