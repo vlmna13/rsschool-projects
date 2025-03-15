@@ -12,7 +12,12 @@ export function wheelView(main: HTMLElement) {
     tag: 'div',
     classNames: ['content-wrapper'],
   });
-  main.appendChild(contentWrapper);
+  const winningValue = createElement({
+    tag: 'p',
+    classNames: ['winning-value'],
+    textContent: 'PRESS START TO SPIN THE WHEEL',
+  });
+  main.append(contentWrapper, winningValue);
   const controlWrapper = createControlWrapper();
   contentWrapper.append(controlWrapper);
 }

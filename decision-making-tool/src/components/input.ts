@@ -5,6 +5,7 @@ import { whatchInputChange } from '../pages/home/functionChangeInput';
 export enum choice {
   title = 'Title',
   weight = 'Weight',
+  time = 'Time',
 }
 
 export interface InputOptions {
