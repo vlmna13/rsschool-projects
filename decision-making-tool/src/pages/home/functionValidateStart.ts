@@ -9,7 +9,9 @@ export function validateStart() {
   }
   const data: DecisionState = JSON.parse(stringData);
   const values = Object.values(data.optionsList.list);
-  const validItems = values.filter((item) => item.title && item.weight);
+  const validItems = values.filter(
+    (item) => item.title && item.weight && Number(item.weight) !== 0,
+  );
   if (validItems.length >= 2) {
     router.navigate('wheel');
   } else {

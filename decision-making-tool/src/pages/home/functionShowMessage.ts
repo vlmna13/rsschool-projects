@@ -17,8 +17,7 @@ export function showMessage() {
   });
   message.textContent =
     'Please add at least 2 valid options.\n\nAn option is considered valid if its title is not empty and its weight is greater than 0.';
-  messageWrapper.appendChild(message);
   const buttonClose = createButtonClose(dialog);
-  messageWrapper.appendChild(buttonClose);
+  messageWrapper.append(message, buttonClose);
   dialog.showModal();
 }

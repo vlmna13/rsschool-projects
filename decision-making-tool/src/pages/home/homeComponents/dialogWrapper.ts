@@ -28,16 +28,12 @@ export function createDialogWrapper(
   textareaElement.rows = 12;
   textareaElement.cols = 64;
   form.appendChild(textareaElement);
-
   const buttonCancel = createButtonClose(dialog);
-  form.appendChild(buttonCancel);
-  // document.body.style.overflow = 'hidden';
-
   const buttonConfirm = createButtonConfirm();
   buttonConfirm.addEventListener('click', () => {
     userInsertInput(taskList, textareaElement, dialog);
   });
-  form.appendChild(buttonConfirm);
+  form.append(buttonCancel, buttonConfirm);
   document.body.appendChild(dialog);
   dialog.showModal();
   return dialog;

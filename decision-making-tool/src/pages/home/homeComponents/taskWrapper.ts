@@ -40,11 +40,6 @@ export function createTaskWrapper(options: TaskWrapperOptions): HTMLLIElement {
 
   const buttonDelete = createButtonDelete();
   buttonDelete.addEventListener('click', () => deleteItem(taskWrapper));
-
-  taskWrapper.appendChild(label);
-  taskWrapper.appendChild(inputTitle);
-  taskWrapper.appendChild(inputWeight);
-  taskWrapper.appendChild(buttonDelete);
-
+  taskWrapper.append(label, inputTitle, inputWeight, buttonDelete);
   return taskWrapper;
 }
