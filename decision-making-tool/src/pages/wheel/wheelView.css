@@ -1,3 +1,42 @@
-.main-wheel-container {
+.main-wheel-container,
+.content-wrapper {
   display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.control-wrapper {
+  display: grid;
+  grid-template:
+    'button-back button-back button-sound button-sound duration-label duration-label' 1fr
+    '. button-spin button-spin button-spin button-spin .' 1fr / 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 0.5rem;
+  margin-inline: auto;
+}
+
+.button-back {
+  grid-area: button-back;
+}
+
+.button-sound {
+  grid-area: button-sound;
+}
+
+.button-spin {
+  grid-area: button-spin;
+}
+
+.label-duration {
+  display: flex;
+  grid-area: duration-label;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.input-duration {
+  flex-shrink: 1;
+  box-sizing: border-box;
+  max-width: 100%;
 }
