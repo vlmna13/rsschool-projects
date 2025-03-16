@@ -2,7 +2,7 @@ import { createElement } from '../../../utils/createElement';
 import '../../../components/componentsStyles.css';
 import '../wheelView.css';
 import { router } from '../../../utils/router';
-import { toggleSound } from './functionToggleSound';
+import { toggleSound } from '../functionToggleSound';
 
 export function createButtonBack() {
   const buttonBack = createElement<HTMLButtonElement>({
