@@ -1,5 +1,4 @@
 import { createElement } from '../../utils/createElement';
-import { checkDuration } from './functionCheckDuration';
 import {
   createButtonBack,
   createButtonSpin,
@@ -18,8 +17,11 @@ export function createControlWrapper() {
   const { labelElement: labelDuration, inputElement: inputDuration } =
     createDurationField();
   const buttonSpin = createButtonSpin();
-  buttonSpin.addEventListener('click', () => {
-    checkDuration(inputDuration)});
   controlWrapper.append(buttonBack, buttonSound, labelDuration, buttonSpin);
-  return controlWrapper;
+  return {
+    controlWrapper,
+    buttonSpin,
+    inputElement: inputDuration,
+    buttonSound,
+  };
 }

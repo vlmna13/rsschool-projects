@@ -2,6 +2,7 @@ import './wheelView.css';
 import { createElement } from '../../utils/createElement';
 import { createControlWrapper } from './functionCreateControlWrapper';
 import { createWheel } from './wheelComponents/createWheel';
+import { startSpinning } from './functionStartSpinning';
 
 export function wheelView(main: HTMLElement) {
   while (main.children.length > 1) {
@@ -18,10 +19,18 @@ export function wheelView(main: HTMLElement) {
     classNames: ['winning-value'],
     textContent: 'PRESS START TO SPIN THE WHEEL',
   });
-  const controlWrapper = createControlWrapper();
+  const canvasWheel = createWheel();
+  const { controlWrapper, buttonSpin, inputElement, buttonSound } =
+    createControlWrapper();
+  if (canvasWheel) {
+    buttonSpin.addEventListener('click', () => {
+      startSpinning(inputElement, canvasWheel, buttonSound);
+    });
+  }
+
   contentWrapper.append(controlWrapper);
   contentWrapper.append(winningValue);
-  const canvasWheel = createWheel();
+
   if (canvasWheel) {
     contentWrapper.append(canvasWheel);
   }

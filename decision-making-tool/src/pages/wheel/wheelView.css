@@ -55,3 +55,8 @@
 
   box-shadow: 0 0 0.15rem #e6f4f4;
 }
+
+.canvas-wheel {
+  transform-origin: center;
+  display: block;
+}
