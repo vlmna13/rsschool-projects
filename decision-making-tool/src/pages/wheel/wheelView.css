@@ -50,8 +50,8 @@
   color: inherit;
   text-align: center;
   text-overflow: ellipsis;
-  text-shadow: 0 0 .15rem #e6f4f4;
+  text-shadow: 0 0 0.15rem #e6f4f4;
   text-wrap: nowrap;
 
-  box-shadow: 0 0 .15rem #e6f4f4;
+  box-shadow: 0 0 0.15rem #e6f4f4;
 }
