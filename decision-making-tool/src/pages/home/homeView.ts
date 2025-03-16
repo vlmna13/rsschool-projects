@@ -15,7 +15,7 @@ import {
 import { saveFile } from './functionSaveFile';
 import { loadFile } from './functionLoadFile';
 import { createDialogWrapper } from './homeComponents/dialogWrapper';
-import { validateStart } from './functionValidateStart';
+import { transitionToWheel } from './functionTransitionToWheel';
 
 export function homeView(main: HTMLElement) {
   while (main.children.length > 1) {
@@ -38,7 +38,7 @@ export function homeView(main: HTMLElement) {
   const buttonLoad = createLoadFileButton();
   buttonLoad.addEventListener('click', () => loadFile(tasksList));
   const buttonStart = createButtonStart();
-  buttonStart.addEventListener('click', validateStart);
+  buttonStart.addEventListener('click', transitionToWheel);
   main.append(
     tasksList,
     buttonAdd,

@@ -3,7 +3,6 @@ import '../wheelView.css';
 import '../../../components/componentsStyles.css';
 import { createInput, choice } from '../../../components/input';
 
-
 export function createDurationField() {
   const labelElement = createElement<HTMLLabelElement>({
     tag: 'label',
@@ -16,13 +15,13 @@ export function createDurationField() {
     value: '10',
     placeholder: choice.time,
     name: choice.time,
-    type: 'number', 
+    type: 'number',
   });
 
   inputElement.addEventListener('input', () => {
-    if(Number(inputElement.value) < 5 || Number(inputElement.value) > 30) {
+    if (Number(inputElement.value) < 5 || Number(inputElement.value) > 30) {
       inputElement.setCustomValidity('Please enter a number between 5 and 30');
-    } 
+    }
     inputElement.reportValidity();
   });
   inputElement.classList.remove('number-input');
