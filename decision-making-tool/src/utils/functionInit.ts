@@ -5,6 +5,10 @@ export interface DecisionState {
   };
 }
 
+export interface SoundState {
+  sound: boolean;
+}
+
 export function initState(): DecisionState {
   const defaultState: DecisionState = {
     optionsList: {
@@ -14,6 +18,11 @@ export function initState(): DecisionState {
       lastId: 1,
     },
   };
+
+  const soundState: SoundState = {
+    sound: true,
+  };
+  localStorage.setItem('soundState', JSON.stringify(soundState));
 
   const storedState = localStorage.getItem('decisionState');
   if (!storedState) {
