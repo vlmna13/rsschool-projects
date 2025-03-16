@@ -18,6 +18,13 @@ export function createDurationField() {
     name: choice.time,
     type: 'number', 
   });
+
+  inputElement.addEventListener('input', () => {
+    if(Number(inputElement.value) < 5 || Number(inputElement.value) > 30) {
+      inputElement.setCustomValidity('Please enter a number between 5 and 30');
+    } 
+    inputElement.reportValidity();
+  });
   inputElement.classList.remove('number-input');
   inputElement.classList.add('input-duration');
   labelElement.appendChild(inputElement);
