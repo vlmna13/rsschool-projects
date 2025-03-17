@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "predeploy": "npm run build",
     "deploy": "vite build && gh-pages -d dist",
     "preview": "vite preview",
     "format": "prettier --write . --list-different --ignore-unknown",
