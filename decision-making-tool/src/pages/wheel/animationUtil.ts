@@ -1,6 +1,7 @@
 import { TaskWrapperOptions } from '../home/homeComponents/taskWrapper';
 import { updateWinningValue } from './functionUpdateWinningValue';
 import { createWheel } from './wheelComponents/createWheel';
+import { playPauseAudio } from './functionPlayAudio';
 
 export function animate(
   canvasWheel: HTMLCanvasElement,
@@ -14,25 +15,28 @@ export function animate(
 ) {
   const ctx = canvasWheel.getContext('2d');
   if (!ctx) {
-    console.error('Canvas context not found');
     return;
   }
-
   // Получаем длительность анимации из inputElement.value
   const duration = parseFloat(inputElement.value) || 10; // Длительность анимации в секундах (по умолчанию 10 секунд)
 
   // Устанавливаем время начала анимации
   if (startTime.value === null) {
     startTime.value = performance.now();
+
+    // Проверяем состояние звука и запускаем аудио
+    const storedSoundState = localStorage.getItem('soundState');
+    const soundPermission = storedSoundState
+      ? JSON.parse(storedSoundState).sound
+      : true; // По умолчанию звук включён
+    playPauseAudio(duration, soundPermission);
   }
 
   // Вычисляем прошедшее время
   const currentTime = performance.now();
   const elapsedTime = (currentTime - startTime.value) / 1000; // Время в секундах
-
   // Очищаем холст перед отрисовкой
   ctx.clearRect(0, 0, canvasWheel.width, canvasWheel.height);
-
   // Ускоряем вращение в первой половине анимации
   if (elapsedTime < duration / 2) {
     step.value += 0.001; // Ускоряем вращение
@@ -49,14 +53,11 @@ export function animate(
     winningValue.classList.add('win');
     return;
   }
-
   rotationAngle.value += step.value; // Увеличиваем угол на текущий шаг
-
   // Ограничиваем угол в пределах от 0 до 2π
   if (rotationAngle.value > 2 * Math.PI) {
     rotationAngle.value -= 2 * Math.PI;
   }
-
   createWheel(canvasWheel, rotationAngle.value, colors, items); // Рисуем колесо с текущим углом
   updateWinningValue(rotationAngle.value, items, winningValue); // Обновляем текст в элементе winning-value
   // Рекурсивный вызов для следующего кадра
