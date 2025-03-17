@@ -13,6 +13,6 @@ export function validateStart(): TaskWrapperOptions[] {
   );
   if (validItems.length === 0) {
     validItems = [];
-  };
+  }
   return validItems;
 }

@@ -22,6 +22,5 @@ export function createControlWrapper() {
     controlWrapper,
     buttonSpin,
     inputElement: inputDuration,
-    buttonSound,
   };
 }
