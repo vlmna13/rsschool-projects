@@ -10,7 +10,7 @@ export function animate(
   inputElement: HTMLInputElement,
   rotationAngle: { value: number },
   step: { value: number },
-  startTime: { value: number | null },
+  startTime: { value: number | -1 },
   winningValue: HTMLParagraphElement,
 ) {
   const ctx = canvasWheel.getContext('2d');
@@ -18,10 +18,10 @@ export function animate(
     return;
   }
   // Получаем длительность анимации из inputElement.value
-  const duration = parseFloat(inputElement.value) || 10; // Длительность анимации в секундах (по умолчанию 10 секунд)
+  const duration = parseFloat(inputElement.value);
 
   // Устанавливаем время начала анимации
-  if (startTime.value === null) {
+  if (startTime.value === -1) {
     startTime.value = performance.now();
 
     // Проверяем состояние звука и запускаем аудио
@@ -49,7 +49,7 @@ export function animate(
   // Останавливаем анимацию, когда время истекло
   else {
     createWheel(canvasWheel, rotationAngle.value, colors, items); // Финальная отрисовка колеса
-    startTime.value = null; // Сбрасываем время начала анимации
+    startTime.value = -1; // Сбрасываем время начала анимации
     winningValue.classList.add('win');
     return;
   }

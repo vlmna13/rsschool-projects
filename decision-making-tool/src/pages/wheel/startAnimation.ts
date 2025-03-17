@@ -11,7 +11,7 @@ export function startAnimation(
   // Сбрасываем значения переменных
   const rotationAngle = { value: 0 }; // Текущий угол вращения
   const step = { value: 0.01 }; // Начальная скорость вращения
-  const startTime = { value: null as number | null }; // Время начала анимации
+  const startTime = { value: -1 }; // Время начала анимации
 
   // Запускаем анимацию
   animate(
