@@ -6,6 +6,7 @@ export function startAnimation(
   items: TaskWrapperOptions[],
   colors: string[],
   inputElement: HTMLInputElement,
+  winValue: HTMLParagraphElement,
 ) {
   // Сбрасываем значения переменных
   const rotationAngle = { value: 0 }; // Текущий угол вращения
@@ -13,5 +14,14 @@ export function startAnimation(
   const startTime = { value: null as number | null }; // Время начала анимации
 
   // Запускаем анимацию
-  animate(canvasWheel, items, colors, inputElement, rotationAngle, step, startTime);
+  animate(
+    canvasWheel,
+    items,
+    colors,
+    inputElement,
+    rotationAngle,
+    step,
+    startTime,
+    winValue,
+  );
 }

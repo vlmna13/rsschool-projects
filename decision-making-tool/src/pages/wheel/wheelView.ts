@@ -16,7 +16,7 @@ export function wheelView(main: HTMLElement) {
     tag: 'div',
     classNames: ['content-wrapper'],
   });
-  const winningValue = createElement({
+  const winningValue = createElement<HTMLParagraphElement>({
     tag: 'p',
     classNames: ['winning-value'],
     textContent: 'PRESS START TO SPIN THE WHEEL',
@@ -36,7 +36,7 @@ export function wheelView(main: HTMLElement) {
   const { controlWrapper, buttonSpin, inputElement } = createControlWrapper();
   buttonSpin.addEventListener('click', () => {
     // startSpinning(inputElement, canvasWheel, items, colors);
-    startAnimation(canvasWheel, items, colors, inputElement);
+    startAnimation(canvasWheel, items, colors, inputElement, winningValue);
   });
   contentWrapper.append(controlWrapper);
   contentWrapper.append(winningValue);

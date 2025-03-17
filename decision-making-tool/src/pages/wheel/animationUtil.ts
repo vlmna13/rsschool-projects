@@ -1,4 +1,5 @@
 import { TaskWrapperOptions } from '../home/homeComponents/taskWrapper';
+import { updateWinningValue } from './functionUpdateWinningValue';
 import { createWheel } from './wheelComponents/createWheel';
 
 export function animate(
@@ -9,6 +10,7 @@ export function animate(
   rotationAngle: { value: number },
   step: { value: number },
   startTime: { value: number | null },
+  winningValue: HTMLParagraphElement,
 ) {
   const ctx = canvasWheel.getContext('2d');
   if (!ctx) {
@@ -18,7 +20,6 @@ export function animate(
 
   // Получаем длительность анимации из inputElement.value
   const duration = parseFloat(inputElement.value) || 10; // Длительность анимации в секундах (по умолчанию 10 секунд)
-  console.log('Duration:', duration);
 
   // Устанавливаем время начала анимации
   if (startTime.value === null) {
@@ -43,9 +44,9 @@ export function animate(
   }
   // Останавливаем анимацию, когда время истекло
   else {
-    console.log('Animation finished');
     createWheel(canvasWheel, rotationAngle.value, colors, items); // Финальная отрисовка колеса
     startTime.value = null; // Сбрасываем время начала анимации
+    winningValue.classList.add('win');
     return;
   }
 
@@ -57,9 +58,18 @@ export function animate(
   }
 
   createWheel(canvasWheel, rotationAngle.value, colors, items); // Рисуем колесо с текущим углом
-
+  updateWinningValue(rotationAngle.value, items, winningValue); // Обновляем текст в элементе winning-value
   // Рекурсивный вызов для следующего кадра
   requestAnimationFrame(() =>
-    animate(canvasWheel, items, colors, inputElement, rotationAngle, step, startTime),
+    animate(
+      canvasWheel,
+      items,
+      colors,
+      inputElement,
+      rotationAngle,
+      step,
+      startTime,
+      winningValue,
+    ),
   );
 }
