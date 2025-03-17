@@ -1,0 +1,65 @@
+import { TaskWrapperOptions } from '../home/homeComponents/taskWrapper';
+import { createWheel } from './wheelComponents/createWheel';
+
+export function animate(
+  canvasWheel: HTMLCanvasElement,
+  items: TaskWrapperOptions[],
+  colors: string[],
+  inputElement: HTMLInputElement,
+  rotationAngle: { value: number },
+  step: { value: number },
+  startTime: { value: number | null },
+) {
+  const ctx = canvasWheel.getContext('2d');
+  if (!ctx) {
+    console.error('Canvas context not found');
+    return;
+  }
+
+  // Получаем длительность анимации из inputElement.value
+  const duration = parseFloat(inputElement.value) || 10; // Длительность анимации в секундах (по умолчанию 10 секунд)
+  console.log('Duration:', duration);
+
+  // Устанавливаем время начала анимации
+  if (startTime.value === null) {
+    startTime.value = performance.now();
+  }
+
+  // Вычисляем прошедшее время
+  const currentTime = performance.now();
+  const elapsedTime = (currentTime - startTime.value) / 1000; // Время в секундах
+
+  // Очищаем холст перед отрисовкой
+  ctx.clearRect(0, 0, canvasWheel.width, canvasWheel.height);
+
+  // Ускоряем вращение в первой половине анимации
+  if (elapsedTime < duration / 2) {
+    step.value += 0.001; // Ускоряем вращение
+  }
+  // Замедляем вращение во второй половине анимации
+  else if (elapsedTime < duration) {
+    step.value -= 0.001; // Замедляем вращение
+    if (step.value < 0.001) step.value = 0.001; // Минимальная скорость, чтобы не остановиться
+  }
+  // Останавливаем анимацию, когда время истекло
+  else {
+    console.log('Animation finished');
+    createWheel(canvasWheel, rotationAngle.value, colors, items); // Финальная отрисовка колеса
+    startTime.value = null; // Сбрасываем время начала анимации
+    return;
+  }
+
+  rotationAngle.value += step.value; // Увеличиваем угол на текущий шаг
+
+  // Ограничиваем угол в пределах от 0 до 2π
+  if (rotationAngle.value > 2 * Math.PI) {
+    rotationAngle.value -= 2 * Math.PI;
+  }
+
+  createWheel(canvasWheel, rotationAngle.value, colors, items); // Рисуем колесо с текущим углом
+
+  // Рекурсивный вызов для следующего кадра
+  requestAnimationFrame(() =>
+    animate(canvasWheel, items, colors, inputElement, rotationAngle, step, startTime),
+  );
+}
