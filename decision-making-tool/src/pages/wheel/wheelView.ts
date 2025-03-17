@@ -36,7 +36,7 @@ export function wheelView(main: HTMLElement) {
   const { controlWrapper, buttonSpin, inputElement } = createControlWrapper();
   buttonSpin.addEventListener('click', () => {
     // startSpinning(inputElement, canvasWheel, items, colors);
-    startAnimation(canvasWheel, items, colors, inputElement, winningValue);
+    startAnimation(canvasWheel, items, colors, inputElement, winningValue, controlWrapper);
   });
   contentWrapper.append(controlWrapper);
   contentWrapper.append(winningValue);

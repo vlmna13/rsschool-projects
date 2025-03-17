@@ -12,6 +12,7 @@ export function animate(
   step: { value: number },
   startTime: { value: number | -1 },
   winningValue: HTMLParagraphElement,
+  controlWrapper: HTMLDivElement,
 ) {
   const ctx = canvasWheel.getContext('2d');
   if (!ctx) {
@@ -71,6 +72,7 @@ export function animate(
       step,
       startTime,
       winningValue,
+      controlWrapper
     ),
   );
 }
