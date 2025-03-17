@@ -9,7 +9,7 @@ const main = createLayout(['main-home-container']);
 document.addEventListener('DOMContentLoaded', () => {
   router.addRoute('home', () => homeView(main));
   router.addRoute('wheel', () => wheelView(main));
-  router.setErrorComponent(errorView);
+  router.setErrorComponent(() => errorView(main)); // Передаём main в errorView
 
   if (!location.hash) {
     router.navigate('home'); // Переходим на страницу home при загрузке, если хэш пустой
