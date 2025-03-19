@@ -5,6 +5,8 @@ import { createWheel } from './wheelComponents/createWheel';
 import { validateStart } from '../home/functionTransitionToWheel';
 import { generateUniqueColors } from './functionGenerateUniqueColors';
 import { startAnimation } from './startAnimation';
+import { router } from '../../utils/router';
+import { checkDuration } from './functionCheckDuration';
 
 export function wheelView(main: HTMLElement) {
   while (main.children.length > 1) {
@@ -28,6 +30,9 @@ export function wheelView(main: HTMLElement) {
   canvasWheel.width = 512;
   canvasWheel.height = 512;
   const items = validateStart().sort(() => Math.random() - 0.5);
+  if(items.length < 2) {
+    router.navigate('home');
+  };
   const colors = generateUniqueColors(items.length);
   const wheelData = createWheel(canvasWheel, 0, colors, items);
   if (!wheelData) {
@@ -35,6 +40,10 @@ export function wheelView(main: HTMLElement) {
   }
   const { controlWrapper, buttonSpin, inputElement } = createControlWrapper();
   buttonSpin.addEventListener('click', () => {
+    let dur = checkDuration(inputElement);
+    if (!dur) {
+      return;
+    }
     startAnimation(
       canvasWheel,
       items,

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "deploy": "gh-pages --dist dist --dest decision-making-tool",
+    "deploy": "gh-pages --dist dist --dest dist",
     "preview": "vite preview",
     "format": "prettier --write . --list-different --ignore-unknown",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",

@@ -39,7 +39,8 @@ export function createWheel(
       angle,
       color: colors[index],
     });
-    // Рисуем текст
+    const minAngleForText = 0.1; // Минимальный угол для текста (в радианах)
+  if (angle >= minAngleForText) {
     drawText({
       ctx,
       centerX,
@@ -49,6 +50,9 @@ export function createWheel(
       angle,
       text: item.title,
     });
+  }
+    // Рисуем текст
+    
     startAngle = endAngle; // Обновляем угол начала для следующей секции
   });
   drawCenterElement({ ctx, centerX, centerY, radius });

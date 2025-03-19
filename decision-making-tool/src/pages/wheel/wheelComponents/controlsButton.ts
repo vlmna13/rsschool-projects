@@ -3,6 +3,7 @@ import '../../../components/componentsStyles.css';
 import '../wheelView.css';
 import { router } from '../../../utils/router';
 import { toggleSound } from '../functionToggleSound';
+import { SoundState } from '../../../utils/functionInit';
 
 export function createButtonBack() {
   const buttonBack = createElement<HTMLButtonElement>({
@@ -21,7 +22,13 @@ export function createToggleSoundButton() {
     tag: 'button',
     classNames: ['button', 'button-sound'],
   });
-  buttonSound.textContent = 'Sound: on';
+  // buttonSound.textContent = 'Sound: on';
+  const storedSoundState = localStorage.getItem('soundState');
+
+  if (storedSoundState) {
+    const currentSoundState: SoundState = JSON.parse(storedSoundState);
+    buttonSound.textContent = `Sound: ${currentSoundState.sound ? 'off' : 'on'}`;
+  }
   buttonSound.addEventListener('click', () => {
     toggleSound(buttonSound);
   });
