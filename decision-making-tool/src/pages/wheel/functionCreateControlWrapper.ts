@@ -14,6 +14,14 @@ export function createControlWrapper() {
   });
   const buttonBack = createButtonBack();
   const buttonSound = createToggleSoundButton();
+  const soundState = localStorage.getItem('soundState');
+  if (!soundState) { 
+    buttonSound.textContent = 'Sound: on';
+    localStorage.setItem('soundState', JSON.stringify({ sound: true }));
+  } else {
+    const soundStateParsed = JSON.parse(soundState);
+    buttonSound.textContent = `Sound: ${soundStateParsed.sound ? 'on' : 'off'}`;
+  }
   const { labelElement: labelDuration, inputElement: inputDuration } =
     createDurationField();
   const buttonSpin = createButtonSpin();

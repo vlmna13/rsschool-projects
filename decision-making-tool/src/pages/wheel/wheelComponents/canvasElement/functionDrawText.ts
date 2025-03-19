@@ -4,7 +4,6 @@ export function drawText(params: TextDrawingParams) {
   const { ctx, centerX, centerY, radius, startAngle, angle, text } = params;
   const textAngle = startAngle + angle / 2; // Угол для текста
   const textRadius = radius * 0.7; // Радиус для текста
-  const maxArcLength = angle * textRadius; // Максимальная длина дуги для текста
 
   ctx.save();
   ctx.translate(

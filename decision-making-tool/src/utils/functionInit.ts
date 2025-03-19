@@ -19,10 +19,10 @@ export function initState(): DecisionState {
     },
   };
 
-  const soundState: SoundState = {
-    sound: true,
-  };
-  localStorage.setItem('soundState', JSON.stringify(soundState));
+  // const soundState: SoundState = {
+  //   sound: true,
+  // };
+  // localStorage.setItem('soundState', JSON.stringify(soundState));
 
   const storedState = localStorage.getItem('decisionState');
   if (!storedState) {

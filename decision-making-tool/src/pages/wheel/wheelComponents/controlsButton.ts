@@ -22,13 +22,20 @@ export function createToggleSoundButton() {
     tag: 'button',
     classNames: ['button', 'button-sound'],
   });
-  // buttonSound.textContent = 'Sound: on';
-  const storedSoundState = localStorage.getItem('soundState');
-
-  if (storedSoundState) {
-    const currentSoundState: SoundState = JSON.parse(storedSoundState);
-    buttonSound.textContent = `Sound: ${currentSoundState.sound ? 'off' : 'on'}`;
+  // Проверяем состояние звука в localStorage
+  let storedSoundState = localStorage.getItem('soundState');
+  if (!storedSoundState) {
+    // Если состояние звука отсутствует, устанавливаем его по умолчанию
+    const defaultSoundState: SoundState = { sound: true };
+    localStorage.setItem('soundState', JSON.stringify(defaultSoundState));
+    storedSoundState = JSON.stringify(defaultSoundState);
   }
+
+  // Устанавливаем текст кнопки в зависимости от состояния звука
+  const currentSoundState: SoundState = JSON.parse(storedSoundState);
+  buttonSound.textContent = `Sound: ${currentSoundState.sound ? 'on' : 'off'}`;
+
+  // Добавляем обработчик клика для переключения звука
   buttonSound.addEventListener('click', () => {
     toggleSound(buttonSound);
   });
