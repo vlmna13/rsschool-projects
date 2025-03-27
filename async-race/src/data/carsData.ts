@@ -1,8 +1,8 @@
-type CarData = {
+export type CarData = {
   [key: string]: string[];
 };
 
-const carData: CarData = {
+export const carData: CarData = {
   bmw: ["x3", "x4", "x5", "m2", "m3"],
   toyota: ["corolla", "camry", "highlander, landcruiser", "hilux"],
   peugeot: ["308", "206", "408", "traveller", "rifter"],
@@ -24,5 +24,3 @@ const carData: CarData = {
   honda: ["accord", "civic", "element", "logo", "pilot"],
   citroen: ["space-tourer", "jumpy", "c5-x", "aircross", "basalt"],
 };
-
-export { carData };
