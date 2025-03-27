@@ -1,10 +1,12 @@
 import typescriptEslintPlugin from "@typescript-eslint/eslint-plugin";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
+import typescriptEslintParser from "@typescript-eslint/parser";
 
 export default [
   {
     files: ["**/*.ts"],
     languageOptions: {
+      parser: typescriptEslintParser,
       ecmaVersion: 2020,
       sourceType: "module",
     },
