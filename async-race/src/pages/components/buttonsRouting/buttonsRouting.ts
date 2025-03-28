@@ -1,5 +1,5 @@
-import { createElement } from "../../utils/createElement";
-import "../styles/common.css";
+import { createElement } from "../../../utils/createElement";
+import "./buttonsRouting.css";
 
 export function createButtonGarage() {
   let buttonGarage = createElement<HTMLButtonElement>({
@@ -17,4 +17,15 @@ export function createButtonWinners() {
     textContent: "To winners",
   });
   return buttonWinners;
+}
+
+export function createWrapperButtons() {
+  let wrapperButtons = createElement<HTMLDivElement>({
+    tag: "div",
+    classNames: ["wrapper-buttons"],
+  });
+  const buttonGarage = createButtonGarage();
+  const buttonWinners = createButtonWinners();
+  wrapperButtons.append(buttonGarage, buttonWinners);
+  return wrapperButtons;
 }

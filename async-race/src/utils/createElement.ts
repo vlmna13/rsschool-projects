@@ -1,7 +1,7 @@
 export interface ElementOptions<T extends HTMLElement> {
   tag: string;
   classNames: string[];
-  textContent: string;
+  textContent?: string;
 }
 
 export function createElement<T extends HTMLElement>(
