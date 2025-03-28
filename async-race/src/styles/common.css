@@ -10,7 +10,8 @@ body {
   background-color: black;
 }
 
-button {
+button,
+input {
   cursor: pointer;
 }
 
