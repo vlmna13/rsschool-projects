@@ -1,0 +1,41 @@
+.wrapper-race-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding-bottom: 30px;
+}
+
+.button-reset,
+.button-start {
+  background-color: #cfc;
+  border: 2px solid #9c9;
+  color: #333;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.button-reset:hover,
+.button-start:hover {
+  background-color: #b3e6b3;
+  border-color: #66b266;
+}
+
+.button-generate {
+  padding: 5px 10px;
+  background-color: #f3e6ff;
+  border: 2px solid #d9b3ff;
+  border-radius: 4px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.button-generate:hover {
+  background-color: #e6ccff;
+  border-color: #b399ff;
+}
