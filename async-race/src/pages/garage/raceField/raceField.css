@@ -1,0 +1,66 @@
+.button-select,
+.button-delete {
+  background-color: #cce7ff;
+  border: 2px solid #99cfff;
+  color: #333;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition:
+    background-color 0.3s,
+    border-color 0.3s,
+    color 0.3s;
+}
+
+.button-select:hover,
+.button-delete:hover {
+  background-color: #99cfff;
+  border-color: #69c;
+}
+
+.button-stop,
+.button-start {
+  background-color: transparent;
+  border: 1px solid #66b266;
+  color: #66b266;
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  transition:
+    background-color 0.3s,
+    border-color 0.3s,
+    color 0.3s;
+}
+
+.button-stop:hover,
+.button-start:hover {
+  background-color: #b3e6b3;
+  border-color: #66b266;
+  color: black;
+}
+
+.select-delete-wrapper {
+  display: flex;
+  gap: 10px;
+}
+
+.track {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  border-bottom: 2px dashed white;
+  gap: 10px;
+  padding-bottom: 5px;
+}
+
+.track-line {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: start;
+}
+
+.car-model {
+  color: white;
+}

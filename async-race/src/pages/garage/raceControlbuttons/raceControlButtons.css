@@ -7,7 +7,7 @@
 }
 
 .button-reset,
-.button-start {
+.button-race {
   background-color: #cfc;
   border: 2px solid #9c9;
   color: #333;
@@ -19,7 +19,7 @@
 }
 
 .button-reset:hover,
-.button-start:hover {
+.button-race:hover {
   background-color: #b3e6b3;
   border-color: #66b266;
 }

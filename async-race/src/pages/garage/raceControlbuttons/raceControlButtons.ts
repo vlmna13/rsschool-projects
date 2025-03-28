@@ -4,8 +4,8 @@ import "./raceControlButtons.css";
 export function startRaceButton() {
   const startButton = createElement<HTMLButtonElement>({
     tag: "button",
-    classNames: ["button", "button-start"],
-    textContent: "START",
+    classNames: ["button", "button-race"],
+    textContent: "RACE",
   });
   return startButton;
 }
