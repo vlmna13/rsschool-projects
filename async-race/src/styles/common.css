@@ -25,3 +25,11 @@ input {
   padding: 10px;
   background-color: inherit;
 }
+
+.garage-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+  align-items: flex-start;
+}

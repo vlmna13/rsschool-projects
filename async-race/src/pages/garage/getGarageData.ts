@@ -1,0 +1,22 @@
+import { GarageResponse } from "../../utils/types";
+
+export async function getGarageData(page: number, limit: number = 7) {
+  const url = `http://127.0.0.1:3000/garage?_page=${page}&_limit=${limit}`;
+
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
+
+    const data: GarageResponse = await response.json();
+    // Получаем общее количество записей из заголовка X-Total-Count
+    const totalCount = response.headers.get("X-Total-Count");
+    console.log({ data, totalCount });
+    return { data, totalCount: totalCount ? parseInt(totalCount, 7) : 0 };
+  } catch (error) {
+    console.error(error);
+    return { data: [], totalCount: 0 };
+  }
+}
