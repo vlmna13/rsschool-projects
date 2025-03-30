@@ -1,8 +1,8 @@
-.wrapper-buttons {
+.wrapper-buttons-routing {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+  padding-bottom: 10px;
   gap: 20px;
 }
 

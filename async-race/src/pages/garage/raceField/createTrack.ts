@@ -21,12 +21,16 @@ export function createTrack(data: Car) {
   const stopButton = createButtonStop();
 
   const carImage = createElement<HTMLImageElement>({
-    tag: "img",
+    tag: "div",
+    classNames: ["car-image-wrapper"],
+  });
+
+  const car = createElement<HTMLDivElement>({
+    tag: "div",
     classNames: ["car-image"],
   });
-  carImage.setAttribute("fill", data.color);
-  carImage.src = "./img/car.svg";
-  carImage.alt = "Car";
+  car.style.backgroundColor = data.color;
+  carImage.append(car);
   trackLine.append(startButton, stopButton, carImage);
   track.append(selectDelete, trackLine);
   return track;
