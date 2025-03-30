@@ -48,3 +48,13 @@
   outline: none;
   border-color: #b399ff;
 }
+
+.disabled {
+  background-color: gray;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.disabled:hover {
+  background-color: inherit;
+}

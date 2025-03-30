@@ -8,19 +8,22 @@ export function createFormEditCar() {
   });
   const inputText = createElement<HTMLInputElement>({
     tag: "input",
-    classNames: ["input-text"],
+    classNames: ["input-text", "disabled"],
   });
+  inputText.disabled = true;
   inputText.type = "text";
   const inputColor = createElement<HTMLInputElement>({
     tag: "input",
-    classNames: ["input-color"],
+    classNames: ["input-color", "disabled"],
   });
   inputColor.type = "color";
+  inputColor.disabled = true;
   const buttonEdit = createElement<HTMLButtonElement>({
     tag: "button",
-    classNames: ["button", "button-edit"],
+    classNames: ["button", "button-edit", "disabled"],
     textContent: "UPDATE",
   });
+  buttonEdit.disabled = true;
   formWrapper.append(inputText, inputColor, buttonEdit);
 
   return formWrapper;
