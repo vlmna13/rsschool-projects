@@ -11,14 +11,15 @@ import "../../styles/common.css";
 export async function garageView() {
   const mainElement = createMainElement();
   document.body.append(mainElement);
-  const wrapperButtons = createWrapperButtons();
-  const formCreateCar = createFormCreateCar();
-  const formEditCar = createFormEditCar();
-  const raceControl = createRaceControlButtons();
   const garageContainer = createElement<HTMLDivElement>({
     tag: "div",
     classNames: ["garage-container"],
   });
+  const wrapperButtons = createWrapperButtons();
+  const formCreateCar = createFormCreateCar(garageContainer);
+  const formEditCar = createFormEditCar();
+  const raceControl = createRaceControlButtons();
+
   mainElement.append(
     wrapperButtons,
     formCreateCar,

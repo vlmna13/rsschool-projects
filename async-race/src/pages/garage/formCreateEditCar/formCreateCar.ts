@@ -1,7 +1,8 @@
 import { createElement } from "../../../utils/createElement";
 import "./formCreateEditCar.css";
+import { createCar } from "./functionCreateCar";
 
-export function createFormCreateCar() {
+export function createFormCreateCar(garageContainer: HTMLDivElement) {
   const formWrapper = createElement<HTMLDivElement>({
     tag: "div",
     classNames: ["form-create-car"],
@@ -21,6 +22,10 @@ export function createFormCreateCar() {
     classNames: ["button", "button-create"],
     textContent: "CREATE",
   });
+  buttonCreate.addEventListener("click", () => {
+    createCar(garageContainer, inputText.value, inputColor.value);
+  });
+
   formWrapper.append(inputText, inputColor, buttonCreate);
 
   return formWrapper;
