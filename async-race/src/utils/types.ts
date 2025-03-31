@@ -5,3 +5,4 @@ export type Car = {
 };
 
 export type GarageResponse = Car[];
+export type ShuffleCars = string[];

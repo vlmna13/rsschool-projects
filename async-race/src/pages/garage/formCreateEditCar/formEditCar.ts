@@ -3,34 +3,6 @@ import { Track } from "../raceField/createTrack";
 import "./formCreateEditCar.css";
 import { editCarResponse } from "./functionEditCarResponse";
 
-// export function createFormEditCar() {
-//   const formWrapper = createElement<HTMLDivElement>({
-//     tag: "div",
-//     classNames: ["form-edit-car"],
-//   });
-//   const inputText = createElement<HTMLInputElement>({
-//     tag: "input",
-//     classNames: ["input-text", "disabled"],
-//   });
-//   inputText.disabled = true;
-//   inputText.type = "text";
-//   const inputColor = createElement<HTMLInputElement>({
-//     tag: "input",
-//     classNames: ["input-color", "disabled"],
-//   });
-//   inputColor.type = "color";
-//   inputColor.disabled = true;
-//   const buttonEdit = createElement<HTMLButtonElement>({
-//     tag: "button",
-//     classNames: ["button", "button-edit", "disabled"],
-//     textContent: "UPDATE",
-//   });
-//   buttonEdit.disabled = true;
-//   formWrapper.append(inputText, inputColor, buttonEdit);
-
-//   return formWrapper;
-// }
-
 export class FormEditCar {
   private formWrapper: HTMLDivElement;
   private inputText: HTMLInputElement;
@@ -79,7 +51,15 @@ export class FormEditCar {
     );
     this.currentTrack.getCarModel().textContent = data.name;
     this.currentTrack.getCarImg().style.backgroundColor = this.inputColor.value;
-    // this.garageContainer.append(this.currentTrack.render());
+    this.inputText.disabled = true;
+    this.inputText.value = "";
+    this.inputText.classList.add("disabled");
+
+    this.inputColor.disabled = true;
+    this.inputColor.classList.add("disabled");
+
+    this.buttonEdit.disabled = true;
+    this.buttonEdit.classList.add("disabled");
   }
 
   public fillForm(car: { name: string; color: string }, track: Track): void {

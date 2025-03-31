@@ -1,52 +1,11 @@
 import { createElement } from "../../utils/createElement";
-// import { createWrapperButtons } from "../components/buttonsRouting/buttonsRouting";
-// import { createMainElement } from "../components/mainElement";
 import { FormCreateCar } from "./formCreateEditCar/formCreateCar";
-// import { createFormEditCar } from "./formCreateEditCar/formEditCar";
 import { getGarageData } from "./getGarageData";
 import { RaceControlButtons } from "./raceControlbuttons/raceControlButtons";
 import { Track } from "./raceField/createTrack";
 import "../../styles/common.css";
 import { checkTrackButtons } from "./functionCheckTrackButtons";
 import { FormEditCar } from "./formCreateEditCar/formEditCar";
-
-// export async function garageView(childView:HTMLDivElement) {
-//   childView.innerHTML = "";
-
-//   // const { mainElement } = createMainElement();
-//   // document.body.append(mainElement);
-
-//   const garageContainer = createElement<HTMLDivElement>({
-//     tag: "div",
-//     classNames: ["garage-container"],
-//   });
-//   // const wrapperButtons = createWrapperButtons();
-//   const formCreateCar = createFormCreateCar(garageContainer);
-//   const formEditCar = createFormEditCar();
-//   const raceControl = createRaceControlButtons();
-
-//   childView.append(
-//     // wrapperButtons,
-//     formCreateCar,
-//     formEditCar,
-//     raceControl,
-//     garageContainer,
-//   );
-//   const page = 1;
-//   const limit = 7;
-//   const garageData = await getGarageData(page, limit);
-//   if (garageData.data.length > 0) {
-//     garageData.data.forEach((car) => {
-//       const carEl = createTrack(car);
-//       carEl.addEventListener("click", (event) => {
-//         checkTrackButtons(event, car, formEditCar);
-//       });
-//       garageContainer.append(carEl);
-//     });
-//   } else {
-//     garageContainer.textContent = "No cars found.";
-//   }
-// }
 
 export class GarageView {
   private page: number;
