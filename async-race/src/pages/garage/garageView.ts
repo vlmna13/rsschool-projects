@@ -5,7 +5,7 @@ import { FormCreateCar } from "./formCreateEditCar/formCreateCar";
 // import { createFormEditCar } from "./formCreateEditCar/formEditCar";
 import { getGarageData } from "./getGarageData";
 import { createRaceControlButtons } from "./raceControlbuttons/raceControlButtons";
-import { createTrack } from "./raceField/createTrack";
+import { Track } from "./raceField/createTrack";
 import "../../styles/common.css";
 import { checkTrackButtons } from "./functionCheckTrackButtons";
 import { FormEditCar } from "./formCreateEditCar/formEditCar";
@@ -57,7 +57,10 @@ export class GarageView {
   constructor(private childView: HTMLDivElement) {
     this.page = 1;
     this.limit = 7;
-    this.garageContainer = <HTMLDivElement>{};
+    this.garageContainer = createElement<HTMLDivElement>({
+      tag: "div",
+      classNames: ["garage-container"],
+    });
     this.formCreateCar = new FormCreateCar(this.garageContainer);
     this.formEditCar = new FormEditCar(this.garageContainer);
   }
@@ -67,9 +70,10 @@ export class GarageView {
     const garageData = await getGarageData(this.page, this.limit);
     if (garageData.data.length > 0) {
       garageData.data.forEach((car) => {
-        const carEl = createTrack(car);
-        carEl.addEventListener("click", (event) => {
-          checkTrackButtons(event, car, this.formEditCar);
+        const track = new Track(car);
+        const carEl = track.render();
+        carEl.addEventListener("click", (event: Event) => {
+          checkTrackButtons(event, car, this.formEditCar, track);
         });
         this.garageContainer.append(carEl);
       });

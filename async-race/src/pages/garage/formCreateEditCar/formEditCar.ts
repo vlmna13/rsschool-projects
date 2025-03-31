@@ -1,5 +1,7 @@
 import { createElement } from "../../../utils/createElement";
+import { Track } from "../raceField/createTrack";
 import "./formCreateEditCar.css";
+import { editCarResponse } from "./functionEditCarResponse";
 
 // export function createFormEditCar() {
 //   const formWrapper = createElement<HTMLDivElement>({
@@ -34,6 +36,7 @@ export class FormEditCar {
   private inputText: HTMLInputElement;
   private inputColor: HTMLInputElement;
   private buttonEdit: HTMLButtonElement;
+  private currentTrack: Track | undefined = undefined;
   constructor(private garageContainer: HTMLDivElement) {
     this.formWrapper = createElement<HTMLDivElement>({
       tag: "div",
@@ -60,10 +63,26 @@ export class FormEditCar {
       textContent: "UPDATE",
     });
     this.buttonEdit.disabled = true;
+    this.buttonEdit.addEventListener("click", () => this.updateCar());
     this.formWrapper.append(this.inputText, this.inputColor, this.buttonEdit);
   }
 
-  public fillForm(car: { name: string; color: string }): void {
+  public async updateCar() {
+    if (!this.currentTrack) {
+      return;
+    }
+    const carId = this.currentTrack.getCarId();
+    const data = await editCarResponse(
+      carId,
+      this.inputText.value,
+      this.inputColor.value,
+    );
+    this.currentTrack.getCarModel().textContent = data.name;
+    this.currentTrack.getCarImg().style.backgroundColor = this.inputColor.value;
+    // this.garageContainer.append(this.currentTrack.render());
+  }
+
+  public fillForm(car: { name: string; color: string }, track: Track): void {
     this.inputText.value = car.name;
     this.inputText.classList.remove("disabled");
     this.inputText.disabled = false;
@@ -74,6 +93,7 @@ export class FormEditCar {
 
     this.buttonEdit.disabled = false;
     this.buttonEdit.classList.remove("disabled");
+    this.currentTrack = track;
   }
 
   public render(): HTMLDivElement {
