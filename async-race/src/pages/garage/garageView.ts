@@ -4,7 +4,7 @@ import { createElement } from "../../utils/createElement";
 import { FormCreateCar } from "./formCreateEditCar/formCreateCar";
 // import { createFormEditCar } from "./formCreateEditCar/formEditCar";
 import { getGarageData } from "./getGarageData";
-import { createRaceControlButtons } from "./raceControlbuttons/raceControlButtons";
+import { RaceControlButtons } from "./raceControlbuttons/raceControlButtons";
 import { Track } from "./raceField/createTrack";
 import "../../styles/common.css";
 import { checkTrackButtons } from "./functionCheckTrackButtons";
@@ -54,6 +54,7 @@ export class GarageView {
   private garageContainer: HTMLDivElement;
   private formCreateCar: FormCreateCar;
   private formEditCar: FormEditCar;
+  private raceControl: RaceControlButtons;
   constructor(private childView: HTMLDivElement) {
     this.page = 1;
     this.limit = 7;
@@ -63,6 +64,7 @@ export class GarageView {
     });
     this.formCreateCar = new FormCreateCar(this.garageContainer);
     this.formEditCar = new FormEditCar(this.garageContainer);
+    this.raceControl = new RaceControlButtons();
   }
 
   private async renderCars(): Promise<void> {
@@ -84,8 +86,6 @@ export class GarageView {
 
   public async render(): Promise<void> {
     this.childView.innerHTML = "";
-    const raceControl = createRaceControlButtons();
-    this.formCreateCar.render();
 
     this.garageContainer = createElement<HTMLDivElement>({
       tag: "div",
@@ -94,10 +94,9 @@ export class GarageView {
     this.childView.append(
       this.formCreateCar.render(),
       this.formEditCar.render(),
-      raceControl,
+      this.raceControl.render(),
       this.garageContainer,
     );
-
     await this.renderCars();
   }
 
