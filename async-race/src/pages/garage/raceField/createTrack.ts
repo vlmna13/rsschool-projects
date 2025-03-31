@@ -1,45 +1,12 @@
 import { createElement } from "../../../utils/createElement";
 import { Car } from "../../../utils/types";
-import { createSelectDeleteWrapper } from "./createSelectDeleteButtons";
+import { SelectDeleteButtons } from "./createSelectDeleteButtons";
 import { createButtonStart, createButtonStop } from "./createStartStopButtons";
 import "./raceField.css";
 
-// export function createTrack(data: Car) {
-//   const track = createElement<HTMLElement>({
-//     tag: "div",
-//     classNames: ["track"],
-//   });
-
-//   const selectDelete = createSelectDeleteWrapper(data);
-//   const trackLine = createElement<HTMLElement>({
-//     tag: "div",
-//     classNames: ["track-line"],
-//   });
-//   track.setAttribute("data-id", data.id.toString());
-
-//   const startButton = createButtonStart();
-//   const stopButton = createButtonStop();
-
-//   const carImage = createElement<HTMLImageElement>({
-//     tag: "div",
-//     classNames: ["car-image-wrapper"],
-//   });
-
-//   const car = createElement<HTMLDivElement>({
-//     tag: "div",
-//     classNames: ["car-image"],
-//   });
-//   car.style.backgroundColor = data.color;
-//   carImage.append(car);
-//   trackLine.append(startButton, stopButton, carImage);
-//   track.append(selectDelete, trackLine);
-//   return track;
-// }
-
 export class Track {
   private track: HTMLDivElement;
-  private selectDelete: HTMLDivElement;
-  private carModel: HTMLParagraphElement;
+  private selectDeleteButtons: SelectDeleteButtons;
   private trackLine: HTMLDivElement;
   private startButton: HTMLButtonElement;
   private stopButton: HTMLButtonElement;
@@ -50,11 +17,7 @@ export class Track {
       tag: "div",
       classNames: ["track"],
     });
-    const { selectDeleteWrapper, carModel } = createSelectDeleteWrapper(
-      this.data,
-    );
-    this.selectDelete = selectDeleteWrapper;
-    this.carModel = carModel;
+    this.selectDeleteButtons = new SelectDeleteButtons(this.data);
 
     this.trackLine = createElement<HTMLDivElement>({
       tag: "div",
@@ -85,12 +48,12 @@ export class Track {
       this.stopButton,
       this.carImageWrapper,
     );
-    this.track.append(this.selectDelete, this.trackLine);
+    this.track.append(this.selectDeleteButtons.getWrapper(), this.trackLine);
     this.track.setAttribute("data-id", this.data.id.toString());
   }
 
   public getCarModel(): HTMLParagraphElement {
-    return this.carModel;
+    return this.selectDeleteButtons.getCarModel();
   }
 
   public getCarId(): number {
