@@ -1,13 +1,14 @@
 import { createElement } from "../../utils/createElement";
 // import { createWrapperButtons } from "../components/buttonsRouting/buttonsRouting";
 // import { createMainElement } from "../components/mainElement";
-import { createFormCreateCar } from "./formCreateEditCar/formCreateCar";
-import { createFormEditCar } from "./formCreateEditCar/formEditCar";
+import { FormCreateCar } from "./formCreateEditCar/formCreateCar";
+// import { createFormEditCar } from "./formCreateEditCar/formEditCar";
 import { getGarageData } from "./getGarageData";
 import { createRaceControlButtons } from "./raceControlbuttons/raceControlButtons";
 import { createTrack } from "./raceField/createTrack";
 import "../../styles/common.css";
 import { checkTrackButtons } from "./functionCheckTrackButtons";
+import { FormEditCar } from "./formCreateEditCar/formEditCar";
 
 // export async function garageView(childView:HTMLDivElement) {
 //   childView.innerHTML = "";
@@ -51,14 +52,14 @@ export class GarageView {
   private page: number;
   private limit: number;
   private garageContainer: HTMLDivElement;
-  private formCreateCar: HTMLDivElement;
-  private formEditCar: HTMLDivElement;
+  private formCreateCar: FormCreateCar;
+  private formEditCar: FormEditCar;
   constructor(private childView: HTMLDivElement) {
     this.page = 1;
     this.limit = 7;
     this.garageContainer = <HTMLDivElement>{};
-    this.formCreateCar = <HTMLDivElement>{};
-    this.formEditCar = <HTMLDivElement>{};
+    this.formCreateCar = new FormCreateCar(this.garageContainer);
+    this.formEditCar = new FormEditCar(this.garageContainer);
   }
 
   private async renderCars(): Promise<void> {
@@ -68,7 +69,7 @@ export class GarageView {
       garageData.data.forEach((car) => {
         const carEl = createTrack(car);
         carEl.addEventListener("click", (event) => {
-          checkTrackButtons(event, car, this.formEditCar);
+          checkTrackButtons(event, car, this.formEditCar.render());
         });
         this.garageContainer.append(carEl);
       });
@@ -80,15 +81,15 @@ export class GarageView {
   public async render(): Promise<void> {
     this.childView.innerHTML = "";
     const raceControl = createRaceControlButtons();
-    this.formCreateCar = createFormCreateCar(this.garageContainer);
-    this.formEditCar = createFormEditCar();
+    this.formCreateCar.render();
+
     this.garageContainer = createElement<HTMLDivElement>({
       tag: "div",
       classNames: ["garage-container"],
     });
     this.childView.append(
-      this.formCreateCar,
-      this.formEditCar,
+      this.formCreateCar.render(),
+      this.formEditCar.render(),
       raceControl,
       this.garageContainer,
     );
