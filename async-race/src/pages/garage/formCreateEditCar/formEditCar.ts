@@ -60,9 +60,22 @@ export class FormEditCar {
       textContent: "UPDATE",
     });
     this.buttonEdit.disabled = true;
-
     this.formWrapper.append(this.inputText, this.inputColor, this.buttonEdit);
   }
+
+  public fillForm(car: { name: string; color: string }): void {
+    this.inputText.value = car.name;
+    this.inputText.classList.remove("disabled");
+    this.inputText.disabled = false;
+
+    this.inputColor.value = car.color;
+    this.inputColor.classList.remove("disabled");
+    this.inputColor.disabled = false;
+
+    this.buttonEdit.disabled = false;
+    this.buttonEdit.classList.remove("disabled");
+  }
+
   public render(): HTMLDivElement {
     return this.formWrapper;
   }

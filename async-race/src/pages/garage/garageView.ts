@@ -69,7 +69,7 @@ export class GarageView {
       garageData.data.forEach((car) => {
         const carEl = createTrack(car);
         carEl.addEventListener("click", (event) => {
-          checkTrackButtons(event, car, this.formEditCar.render());
+          checkTrackButtons(event, car, this.formEditCar);
         });
         this.garageContainer.append(carEl);
       });

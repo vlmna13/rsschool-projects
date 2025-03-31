@@ -1,10 +1,11 @@
 import { Car } from "../../utils/types";
-import { fillEditForm } from "./formCreateEditCar/functionFillEditForm";
+import { FormEditCar } from "./formCreateEditCar/formEditCar";
+// import { fillEditForm } from "./formCreateEditCar/functionFillEditForm";
 
 export function checkTrackButtons(
   event: Event,
   car: Car,
-  formEditCar: HTMLDivElement,
+  formEditCar: FormEditCar,
 ) {
   const target = event.target;
   if (target instanceof HTMLElement) {
@@ -13,8 +14,8 @@ export function checkTrackButtons(
     } else if (target.classList.contains("button-stop")) {
       console.log("Stop button clicked for car ID:", car.id);
     } else if (target.classList.contains("button-select")) {
-      target.classList.toggle("active");
-      fillEditForm(formEditCar, car);
+      // fillEditForm(formEditCar, car);
+      formEditCar.fillForm(car);
     }
   }
 }
