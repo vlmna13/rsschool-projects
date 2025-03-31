@@ -23,5 +23,5 @@ export function createSelectDeleteWrapper(data: Car) {
     textContent: data.name,
   });
   selectDeleteWrapper.append(buttonSelect, buttonDelete, carModel);
-  return selectDeleteWrapper;
+  return { selectDeleteWrapper, carModel };
 }

@@ -1,11 +1,13 @@
 import { Car } from "../../utils/types";
 import { FormEditCar } from "./formCreateEditCar/formEditCar";
+import { Track } from "./raceField/createTrack";
 // import { fillEditForm } from "./formCreateEditCar/functionFillEditForm";
 
 export function checkTrackButtons(
   event: Event,
   car: Car,
   formEditCar: FormEditCar,
+  track: Track,
 ) {
   const target = event.target;
   if (target instanceof HTMLElement) {
@@ -15,7 +17,7 @@ export function checkTrackButtons(
       console.log("Stop button clicked for car ID:", car.id);
     } else if (target.classList.contains("button-select")) {
       // fillEditForm(formEditCar, car);
-      formEditCar.fillForm(car);
+      formEditCar.fillForm(car, track);
     }
   }
 }

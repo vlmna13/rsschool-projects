@@ -1,5 +1,5 @@
 import { Car } from "../../../utils/types";
-import { createTrack } from "../raceField/createTrack";
+import { Track } from "../raceField/createTrack";
 import { createCarResponse } from "./functionCreateCarResponse";
 
 export async function createCar(
@@ -8,15 +8,12 @@ export async function createCar(
   color: string,
 ) {
   try {
-    if (!name.trim()) {
-      throw new Error("Car name cannot be empty");
-    }
-    const car: Car = await createCarResponse(name, color);
+    const car: Car = await createCarResponse(name.trim(), color);
     if (!car) {
       throw new Error("Failed to create car");
     }
-    const carEl = createTrack(car);
-    garageContainer.append(carEl);
+    const carEl = new Track(car);
+    garageContainer.append(carEl.render());
   } catch (error) {
     console.error("Error creating car:", error);
   }
