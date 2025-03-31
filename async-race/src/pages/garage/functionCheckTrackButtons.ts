@@ -1,9 +1,8 @@
 import { Car } from "../../utils/types";
 import { FormEditCar } from "./formCreateEditCar/formEditCar";
 import { Track } from "./raceField/createTrack";
-// import { fillEditForm } from "./formCreateEditCar/functionFillEditForm";
-
-export function checkTrackButtons(
+import { deleteCar } from "./raceField/functionDeleteCar";
+export async function checkTrackButtons(
   event: Event,
   car: Car,
   formEditCar: FormEditCar,
@@ -18,6 +17,12 @@ export function checkTrackButtons(
     } else if (target.classList.contains("button-select")) {
       // fillEditForm(formEditCar, car);
       formEditCar.fillForm(car, track);
+    } else if (target.classList.contains("button-delete")) {
+      const isDeleted = await deleteCar(car.id);
+      if (isDeleted) {
+        const carElement = track.render();
+        carElement.remove();
+      }
     }
   }
 }
