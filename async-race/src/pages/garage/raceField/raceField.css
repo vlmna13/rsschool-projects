@@ -12,7 +12,8 @@
 }
 
 .button-select:hover,
-.button-delete:hover {
+.button-delete:hover,
+.button-select.active {
   background-color: #99cfff;
   border-color: #69c;
 }
