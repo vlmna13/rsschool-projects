@@ -7,6 +7,7 @@ import "../../styles/common.css";
 import { checkTrackButtons } from "./functionCheckTrackButtons";
 import { FormEditCar } from "./formCreateEditCar/formEditCar";
 import { PaginationElement } from "./paginationElement/paginationElement";
+import { GarageResponse } from "../../utils/types";
 
 export class GarageView {
   private page: number;
@@ -25,41 +26,41 @@ export class GarageView {
     });
     this.formCreateCar = new FormCreateCar(this.garageContainer);
     this.formEditCar = new FormEditCar(this.garageContainer);
-    this.raceControl = new RaceControlButtons();
-    this.paginationElement = new PaginationElement();
-    this.paginationElement
-      .getPrevButton()
-      .addEventListener("click", async () => {
-        if (this.page > 1) {
-          this.page -= 1;
-          await this.renderCars();
-        }
-      });
-    this.paginationElement
-      .getNextButton()
-      .addEventListener("click", async () => {
-        const garageData = await getGarageData(this.page, this.limit);
-        const totalPages = Math.ceil(garageData.totalCount / this.limit);
-        if (this.page < totalPages) {
-          this.page += 1;
-          await this.renderCars();
-        }
-      });
+    this.raceControl = new RaceControlButtons(async () => {
+      await this.getGarageData();
+    });
+    this.paginationElement = new PaginationElement(
+      this.page,
+      1,
+      async (newPage: number) => {
+        this.page = newPage;
+        await this.getGarageData();
+      },
+    );
     // Добавляем обработчик события "carDeleted"
     document.addEventListener("carDeleted", async () => {
-      await this.renderCars();
+      await this.getGarageData();
     });
     // Обработчик события "carCreated"
     document.addEventListener("carCreated", async () => {
-      await this.renderCars();
+      await this.getGarageData();
     });
   }
-
-  private async renderCars(): Promise<void> {
-    this.garageContainer.innerHTML = "";
+  private async getGarageData(): Promise<void> {
     const garageData = await getGarageData(this.page, this.limit);
-    if (garageData.data.length > 0) {
-      garageData.data.forEach((car) => {
+    const totalCars = garageData.totalCount;
+    const allcars = garageData.data;
+    const totalPages = Math.ceil(totalCars / this.limit);
+    this.paginationElement.updateCarCount(totalCars);
+    this.paginationElement.updatePageNumber(this.page);
+    this.paginationElement.updateTotalPages(totalPages);
+    await this.renderCars(allcars);
+  }
+
+  private async renderCars(allcars: GarageResponse): Promise<void> {
+    this.garageContainer.innerHTML = "";
+    if (allcars.length > 0) {
+      allcars.forEach((car) => {
         const track = new Track(car);
         const carEl = track.render();
         carEl.addEventListener("click", (event: Event) => {
@@ -70,11 +71,6 @@ export class GarageView {
     } else {
       this.garageContainer.textContent = "No cars found.";
     }
-    const totalCars = garageData.totalCount;
-    const totalPages = Math.ceil(totalCars / this.limit);
-    this.paginationElement.updateCarCount(totalCars);
-    this.paginationElement.updatePageNumber(this.page);
-    this.paginationElement.updatePaginationButtons(this.page, totalPages);
   }
 
   public async render(): Promise<void> {
@@ -87,6 +83,6 @@ export class GarageView {
       this.garageContainer,
       this.paginationElement.renderPagination(),
     );
-    await this.renderCars();
+    await this.getGarageData();
   }
 }
