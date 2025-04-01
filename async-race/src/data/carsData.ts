@@ -4,7 +4,7 @@ export type CarData = {
 
 export const carData: CarData = {
   bmw: ["x3", "x4", "x5", "m2", "m3"],
-  toyota: ["corolla", "camry", "highlander, landcruiser", "hilux"],
+  toyota: ["corolla", "camry", "highlander", "landcruiser", "hilux"],
   peugeot: ["308", "206", "408", "traveller", "rifter"],
   mitsubishi: ["lancer", "outlander", "pajero", "colt", "galant"],
   ford: ["focus", "mondeo", "puma", "kuga", "explorer"],
