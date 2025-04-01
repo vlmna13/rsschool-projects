@@ -1,15 +1,14 @@
 import { createElement } from "../../../utils/createElement";
 import { Car } from "../../../utils/types";
 import { SelectDeleteButtons } from "./createSelectDeleteButtons";
-import { createButtonStart, createButtonStop } from "./createStartStopButtons";
+import { StartStopButtons } from "./createStartStopButtons";
 import "./raceField.css";
 
 export class Track {
   private track: HTMLDivElement;
   private selectDeleteButtons: SelectDeleteButtons;
   private trackLine: HTMLDivElement;
-  private startButton: HTMLButtonElement;
-  private stopButton: HTMLButtonElement;
+  private startStopButtons: StartStopButtons;
   private carImageWrapper: HTMLDivElement;
   private carImg: HTMLDivElement;
   constructor(private data: Car) {
@@ -24,9 +23,6 @@ export class Track {
       classNames: ["track-line"],
     });
 
-    this.startButton = createButtonStart();
-    this.stopButton = createButtonStop();
-
     this.carImageWrapper = createElement<HTMLDivElement>({
       tag: "div",
       classNames: ["car-image-wrapper"],
@@ -37,6 +33,7 @@ export class Track {
       classNames: ["car-image"],
     });
     this.carImg.style.backgroundColor = this.data.color;
+    this.startStopButtons = new StartStopButtons(this.data.id, this.carImg);
 
     this.buildTrack();
   }
@@ -44,8 +41,8 @@ export class Track {
   private buildTrack(): void {
     this.carImageWrapper.append(this.carImg);
     this.trackLine.append(
-      this.startButton,
-      this.stopButton,
+      this.startStopButtons.getStartButton(),
+      this.startStopButtons.getStopButton(),
       this.carImageWrapper,
     );
     this.track.append(this.selectDeleteButtons.getWrapper(), this.trackLine);
