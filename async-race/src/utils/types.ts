@@ -6,3 +6,12 @@ export type Car = {
 
 export type GarageResponse = Car[];
 export type ShuffleCars = string[];
+
+export type Velocity = {
+  velocity: number;
+  distance: number;
+};
+
+export type Move = {
+  success: boolean;
+};

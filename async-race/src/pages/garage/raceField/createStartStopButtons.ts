@@ -1,11 +1,13 @@
 import { createElement } from "../../../utils/createElement";
 import { animateCar } from "./functionAnimateCar";
 import { getStartStopResponse } from "./functionGetStartStopResponse";
+import { moveCarResponse } from "./functionMoveCarResponse";
 import "./raceField.css";
 
 export class StartStopButtons {
   private startButton: HTMLButtonElement;
   private stopButton: HTMLButtonElement;
+  private animationFrameId: { id: number; stop: () => void } | null = null; // Добавлено свойство
 
   constructor(
     id: number,
@@ -24,7 +26,7 @@ export class StartStopButtons {
       textContent: "B",
     });
     this.setupStartButton(id, this.stopButton, carImg, carImageWrapper);
-    this.setupStopButton(id, this.startButton);
+    this.setupStopButton(id, this.startButton, carImg);
   }
 
   private setupStartButton(
@@ -38,11 +40,19 @@ export class StartStopButtons {
         this.startButton.setAttribute("disabled", "true");
         stopButton.removeAttribute("disabled");
         const data = await getStartStopResponse(id, "started");
+        const bracke = await moveCarResponse(id);
         console.log("Car started:", data);
-        animateCar(carImg, carImageWrapper, data, () => {
-          this.startButton.removeAttribute("disabled");
-          stopButton.setAttribute("disabled", "true");
-        });
+        console.log(bracke);
+        this.animationFrameId = animateCar(
+          carImg,
+          carImageWrapper,
+          data,
+          () => {
+            this.startButton.removeAttribute("disabled");
+            stopButton.setAttribute("disabled", "true");
+            this.animationFrameId = null; // Сбрасываем ID анимации
+          },
+        );
       } catch (error) {
         console.error("Error starting car:", error);
         this.startButton.removeAttribute("disabled");
@@ -51,14 +61,23 @@ export class StartStopButtons {
     });
   }
 
-  private setupStopButton(id: number, startButton: HTMLButtonElement): void {
+  private setupStopButton(
+    id: number,
+    startButton: HTMLButtonElement,
+    carImg: HTMLDivElement,
+  ): void {
     this.stopButton.setAttribute("disabled", "true");
     this.stopButton.addEventListener("click", async () => {
       try {
-        this.stopButton.setAttribute("disabled", "true");
-        startButton.removeAttribute("disabled");
         const data = await getStartStopResponse(id, "stopped");
         console.log("Car stopped:", data);
+        if (this.animationFrameId !== null) {
+          this.animationFrameId.stop(); // Вызываем метод остановки
+          this.animationFrameId = null;
+        }
+        carImg.style.left = "0px";
+        this.stopButton.setAttribute("disabled", "true");
+        startButton.removeAttribute("disabled");
       } catch (error) {
         console.error("Error stopping car:", error);
         this.stopButton.removeAttribute("disabled");
