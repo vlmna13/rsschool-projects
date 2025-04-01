@@ -27,6 +27,24 @@ export class GarageView {
     this.formEditCar = new FormEditCar(this.garageContainer);
     this.raceControl = new RaceControlButtons();
     this.paginationElement = new PaginationElement();
+    this.paginationElement
+      .getPrevButton()
+      .addEventListener("click", async () => {
+        if (this.page > 1) {
+          this.page -= 1;
+          await this.renderCars();
+        }
+      });
+    this.paginationElement
+      .getNextButton()
+      .addEventListener("click", async () => {
+        const garageData = await getGarageData(this.page, this.limit);
+        const totalPages = Math.ceil(garageData.totalCount / this.limit);
+        if (this.page < totalPages) {
+          this.page += 1;
+          await this.renderCars();
+        }
+      });
     // Добавляем обработчик события "carDeleted"
     document.addEventListener("carDeleted", async () => {
       await this.renderCars();
@@ -71,9 +89,4 @@ export class GarageView {
     );
     await this.renderCars();
   }
-
-  // public async paginate(page: number): Promise<void> {
-  //   this.page = page;
-  //   await this.renderCars();
-  // }
 }
