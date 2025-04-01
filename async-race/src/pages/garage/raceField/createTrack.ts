@@ -33,7 +33,11 @@ export class Track {
       classNames: ["car-image"],
     });
     this.carImg.style.backgroundColor = this.data.color;
-    this.startStopButtons = new StartStopButtons(this.data.id, this.carImg);
+    this.startStopButtons = new StartStopButtons(
+      this.data.id,
+      this.carImageWrapper,
+      this.carImg,
+    );
 
     this.buildTrack();
   }

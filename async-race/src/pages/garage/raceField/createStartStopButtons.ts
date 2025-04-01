@@ -1,4 +1,5 @@
 import { createElement } from "../../../utils/createElement";
+import { animateCar } from "./functionAnimateCar";
 import { getStartStopResponse } from "./functionGetStartStopResponse";
 import "./raceField.css";
 
@@ -6,7 +7,11 @@ export class StartStopButtons {
   private startButton: HTMLButtonElement;
   private stopButton: HTMLButtonElement;
 
-  constructor(id: number, carImg: HTMLDivElement) {
+  constructor(
+    id: number,
+    carImageWrapper: HTMLDivElement,
+    carImg: HTMLDivElement,
+  ) {
     this.startButton = createElement<HTMLButtonElement>({
       tag: "button",
       classNames: ["button", "button-start"],
@@ -18,17 +23,26 @@ export class StartStopButtons {
       classNames: ["button", "button-stop"],
       textContent: "B",
     });
-    this.setupStartButton(id, this.stopButton);
+    this.setupStartButton(id, this.stopButton, carImg, carImageWrapper);
     this.setupStopButton(id, this.startButton);
   }
 
-  private setupStartButton(id: number, stopButton: HTMLButtonElement): void {
+  private setupStartButton(
+    id: number,
+    stopButton: HTMLButtonElement,
+    carImg: HTMLDivElement,
+    carImageWrapper: HTMLDivElement,
+  ): void {
     this.startButton.addEventListener("click", async () => {
       try {
         this.startButton.setAttribute("disabled", "true");
         stopButton.removeAttribute("disabled");
         const data = await getStartStopResponse(id, "started");
         console.log("Car started:", data);
+        animateCar(carImg, carImageWrapper, data, () => {
+          this.startButton.removeAttribute("disabled");
+          stopButton.setAttribute("disabled", "true");
+        });
       } catch (error) {
         console.error("Error starting car:", error);
         this.startButton.removeAttribute("disabled");
