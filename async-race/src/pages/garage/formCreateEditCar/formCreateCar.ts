@@ -1,6 +1,6 @@
 import { createElement } from "../../../utils/createElement";
 import "./formCreateEditCar.css";
-import { createCar } from "./functionCreateCar";
+import { createCarResponse } from "./functionCreateCarResponse";
 
 export class FormCreateCar {
   private formWrapper: HTMLDivElement;
@@ -37,12 +37,22 @@ export class FormCreateCar {
   }
 
   private addEventListeners(): void {
-    this.buttonCreate.addEventListener("click", () => {
-      createCar(
-        this.garageContainer,
-        this.inputText.value,
-        this.inputColor.value,
-      );
+    this.buttonCreate.addEventListener("click", async () => {
+      try {
+        const car = await createCarResponse(
+          this.inputText.value.trim(),
+          this.inputColor.value,
+        );
+        if (car) {
+          // Генерируем пользовательское событие "carCreated"
+          const carCreatedEvent = new CustomEvent("carCreated", {
+            detail: { car },
+          });
+          document.dispatchEvent(carCreatedEvent);
+        }
+      } catch (error) {
+        console.error("Error creating car:", error);
+      }
       this.inputText.value = "";
       this.inputColor.value = "#000000";
     });
