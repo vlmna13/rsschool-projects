@@ -8,6 +8,7 @@ import { checkTrackButtons } from "./functionCheckTrackButtons";
 import { FormEditCar } from "./formCreateEditCar/formEditCar";
 import { PaginationElement } from "./paginationElement/paginationElement";
 import { GarageResponse } from "../../utils/types";
+import { StartStopButtons } from "./raceField/createStartStopButtons";
 
 export class GarageView {
   private page: number;
@@ -17,6 +18,8 @@ export class GarageView {
   private formEditCar: FormEditCar;
   private raceControl: RaceControlButtons;
   private paginationElement: PaginationElement;
+  private trackData: [number, HTMLDivElement, HTMLDivElement][] = [];
+  private startStopButtons: StartStopButtons[] = [];
   constructor(private childView: HTMLDivElement) {
     this.page = 1;
     this.limit = 7;
@@ -26,9 +29,13 @@ export class GarageView {
     });
     this.formCreateCar = new FormCreateCar(this.garageContainer);
     this.formEditCar = new FormEditCar(this.garageContainer);
-    this.raceControl = new RaceControlButtons(async () => {
-      await this.getGarageData();
-    });
+    this.raceControl = new RaceControlButtons(
+      async () => {
+        await this.getGarageData();
+      },
+      this.trackData, // Передаём trackData
+      this.startStopButtons, // Временно пустой массив startStopButtons
+    );
     this.paginationElement = new PaginationElement(
       this.page,
       1,
@@ -37,13 +44,11 @@ export class GarageView {
         await this.getGarageData();
       },
     );
-    // Добавляем обработчик события "carDeleted"
     document.addEventListener("carDeleted", async () => {
       await this.getGarageData();
     });
-    // Обработчик события "carCreated"
     document.addEventListener("carCreated", async () => {
-      await this.getGarageData();
+      await this.getGarageData(), this.trackData;
     });
   }
   private async getGarageData(): Promise<void> {
@@ -55,14 +60,18 @@ export class GarageView {
     this.paginationElement.updatePageNumber(this.page);
     this.paginationElement.updateTotalPages(totalPages);
     await this.renderCars(allcars);
+    this.raceControl.updateTrackData(this.trackData);
   }
 
   private async renderCars(allcars: GarageResponse): Promise<void> {
     this.garageContainer.innerHTML = "";
+    this.trackData = [];
     if (allcars.length > 0) {
       allcars.forEach((car) => {
         const track = new Track(car);
         const carEl = track.render();
+        this.trackData.push(track.getTrackData());
+        this.startStopButtons.push(track.getStartStopButtons());
         carEl.addEventListener("click", (event: Event) => {
           checkTrackButtons(event, car, this.formEditCar, track);
         });
@@ -72,7 +81,6 @@ export class GarageView {
       this.garageContainer.textContent = "No cars found.";
     }
   }
-
   public async render(): Promise<void> {
     this.childView.innerHTML = "";
     this.childView.append(
