@@ -1,7 +1,7 @@
 import { createElement } from "../../../utils/createElement";
 import { animateCar } from "./functionAnimateCar";
 import { getStartStopResponse } from "./functionGetStartStopResponse";
-import { moveCarResponse } from "./functionMoveCarResponse";
+import { moveCarResponse, MoveErrorCode } from "./functionMoveCarResponse";
 import "./raceField.css";
 
 export class StartStopButtons {
@@ -40,27 +40,41 @@ export class StartStopButtons {
         this.startButton.setAttribute("disabled", "true");
         stopButton.removeAttribute("disabled");
         const data = await getStartStopResponse(id, "started");
-        const bracke = await moveCarResponse(id);
-        console.log("Car started:", data);
-        console.log(bracke);
+        if (!("velocity" in data && "distance" in data)) {
+          this.startButton.removeAttribute("disabled");
+          stopButton.setAttribute("disabled", "true");
+          return;
+        }
         this.animationFrameId = animateCar(
           carImg,
           carImageWrapper,
           data,
           () => {
-            this.startButton.removeAttribute("disabled");
-            stopButton.setAttribute("disabled", "true");
-            this.animationFrameId = null; // Сбрасываем ID анимации
+            if (this.animationFrameId !== null) {
+              this.startButton.removeAttribute("disabled");
+              stopButton.setAttribute("disabled", "true");
+              this.animationFrameId = null;
+            }
           },
         );
+        const moveData = await moveCarResponse(id);
+        if ("code" in moveData) {
+          if (moveData.code === MoveErrorCode.ENGINE_BROKEN) {
+            if (this.animationFrameId !== null) {
+              this.animationFrameId.stop();
+              this.animationFrameId = null;
+            }
+            this.startButton.removeAttribute("disabled");
+            stopButton.setAttribute("disabled", "true");
+          }
+          return;
+        }
       } catch (error) {
-        console.error("Error starting car:", error);
         this.startButton.removeAttribute("disabled");
         stopButton.setAttribute("disabled", "true");
       }
     });
   }
-
   private setupStopButton(
     id: number,
     startButton: HTMLButtonElement,
@@ -70,7 +84,11 @@ export class StartStopButtons {
     this.stopButton.addEventListener("click", async () => {
       try {
         const data = await getStartStopResponse(id, "stopped");
-        console.log("Car stopped:", data);
+        if (!("velocity" in data && "distance" in data)) {
+          this.stopButton.removeAttribute("disabled");
+          startButton.setAttribute("disabled", "true");
+          return;
+        }
         if (this.animationFrameId !== null) {
           this.animationFrameId.stop(); // Вызываем метод остановки
           this.animationFrameId = null;
@@ -79,7 +97,6 @@ export class StartStopButtons {
         this.stopButton.setAttribute("disabled", "true");
         startButton.removeAttribute("disabled");
       } catch (error) {
-        console.error("Error stopping car:", error);
         this.stopButton.removeAttribute("disabled");
         startButton.setAttribute("disabled", "true");
       }

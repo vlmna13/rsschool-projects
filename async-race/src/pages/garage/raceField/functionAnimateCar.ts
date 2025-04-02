@@ -23,7 +23,9 @@ export function animateCar(
   let animationFrameId: number | null = null; // ID текущей анимации
   let isStopped = false; // Флаг для остановки анимации
   function step(currentTime: number) {
-    if (isStopped) return;
+    if (isStopped) {
+      return;
+    }
     const elapsedTime = currentTime - startTime; // Время, прошедшее с начала анимации (в миллисекундах)
     const progress = Math.min(elapsedTime / duration, 1); // Прогресс анимации (от 0 до 1)
 
