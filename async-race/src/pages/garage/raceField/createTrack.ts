@@ -52,6 +52,9 @@ export class Track {
     this.track.append(this.selectDeleteButtons.getWrapper(), this.trackLine);
     this.track.setAttribute("data-id", this.data.id.toString());
   }
+  public getTrackData(): [number, HTMLDivElement, HTMLDivElement] {
+    return [this.data.id, this.carImageWrapper, this.carImg];
+  }
 
   public getCarModel(): HTMLParagraphElement {
     return this.selectDeleteButtons.getCarModel();
@@ -67,5 +70,8 @@ export class Track {
 
   public render(): HTMLDivElement {
     return this.track;
+  }
+  public getStartStopButtons(): StartStopButtons {
+    return this.startStopButtons;
   }
 }

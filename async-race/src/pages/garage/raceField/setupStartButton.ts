@@ -8,13 +8,14 @@ export function setupStartButton(
   stopButton: HTMLButtonElement,
   carImg: HTMLDivElement,
   carImageWrapper: HTMLDivElement,
-  setAnimationFrameId: (id: { id: number; stop: () => void } | null) => void,
-): void {
-  startButton.addEventListener("click", async () => {
+  setAnimationFrameId: (
+    id: { id: number; stop: () => void } | null,
+  ) => Promise<void>,
+): () => Promise<void> {
+  return async () => {
     try {
       startButton.setAttribute("disabled", "true");
       stopButton.removeAttribute("disabled");
-
       const data = await getStartStopResponse(id, "started");
       if (!("velocity" in data && "distance" in data)) {
         startButton.removeAttribute("disabled");
@@ -24,8 +25,6 @@ export function setupStartButton(
 
       const animationFrameId = animateCar(carImg, carImageWrapper, data, () => {
         if (animationFrameId !== null) {
-          startButton.removeAttribute("disabled");
-          stopButton.setAttribute("disabled", "true");
           setAnimationFrameId(null);
         }
       });
@@ -37,12 +36,12 @@ export function setupStartButton(
           animationFrameId.stop();
           setAnimationFrameId(null);
         }
-        startButton.removeAttribute("disabled");
-        stopButton.setAttribute("disabled", "true");
+        startButton.setAttribute("disabled", "true");
+        stopButton.removeAttribute("disabled");
       }
     } catch (error) {
       startButton.removeAttribute("disabled");
       stopButton.setAttribute("disabled", "true");
     }
-  });
+  };
 }

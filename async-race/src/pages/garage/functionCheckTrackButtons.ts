@@ -10,11 +10,9 @@ export async function checkTrackButtons(
 ) {
   const target = event.target;
   if (target instanceof HTMLElement) {
-    if (target.classList.contains("button-start")) {
-      console.log("Start button clicked for car ID:", car.id);
-    } else if (target.classList.contains("button-stop")) {
-      console.log("Stop button clicked for car ID:", car.id);
-    } else if (target.classList.contains("button-select")) {
+    {
+    }
+    if (target.classList.contains("button-select")) {
       formEditCar.fillForm(car, track);
     } else if (target.classList.contains("button-delete")) {
       const isDeleted = await deleteCar(car.id);

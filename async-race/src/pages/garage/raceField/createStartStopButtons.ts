@@ -24,22 +24,30 @@ export class StartStopButtons {
       classNames: ["button", "button-stop"],
       textContent: "B",
     });
-    setupStartButton(
-      id,
-      this.startButton,
-      this.stopButton,
-      carImg,
-      carImageWrapper,
-      (id) => (this.animationFrameId = id),
+    this.stopButton.setAttribute("disabled", "true");
+    this.startButton.addEventListener(
+      "click",
+      setupStartButton(
+        id,
+        this.startButton,
+        this.stopButton,
+        carImg,
+        carImageWrapper,
+        async (id) => {
+          this.animationFrameId = id;
+        },
+      ),
     );
-
-    setupStopButton(
-      id,
-      this.stopButton,
-      this.startButton,
-      carImg,
-      () => this.animationFrameId,
-      (id) => (this.animationFrameId = id),
+    this.stopButton.addEventListener(
+      "click",
+      setupStopButton(
+        id,
+        this.startButton,
+        this.stopButton,
+        carImg,
+        () => this.animationFrameId,
+        (id) => (this.animationFrameId = id),
+      ),
     );
   }
 
