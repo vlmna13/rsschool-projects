@@ -59,7 +59,6 @@ export class PaginationElement {
     });
 
     this.nextButton.addEventListener("click", async () => {
-      console.log("1");
       if (this.currentPage < this.totalPages) {
         this.currentPage += 1;
         await this.onPageChange(this.currentPage);

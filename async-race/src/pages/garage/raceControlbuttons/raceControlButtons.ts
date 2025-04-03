@@ -3,12 +3,14 @@ import { createElement } from "../../../utils/createElement";
 import { createCarResponse } from "../formCreateEditCar/functionCreateCarResponse";
 import { shuffleCars } from "../functionShuffleCars";
 import { StartStopButtons } from "../raceField/createStartStopButtons";
-import { setupStartButton } from "../raceField/setupStartButton";
+import { setupStopButton } from "../raceField/setupStopButton";
 import {
   createGenerateCarsButton,
   createResetRaceButton,
   createStartRaceButton,
 } from "./createControllsButtons";
+import { startRace } from "./functionstartRace";
+import { stopRace } from "./functonStopRace";
 export { createStartRaceButton } from "./createControllsButtons";
 import "./raceControlButtons.css";
 
@@ -19,6 +21,8 @@ export class RaceControlButtons {
   private generateCarsButton: HTMLButtonElement;
   private trackData: [number, HTMLDivElement, HTMLDivElement][] = [];
   private startStopButtons: StartStopButtons[] = [];
+  private animationHandlers: { id: number; stop: () => void; carId: number }[] =
+    [];
 
   constructor(
     private onGenerateCars: () => Promise<void>,
@@ -43,7 +47,19 @@ export class RaceControlButtons {
       this.generateCarsButton,
     );
     this.startRaceButton.addEventListener("click", async () => {
-      await this.startRace();
+      await startRace(
+        this.trackData,
+        this.startStopButtons,
+        this.animationHandlers,
+      );
+    });
+
+    this.resetButton.addEventListener("click", async () => {
+      await stopRace(
+        this.trackData,
+        this.startStopButtons,
+        this.animationHandlers,
+      );
     });
   }
   private async generateCars(): Promise<void> {
@@ -63,25 +79,56 @@ export class RaceControlButtons {
     this.trackData = trackData;
   }
 
-  private async startRace(): Promise<void> {
-    const promises = this.trackData.map(
-      async ([id, carImageWrapper, carImg], index) => {
-        const startStopButton = this.startStopButtons[index];
-        const startButton = startStopButton.getStartButton();
-        const stopButton = startStopButton.getStopButton();
-        const startHandler = setupStartButton(
-          id,
-          startButton,
-          stopButton,
-          carImg,
-          carImageWrapper,
-          async () => {},
-        );
-        await startHandler();
-      },
-    );
-    await Promise.all(promises);
-  }
+  // private async stopRace(): Promise<void> {
+  //   const promises = this.animationHandlers.map(async (handler) => {
+  //     const trackItem = this.trackData.find(
+  //       ([carId]) => carId === handler.carId,
+  //     );
+  //     if (!trackItem) {
+  //       return; // Если данные не найдены, пропускаем
+  //     }
+
+  //     const [id, carImageWrapper, carImg] = trackItem;
+
+  //     // Используем индекс для получения startStopButton
+  //     const startStopButton = this.startStopButtons.find(
+  //       (button, index) => this.trackData[index][0] === handler.carId,
+  //     );
+  //     if (!startStopButton) {
+  //       return; // Если кнопки не найдены, пропускаем
+  //     }
+  //     const startButton = startStopButton.getStartButton();
+  //     const stopButton = startStopButton.getStopButton();
+  //     const stopHandler = setupStopButton(
+  //       id,
+  //       startButton,
+  //       stopButton,
+  //       carImg,
+  //       () => {
+  //         // Возвращаем handler с carId
+  //         return {
+  //           id: handler.id,
+  //           stop: handler.stop,
+  //           carId: handler.carId,
+  //         };
+  //       },
+  //       (animation) => {
+  //         // Удаляем анимацию из массива
+  //         this.animationHandlers = this.animationHandlers.filter(
+  //           (h) => h.id !== handler.id,
+  //         );
+  //         if (animation) {
+  //           this.animationHandlers.push({
+  //             ...animation,
+  //             carId: id,
+  //           });
+  //         }
+  //       },
+  //     );
+  //     await stopHandler();
+  //   });
+  //   await Promise.all(promises);
+  // }
 
   public render(): HTMLDivElement {
     return this.wrapper;
