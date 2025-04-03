@@ -20,15 +20,10 @@ export async function getStartStopResponse(
     const response = await fetch(url, {
       method: "PATCH",
     });
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
     const data: Velocity = await response.json();
     return data;
   } catch (error) {
     if (error instanceof Error) {
-      console.error("Error in getStartStopResponse:", error.message);
-
       // Возвращаем код ошибки на основе сообщения
       switch (error.message) {
         case "HTTP 400":
