@@ -14,9 +14,6 @@ export async function moveCarResponse(id: number) {
     const response = await fetch(url, {
       method: "PATCH",
     });
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
     const data: Move = await response.json();
     return data;
   } catch (error) {

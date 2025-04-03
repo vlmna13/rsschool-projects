@@ -27,8 +27,8 @@ export class GarageView {
       tag: "div",
       classNames: ["garage-container"],
     });
-    this.formCreateCar = new FormCreateCar(this.garageContainer);
-    this.formEditCar = new FormEditCar(this.garageContainer);
+    this.formCreateCar = new FormCreateCar();
+    this.formEditCar = new FormEditCar();
     this.raceControl = new RaceControlButtons(
       async () => {
         await this.getGarageData();

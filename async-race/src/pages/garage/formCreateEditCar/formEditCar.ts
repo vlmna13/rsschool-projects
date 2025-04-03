@@ -9,7 +9,7 @@ export class FormEditCar {
   private inputColor: HTMLInputElement;
   private buttonEdit: HTMLButtonElement;
   private currentTrack: Track | undefined = undefined;
-  constructor(private garageContainer: HTMLDivElement) {
+  constructor() {
     this.formWrapper = createElement<HTMLDivElement>({
       tag: "div",
       classNames: ["form-edit-car"],

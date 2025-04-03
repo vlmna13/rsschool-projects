@@ -8,7 +8,7 @@ export class FormCreateCar {
   private inputColor: HTMLInputElement;
   private buttonCreate: HTMLButtonElement;
 
-  constructor(private garageContainer: HTMLDivElement) {
+  constructor() {
     this.formWrapper = createElement<HTMLDivElement>({
       tag: "div",
       classNames: ["form-create-car"],
