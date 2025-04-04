@@ -19,7 +19,6 @@ export async function stopRace(
       (button, index) => trackData[index][0] === handler.carId,
     );
     if (!startStopButton) {
-      console.warn(`Не найдены кнопки для машины с id ${handler.carId}`);
       return;
     }
 

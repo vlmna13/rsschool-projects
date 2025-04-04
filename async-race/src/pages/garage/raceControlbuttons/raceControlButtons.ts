@@ -3,7 +3,7 @@ import { createElement } from "../../../utils/createElement";
 import { createCarResponse } from "../formCreateEditCar/functionCreateCarResponse";
 import { shuffleCars } from "../functionShuffleCars";
 import { StartStopButtons } from "../raceField/createStartStopButtons";
-import { setupStopButton } from "../raceField/setupStopButton";
+
 import {
   createGenerateCarsButton,
   createResetRaceButton,
@@ -23,7 +23,6 @@ export class RaceControlButtons {
   private startStopButtons: StartStopButtons[] = [];
   private animationHandlers: { id: number; stop: () => void; carId: number }[] =
     [];
-
   constructor(
     private onGenerateCars: () => Promise<void>,
     trackData: [number, HTMLDivElement, HTMLDivElement][],
@@ -51,6 +50,8 @@ export class RaceControlButtons {
         this.trackData,
         this.startStopButtons,
         this.animationHandlers,
+        this.startRaceButton,
+        this.resetButton,
       );
     });
 
@@ -78,57 +79,6 @@ export class RaceControlButtons {
   ): void {
     this.trackData = trackData;
   }
-
-  // private async stopRace(): Promise<void> {
-  //   const promises = this.animationHandlers.map(async (handler) => {
-  //     const trackItem = this.trackData.find(
-  //       ([carId]) => carId === handler.carId,
-  //     );
-  //     if (!trackItem) {
-  //       return; // Если данные не найдены, пропускаем
-  //     }
-
-  //     const [id, carImageWrapper, carImg] = trackItem;
-
-  //     // Используем индекс для получения startStopButton
-  //     const startStopButton = this.startStopButtons.find(
-  //       (button, index) => this.trackData[index][0] === handler.carId,
-  //     );
-  //     if (!startStopButton) {
-  //       return; // Если кнопки не найдены, пропускаем
-  //     }
-  //     const startButton = startStopButton.getStartButton();
-  //     const stopButton = startStopButton.getStopButton();
-  //     const stopHandler = setupStopButton(
-  //       id,
-  //       startButton,
-  //       stopButton,
-  //       carImg,
-  //       () => {
-  //         // Возвращаем handler с carId
-  //         return {
-  //           id: handler.id,
-  //           stop: handler.stop,
-  //           carId: handler.carId,
-  //         };
-  //       },
-  //       (animation) => {
-  //         // Удаляем анимацию из массива
-  //         this.animationHandlers = this.animationHandlers.filter(
-  //           (h) => h.id !== handler.id,
-  //         );
-  //         if (animation) {
-  //           this.animationHandlers.push({
-  //             ...animation,
-  //             carId: id,
-  //           });
-  //         }
-  //       },
-  //     );
-  //     await stopHandler();
-  //   });
-  //   await Promise.all(promises);
-  // }
 
   public render(): HTMLDivElement {
     return this.wrapper;

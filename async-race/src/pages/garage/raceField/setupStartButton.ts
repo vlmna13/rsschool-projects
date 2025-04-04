@@ -9,18 +9,23 @@ export function setupStartButton(
   carImg: HTMLDivElement,
   carImageWrapper: HTMLDivElement,
   setAnimationFrameId: (
-    id: { id: number; stop: () => void } | null,
+    id: { id: number; stop: () => void; time: number } | null,
   ) => Promise<void>,
-): () => Promise<void> {
+): () => Promise<{
+  id: number;
+  time: number;
+  status: "SUCCESS" | "ENGINE_BROKEN";
+}> {
   return async () => {
     try {
       startButton.setAttribute("disabled", "true");
       stopButton.removeAttribute("disabled");
+
       const data = await getStartStopResponse(id, "started");
       if (!("velocity" in data && "distance" in data)) {
         startButton.removeAttribute("disabled");
         stopButton.setAttribute("disabled", "true");
-        return;
+        return { id, time: 0, status: "ENGINE_BROKEN" };
       }
 
       const animationFrameId = animateCar(carImg, carImageWrapper, data, () => {
@@ -38,10 +43,15 @@ export function setupStartButton(
         }
         startButton.setAttribute("disabled", "true");
         stopButton.removeAttribute("disabled");
+        return { id, time: 0, status: "ENGINE_BROKEN" };
       }
+
+      // Успешное завершение движения
+      return { id, time: data.distance / data.velocity, status: "SUCCESS" };
     } catch (error) {
       startButton.removeAttribute("disabled");
       stopButton.setAttribute("disabled", "true");
+      return { id, time: 0, status: "ENGINE_BROKEN" }; // Возвращаем корректный объект
     }
   };
 }
