@@ -14,23 +14,28 @@ export async function moveCarResponse(id: number) {
     const response = await fetch(url, {
       method: "PATCH",
     });
-    const data: Move = await response.json();
-    return data;
-  } catch (error) {
-    if (error instanceof Error) {
-      switch (error.message) {
-        case "HTTP 400":
+
+    // Проверяем статус ответа
+    if (!response.ok) {
+      switch (response.status) {
+        case 400:
           return { code: MoveErrorCode.WRONG_PARAMETERS };
-        case "HTTP 404":
+        case 404:
           return { code: MoveErrorCode.NOT_FOUND };
-        case "HTTP 429":
+        case 429:
           return { code: MoveErrorCode.TOO_MANY_REQUESTS };
-        case "HTTP 500":
+        case 500:
           return { code: MoveErrorCode.ENGINE_BROKEN };
         default:
           return { code: MoveErrorCode.UNKNOWN_ERROR };
       }
     }
-    return { error: "An unknown error occurred." };
+
+    // Если статус ответа OK, возвращаем данные
+    const data: Move = await response.json();
+    return data;
+  } catch (error) {
+    // Обработка сетевых ошибок
+    return { code: MoveErrorCode.NETWORK_ERROR };
   }
 }
