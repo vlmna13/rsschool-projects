@@ -16,13 +16,12 @@ export async function getWinnerResponse(
     }
 
     const data = await response.json();
-    console.log("Winner fetched successfully:", data);
     return data;
   } catch (error) {
     if (error instanceof Error) {
-      console.error("Ошибка при получении данных победителя:", error.message);
+      console.error("Ошибка при получении данных победителя");
     } else {
-      console.error("Неизвестная ошибка:", error);
+      console.error("Неизвестная ошибка");
     }
     throw error; // Пробрасываем ошибку для обработки на уровне вызова
   }

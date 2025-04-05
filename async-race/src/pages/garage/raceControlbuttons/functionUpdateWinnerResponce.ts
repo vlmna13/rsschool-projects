@@ -17,15 +17,11 @@ export async function updateWinnerResponse(
     if (!response.ok) {
       throw new Error(`Failed to update winner: ${response.statusText}`);
     }
-
-    const data = await response.json();
-    console.log("Winner updated successfully:", data);
   } catch (error) {
     if (error instanceof Error) {
-      console.error("Ошибка при обновлении победителя:", error.message);
+      console.error("Ошибка при обновлении победителя:");
     } else {
-      console.error("Неизвестная ошибка:", error);
+      console.error("Неизвестная ошибка:");
     }
-    throw error; // Пробрасываем ошибку для обработки на уровне вызова
   }
 }

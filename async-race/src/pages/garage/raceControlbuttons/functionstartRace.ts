@@ -13,6 +13,7 @@ export async function startRace(
   resetRaceButton.setAttribute("disabled", "true");
   animationHandlers.length = 0;
   let winnerDeclared = false; // Флаг для определения победителя
+
   trackData.forEach(([id, carImageWrapper, carImg], index) => {
     const startStopButton = startStopButtons[index];
     const startButton = startStopButton.getStartButton();
@@ -37,9 +38,6 @@ export async function startRace(
     startHandler().then((result) => {
       if (result.status === "SUCCESS" && !winnerDeclared) {
         winnerDeclared = true; // Устанавливаем флаг победителя
-        console.log(
-          `Победитель: машина с ID ${result.id}, время: ${result.time.toFixed(2)} секунд.`,
-        );
         determineWinner(result.id, result.time); // Вызываем функцию для отображения победителя
       }
     });

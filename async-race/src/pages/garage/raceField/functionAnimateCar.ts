@@ -16,12 +16,9 @@ export function animateCar(
   const endPosition = trackWidth - carWidth; // Конечная позиция автомобиля
   let animationFrameId: number | null = null; // ID текущей анимации
   let isStopped = false; // Флаг для остановки анимации
-  console.log("Расчёт времени анимации", { maxDistance, velocity, duration });
 
   function step(currentTime: number) {
     if (isStopped) {
-      console.log("Анимация остановлена");
-
       return; // Если анимация остановлена, выходим из функции
     }
 
@@ -35,7 +32,6 @@ export function animateCar(
     if (progress < 1) {
       animationFrameId = requestAnimationFrame(step); // Продолжаем анимацию
     } else {
-      console.log("Анимация завершена");
       onAnimationComplete(); // Вызываем колбэк при завершении анимации
     }
   }

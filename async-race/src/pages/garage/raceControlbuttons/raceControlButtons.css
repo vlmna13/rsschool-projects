@@ -39,3 +39,22 @@
   background-color: #e6ccff;
   border-color: #b399ff;
 }
+
+.winner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  font-size: 1.5rem;
+  color: #333;
+  text-align: center;
+  text-shadow:
+    0 0 5px #fff,
+    0 0 10px #f0f,
+    0 0 20px #f0f,
+    0 0 30px #f0f,
+    0 0 40px #f0f,
+    0 0 50px #f0f,
+    0 0 60px #f0f;
+}
