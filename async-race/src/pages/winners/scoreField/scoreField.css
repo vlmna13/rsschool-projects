@@ -1,0 +1,48 @@
+.score-field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  padding: 10px;
+  align-items: start;
+}
+
+.score-titles,
+.member-wrapper {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.score-titles-id,
+.member-id {
+  max-width: 50px;
+  width: 50px;
+  text-align: center;
+}
+
+.score-titles-img,
+.member-img {
+  max-width: 50px;
+  width: 50px;
+}
+
+.score-titles-name,
+.member-name {
+  max-width: 200px;
+  width: 200px;
+}
+
+.score-titles-wins,
+.member-wins {
+  max-width: 50px;
+  width: 50px;
+  text-align: center;
+}
+
+.score-titles-time,
+.member-time {
+  max-width: 50px;
+  width: 50px;
+  text-align: center;
+}
