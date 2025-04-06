@@ -2,6 +2,7 @@ import { createElement } from "../../../utils/createElement";
 import { Car } from "../../../utils/types";
 import { SelectDeleteButtons } from "./createSelectDeleteButtons";
 import { StartStopButtons } from "./createStartStopButtons";
+import { addCarFromSprite } from "../../components/functionAddCarImage";
 import "./raceField.css";
 
 export class Track {
@@ -28,11 +29,7 @@ export class Track {
       classNames: ["car-image-wrapper"],
     });
 
-    this.carImg = createElement<HTMLDivElement>({
-      tag: "div",
-      classNames: ["car-image"],
-    });
-    this.carImg.style.backgroundColor = this.data.color;
+    this.carImg = addCarFromSprite(this.data.color, ["car-image"]);
     this.startStopButtons = new StartStopButtons(
       this.data.id,
       this.carImageWrapper,

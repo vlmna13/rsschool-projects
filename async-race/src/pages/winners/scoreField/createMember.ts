@@ -1,4 +1,5 @@
 import { createElement } from "../../../utils/createElement";
+import { addCarFromSprite } from "../../components/functionAddCarImage";
 import "./scoreField.css";
 
 export class CreateMember {
@@ -10,7 +11,7 @@ export class CreateMember {
   private memberTime: HTMLParagraphElement;
   constructor(
     private index: number,
-    private img: string,
+    private color: string,
     private name: string,
     private wins: number,
     private time: number,
@@ -24,11 +25,8 @@ export class CreateMember {
       classNames: ["member-id"],
       textContent: index.toString(),
     });
-    this.memberImg = createElement<HTMLDivElement>({
-      tag: "div",
-      classNames: ["member-img"],
-    });
-    this.memberImg.style.backgroundColor = this.img;
+    this.memberImg = addCarFromSprite(this.color, ["member-img"]);
+
     this.memberName = createElement<HTMLParagraphElement>({
       tag: "p",
       classNames: ["member-name"],
