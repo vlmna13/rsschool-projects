@@ -9,7 +9,7 @@ export class CreateMember {
   private memberWins: HTMLParagraphElement;
   private memberTime: HTMLParagraphElement;
   constructor(
-    private id: number,
+    private index: number,
     private img: string,
     private name: string,
     private wins: number,
@@ -22,7 +22,7 @@ export class CreateMember {
     this.memberId = createElement<HTMLParagraphElement>({
       tag: "p",
       classNames: ["member-id"],
-      textContent: `ID: ${this.id}`,
+      textContent: index.toString(),
     });
     this.memberImg = createElement<HTMLDivElement>({
       tag: "div",

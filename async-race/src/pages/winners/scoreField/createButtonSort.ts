@@ -38,7 +38,7 @@ export class SortButton {
         this.sortField,
         order,
       );
-      await renderWinners(this.fieldWrapper, data);
+      await renderWinners(this.fieldWrapper, data, currentPage, this.limit);
       this.button.textContent = this.isDescending
         ? `${this.sortField === SortField.WINS ? "Wins ↓" : "Time ↓"}`
         : `${this.sortField === SortField.WINS ? "Wins ↑" : "Time ↑"}`;

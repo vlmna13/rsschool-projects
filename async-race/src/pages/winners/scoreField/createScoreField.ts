@@ -29,6 +29,11 @@ export class ScoreField {
   }
 
   public async renderMembers(dataWinners: Winners): Promise<void> {
-    await renderWinners(this.fieldWrapper, dataWinners);
+    await renderWinners(
+      this.fieldWrapper,
+      dataWinners,
+      this.getCurrentPage(),
+      10,
+    );
   }
 }
