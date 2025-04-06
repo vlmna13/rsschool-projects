@@ -1,4 +1,6 @@
 import { createElement } from "../../../utils/createElement";
+import { SortField } from "../getWinnersResponse";
+import { SortButton } from "./createButtonSort";
 import "./scoreField.css";
 
 export class ScoreFieldTitles {
@@ -6,10 +8,13 @@ export class ScoreFieldTitles {
   private scoreFieldId: HTMLSpanElement;
   private scoreFieldImg: HTMLSpanElement;
   private scoreFieldName: HTMLSpanElement;
-  private scoreFieldWins: HTMLSpanElement;
-  private scoreFieldTime: HTMLSpanElement;
-
-  constructor() {
+  public scoreFieldWins: SortButton;
+  public scoreFieldTime: SortButton;
+  constructor(
+    private fieldWrapper: HTMLDivElement,
+    private getCurrentPage: () => number, // Передаём функцию для получения текущей страницы
+    private limit: number = 1,
+  ) {
     this.scoreFieldWrapper = createElement<HTMLDivElement>({
       tag: "div",
       classNames: ["score-titles"],
@@ -29,24 +34,29 @@ export class ScoreFieldTitles {
       classNames: ["score-titles-name"],
       textContent: "Name",
     });
-    this.scoreFieldWins = createElement<HTMLSpanElement>({
-      tag: "span",
-      classNames: ["score-titles-wins"],
-      textContent: "Wins",
-    });
-    this.scoreFieldTime = createElement<HTMLSpanElement>({
-      tag: "span",
-      classNames: ["score-titles-time"],
-      textContent: "Time",
-    });
+    this.scoreFieldWins = new SortButton(
+      this.fieldWrapper,
+      SortField.WINS,
+      this.getCurrentPage,
+      this.limit,
+    );
+
+    this.scoreFieldTime = new SortButton(
+      this.fieldWrapper,
+      SortField.TIME,
+      this.getCurrentPage,
+      this.limit,
+      this.scoreFieldWins,
+    );
+    this.scoreFieldWins.otherButton = this.scoreFieldTime;
   }
   public render(): HTMLDivElement {
     this.scoreFieldWrapper.append(
       this.scoreFieldId,
       this.scoreFieldImg,
       this.scoreFieldName,
-      this.scoreFieldWins,
-      this.scoreFieldTime,
+      this.scoreFieldWins.render(),
+      this.scoreFieldTime.render(),
     );
     return this.scoreFieldWrapper;
   }
