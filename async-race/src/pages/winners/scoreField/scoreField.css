@@ -46,3 +46,8 @@
   width: 50px;
   text-align: center;
 }
+
+button {
+  border: none;
+  background-color: transparent;
+}
