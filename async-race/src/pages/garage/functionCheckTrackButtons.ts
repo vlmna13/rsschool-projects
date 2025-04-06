@@ -2,6 +2,7 @@ import { Car } from "../../utils/types";
 import { FormEditCar } from "./formCreateEditCar/formEditCar";
 import { Track } from "./raceField/createTrack";
 import { deleteCar } from "./functionDeleteCar";
+import { deleteWinner } from "./functionDeleteWinner";
 export async function checkTrackButtons(
   event: Event,
   car: Car,
@@ -18,6 +19,7 @@ export async function checkTrackButtons(
       const isDeleted = await deleteCar(car.id);
       if (isDeleted) {
         // Генерируем пользовательское событие "carDeleted"
+        await deleteWinner(car.id);
         const carDeletedEvent = new CustomEvent("carDeleted");
         document.dispatchEvent(carDeletedEvent);
       }
