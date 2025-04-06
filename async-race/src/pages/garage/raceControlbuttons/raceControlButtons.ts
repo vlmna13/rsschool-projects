@@ -3,7 +3,6 @@ import { createElement } from "../../../utils/createElement";
 import { createCarResponse } from "../formCreateEditCar/functionCreateCarResponse";
 import { shuffleCars } from "../functionShuffleCars";
 import { StartStopButtons } from "../raceField/createStartStopButtons";
-
 import {
   createGenerateCarsButton,
   createResetRaceButton,
@@ -50,8 +49,6 @@ export class RaceControlButtons {
         this.trackData,
         this.startStopButtons,
         this.animationHandlers,
-        this.startRaceButton,
-        this.resetButton,
       );
     });
 

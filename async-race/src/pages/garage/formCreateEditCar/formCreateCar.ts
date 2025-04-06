@@ -44,7 +44,7 @@ export class FormCreateCar {
           this.inputColor.value,
         );
         if (car) {
-          // Генерируем пользовательское событие "carCreated"
+          //пользовательское событие "carCreated"
           const carCreatedEvent = new CustomEvent("carCreated", {
             detail: { car },
           });

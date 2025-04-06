@@ -18,33 +18,45 @@
 .member-id {
   max-width: 50px;
   width: 50px;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .score-titles-img,
 .member-img {
   max-width: 50px;
   width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .score-titles-name,
 .member-name {
   max-width: 200px;
   width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.score-titles-wins,
+.sort-button-wins,
 .member-wins {
   max-width: 50px;
   width: 50px;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.score-titles-time,
+.sort-button-time,
 .member-time {
   max-width: 50px;
   width: 50px;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 button {

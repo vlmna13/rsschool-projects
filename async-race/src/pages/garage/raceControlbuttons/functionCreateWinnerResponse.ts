@@ -24,7 +24,6 @@ export async function createWinnerResponse(
     const data = await response.json();
     console.log("Winner created successfully:", data);
   } catch (error) {
-    // Проверяем, является ли ошибка объектом типа Error
     if (error instanceof Error) {
       if (error.message === "Insert failed, duplicate id") {
         console.error("Ошибка: дублирующийся ID победителя.");
@@ -34,6 +33,6 @@ export async function createWinnerResponse(
     } else {
       console.error("Неизвестная ошибка:", error);
     }
-    throw error; // Пробрасываем ошибку для обработки на уровне вызова
+    throw error;
   }
 }

@@ -23,6 +23,6 @@ export async function getWinnerResponse(
     } else {
       console.error("Неизвестная ошибка");
     }
-    throw error; // Пробрасываем ошибку для обработки на уровне вызова
+    throw error;
   }
 }

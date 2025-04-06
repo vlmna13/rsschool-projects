@@ -1,59 +1,46 @@
 import { StartStopButtons } from "../raceField/createStartStopButtons";
 import { setupStartButton } from "../raceField/setupStartButton";
 import { determineWinner } from "./determineWinner";
+import "../../../styles/common.css";
 
 export async function startRace(
   trackData: [number, HTMLDivElement, HTMLDivElement][],
   startStopButtons: StartStopButtons[],
   animationHandlers: { id: number; stop: () => void; carId: number }[],
-  startRaceButton: HTMLButtonElement,
-  resetRaceButton: HTMLButtonElement,
 ): Promise<void> {
-  startRaceButton.setAttribute("disabled", "true");
-  resetRaceButton.setAttribute("disabled", "true");
+  document.body.classList.add("forbiden");
   animationHandlers.length = 0;
-  let winnerDeclared = false; // Флаг для определения победителя
-
-  trackData.forEach(([id, carImageWrapper, carImg], index) => {
-    const startStopButton = startStopButtons[index];
-    const startButton = startStopButton.getStartButton();
-    const stopButton = startStopButton.getStopButton();
-    const startHandler = setupStartButton(
-      id,
-      startButton,
-      stopButton,
-      carImg,
-      carImageWrapper,
-      async (animation) => {
-        if (animation !== null) {
-          animationHandlers.push({
-            id: animation.id,
-            stop: animation.stop,
-            carId: id,
-          });
-        }
-      },
-    );
-    // Запускаем анимацию и обрабатываем результат
-    startHandler().then((result) => {
+  let winnerDeclared = false;
+  const racePromises = trackData.map(
+    async ([id, carImageWrapper, carImg], index) => {
+      const startStopButton = startStopButtons[index];
+      const startButton = startStopButton.getStartButton();
+      const stopButton = startStopButton.getStopButton();
+      const startHandler = setupStartButton(
+        id,
+        startButton,
+        stopButton,
+        carImg,
+        carImageWrapper,
+        async (animation) => {
+          if (animation !== null) {
+            animationHandlers.push({
+              id: animation.id,
+              stop: animation.stop,
+              carId: id,
+            });
+          }
+        },
+      );
+      const result = await startHandler();
       if (result.status === "SUCCESS" && !winnerDeclared) {
-        winnerDeclared = true; // Устанавливаем флаг победителя
-        determineWinner(result.id, result.time); // Вызываем функцию для отображения победителя
+        winnerDeclared = true;
+        determineWinner(result.id, result.time);
       }
-    });
-  });
+    },
+  );
 
-  // Разблокируем кнопки после завершения гонки
-  Promise.all(
-    animationHandlers.map(
-      (handler) =>
-        new Promise<void>((resolve) => {
-          handler.stop(); // Останавливаем анимацию
-          resolve();
-        }),
-    ),
-  ).finally(() => {
-    startRaceButton.removeAttribute("disabled");
-    resetRaceButton.removeAttribute("disabled");
+  await Promise.all(racePromises).finally(() => {
+    document.body.classList.remove("forbiden");
   });
 }

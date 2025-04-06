@@ -8,11 +8,9 @@ export async function deleteCar(carId: number): Promise<boolean> {
     if (response.ok) {
       return true;
     } else {
-      console.error(`Failed to delete car with ID ${carId}.`);
       return false;
     }
   } catch (error) {
-    console.error("Error deleting car:", error);
     return false;
   }
 }

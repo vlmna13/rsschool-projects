@@ -55,7 +55,6 @@ export class SortButton {
     return this.button;
   }
   public reset(): void {
-    // Сбрасываем текст кнопки
     this.button.textContent =
       this.sortField === SortField.WINS ? "Wins" : "Time";
     this.isDescending = true; // Сбрасываем состояние сортировки

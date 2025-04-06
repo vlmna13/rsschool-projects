@@ -7,14 +7,13 @@ export async function stopRace(
   animationHandlers: { id: number; stop: () => void; carId: number }[],
 ): Promise<void> {
   const promises = animationHandlers.map(async (handler) => {
-    // Находим данные о машине в trackData
     const trackItem = trackData.find(([carId]) => carId === handler.carId);
     if (!trackItem) {
       return;
     }
     const [id, carImageWrapper, carImg] = trackItem;
 
-    // Используем индекс для получения startStopButton
+    // индекс для получения startStopButton
     const startStopButton = startStopButtons.find(
       (button, index) => trackData[index][0] === handler.carId,
     );

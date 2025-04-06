@@ -11,14 +11,12 @@ export async function checkTrackButtons(
 ) {
   const target = event.target;
   if (target instanceof HTMLElement) {
-    {
-    }
     if (target.classList.contains("button-select")) {
       formEditCar.fillForm(car, track);
     } else if (target.classList.contains("button-delete")) {
       const isDeleted = await deleteCar(car.id);
       if (isDeleted) {
-        // Генерируем пользовательское событие "carDeleted"
+        // пользовательское событие "carDeleted"
         await deleteWinner(car.id);
         const carDeletedEvent = new CustomEvent("carDeleted");
         document.dispatchEvent(carDeletedEvent);

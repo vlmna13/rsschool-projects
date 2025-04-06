@@ -7,8 +7,6 @@
 body {
   width: 100%;
   height: 100%;
-
-  /* background-color: black; */
 }
 
 button,
@@ -38,4 +36,14 @@ a {
   gap: 5px;
   width: 100%;
   align-items: flex-start;
+}
+
+.forbiden {
+  pointer-events: none;
+}
+
+body.forbiden:has(button) button {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed;
 }

@@ -1,4 +1,5 @@
 import { createElement } from "../../../utils/createElement";
+import { addCarFromSprite } from "../../components/functionAddCarImage";
 import { Track } from "../raceField/createTrack";
 import "./formCreateEditCar.css";
 import { editCarResponse } from "./functionEditCarResponse";
@@ -50,7 +51,11 @@ export class FormEditCar {
       this.inputColor.value,
     );
     this.currentTrack.getCarModel().textContent = data.name;
-    this.currentTrack.getCarImg().style.backgroundColor = this.inputColor.value;
+    const newCarImg = addCarFromSprite(this.inputColor.value, ["car-image"]);
+    const oldCarImg = this.currentTrack.getCarImg();
+    if (oldCarImg) {
+      oldCarImg.replaceWith(newCarImg);
+    }
     this.inputText.disabled = true;
     this.inputText.value = "";
     this.inputText.classList.add("disabled");

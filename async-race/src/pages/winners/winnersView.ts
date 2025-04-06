@@ -1,8 +1,7 @@
 import { Winners } from "../../utils/types";
-import { PaginationElement } from "../garage/paginationElement/paginationElement";
+import { PaginationElement } from "../components/paginationElement/paginationElement";
 import { getWinnersResponse } from "./getWinnersResponse";
 import { ScoreField } from "./scoreField/createScoreField";
-import "../garage/paginationElement/puginationElement.css";
 
 export class WinnersView {
   private scoreField: ScoreField;

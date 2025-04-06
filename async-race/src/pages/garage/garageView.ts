@@ -6,7 +6,7 @@ import { Track } from "./raceField/createTrack";
 import "../../styles/common.css";
 import { checkTrackButtons } from "./functionCheckTrackButtons";
 import { FormEditCar } from "./formCreateEditCar/formEditCar";
-import { PaginationElement } from "./paginationElement/paginationElement";
+import { PaginationElement } from "../components/paginationElement/paginationElement";
 import { GarageResponse } from "../../utils/types";
 import { StartStopButtons } from "./raceField/createStartStopButtons";
 
