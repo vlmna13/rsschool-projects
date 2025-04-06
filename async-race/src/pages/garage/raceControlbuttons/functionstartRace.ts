@@ -11,6 +11,7 @@ export async function startRace(
   document.body.classList.add("forbiden");
   animationHandlers.length = 0;
   let winnerDeclared = false;
+  let winnerElement: HTMLDivElement | void;
   const racePromises = trackData.map(
     async ([id, carImageWrapper, carImg], index) => {
       const startStopButton = startStopButtons[index];
@@ -35,12 +36,17 @@ export async function startRace(
       const result = await startHandler();
       if (result.status === "SUCCESS" && !winnerDeclared) {
         winnerDeclared = true;
-        determineWinner(result.id, result.time);
+        winnerElement = await determineWinner(result.id, result.time);
       }
     },
   );
 
   await Promise.all(racePromises).finally(() => {
     document.body.classList.remove("forbiden");
+    if (!winnerElement) {
+      return;
+    } else {
+      winnerElement.remove();
+    }
   });
 }

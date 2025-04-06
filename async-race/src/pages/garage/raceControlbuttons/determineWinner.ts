@@ -14,12 +14,12 @@ export async function determineWinner(
     const newTime = roundedTime < winner.time ? roundedTime : winner.time;
 
     await updateWinnerResponse(id, newWins, newTime);
-    await showWinner(id, roundedTime);
+    return await showWinner(id, roundedTime);
   } catch (error) {
     if (error instanceof Error && error.message.includes("not found")) {
       const roundedTime = Math.round((time / 1000) * 100) / 100;
       await createWinnerResponse(id, 1, roundedTime);
-      await showWinner(id, roundedTime);
+      return await showWinner(id, roundedTime);
     } else {
       console.error("Ошибка при обработке победителя:");
     }

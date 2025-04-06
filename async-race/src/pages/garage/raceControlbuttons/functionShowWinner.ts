@@ -18,4 +18,5 @@ export async function showWinner(
     textContent: `Winner: ${winnerName}, time: ${time}`,
   });
   document.body.append(winnerElement);
+  return winnerElement;
 }
