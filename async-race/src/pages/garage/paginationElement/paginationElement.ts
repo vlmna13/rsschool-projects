@@ -13,6 +13,7 @@ export class PaginationElement {
     private currentPage: number,
     private totalPages: number,
     private onPageChange: (newPage: number) => Promise<void>,
+    private headerText: string = "GARAGE", // параметр для текста заголовка
   ) {
     this.headersWrapper = createElement<HTMLDivElement>({
       tag: "div",
@@ -67,7 +68,7 @@ export class PaginationElement {
   }
 
   public updateCarCount(totalCars: number): void {
-    this.carCountElement.textContent = `GARAGE: ${totalCars}`;
+    this.carCountElement.textContent = `${this.headerText}: ${totalCars}`;
   }
   public updatePageNumber(currentPage: number): void {
     this.pageNumberElement.textContent = `Page #${currentPage}`;

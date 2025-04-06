@@ -30,8 +30,6 @@ export async function moveCarResponse(id: number) {
           return { code: MoveErrorCode.UNKNOWN_ERROR };
       }
     }
-
-    // Если статус ответа OK, возвращаем данные
     const data: Move = await response.json();
     return data;
   } catch (error) {

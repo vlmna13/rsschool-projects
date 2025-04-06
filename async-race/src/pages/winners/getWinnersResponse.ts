@@ -34,6 +34,5 @@ export async function getWinnersResponse(
 
   const data = await response.json();
   const totalCount = parseInt(response.headers.get("X-Total-Count") || "0", 10);
-
   return { data, totalCount };
 }

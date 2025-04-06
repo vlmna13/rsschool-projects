@@ -10,7 +10,6 @@ export async function getGarageData(page: number, limit: number = 7) {
     const totalCount = response.headers.get("X-Total-Count");
     return { data, totalCount: totalCount ? Number(totalCount) : 0 };
   } catch (error) {
-    // console.error(error);
     return { data: <GarageResponse>[], totalCount: 0 };
   }
 }

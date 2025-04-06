@@ -1,5 +1,5 @@
 import { GarageView } from "./pages/garage/garageView";
-import { winnersView } from "./pages/winners/winnersView";
+import { WinnersView } from "./pages/winners/winnersView";
 import { router } from "./utils/router";
 import "./styles/common.css";
 import { createMainElement } from "./pages/components/mainElement";
@@ -7,10 +7,11 @@ import { createMainElement } from "./pages/components/mainElement";
 
 const { mainElement, childView } = createMainElement();
 const garageView = new GarageView(childView);
+const winnersView = new WinnersView(childView);
 document.addEventListener("DOMContentLoaded", () => {
   router.addRoute("garage", () => garageView.render());
 
-  router.addRoute("winners", () => winnersView(childView));
+  router.addRoute("winners", () => winnersView.render());
   router.setErrorComponent(() => console.log("Page not found"));
 
   document.body.append(mainElement);
