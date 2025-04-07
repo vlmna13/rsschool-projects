@@ -20,10 +20,11 @@ export class CreateMember {
       tag: "div",
       classNames: ["member-wrapper"],
     });
+    let indextoString = this.index.toString();
     this.memberId = createElement<HTMLParagraphElement>({
       tag: "p",
       classNames: ["member-id"],
-      textContent: index.toString(),
+      textContent: indextoString,
     });
     this.memberImg = addCarFromSprite(this.color, ["member-img"]);
 

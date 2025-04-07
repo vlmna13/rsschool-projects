@@ -1,11 +1,11 @@
-export interface ElementOptions<T extends HTMLElement> {
+export interface ElementOptions {
   tag: string;
   classNames: string[];
   textContent?: string;
 }
 
 export function createElement<T extends HTMLElement>(
-  options: ElementOptions<T>,
+  options: ElementOptions,
 ): T {
   const element = document.createElement(options.tag) as T;
   if (options.classNames) {
