@@ -12,6 +12,8 @@ export class StartStopButtons {
     id: number,
     carImageWrapper: HTMLDivElement,
     carImg: HTMLDivElement,
+    private selectButton: HTMLButtonElement,
+    private deleteButton: HTMLButtonElement,
   ) {
     this.startButton = createElement<HTMLButtonElement>({
       tag: "button",
@@ -36,6 +38,8 @@ export class StartStopButtons {
         async (id) => {
           this.animationFrameId = id;
         },
+        this.selectButton,
+        this.deleteButton,
       ),
     );
     this.stopButton.addEventListener(
@@ -57,5 +61,11 @@ export class StartStopButtons {
 
   public getStopButton(): HTMLButtonElement {
     return this.stopButton;
+  }
+  public getSelectButton(): HTMLButtonElement {
+    return this.selectButton;
+  }
+  public getDeleteButton(): HTMLButtonElement {
+    return this.deleteButton;
   }
 }

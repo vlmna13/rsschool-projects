@@ -34,6 +34,8 @@ export class Track {
       this.data.id,
       this.carImageWrapper,
       this.carImg,
+      this.selectDeleteButtons.getSelectButton(),
+      this.selectDeleteButtons.getDeleteButton(),
     );
 
     this.buildTrack();

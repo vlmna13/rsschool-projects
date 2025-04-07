@@ -11,11 +11,11 @@ export async function stopRace(
     if (!trackItem) {
       return;
     }
-    const [id, carImageWrapper, carImg] = trackItem;
+    const [id, _, carImg] = trackItem;
 
     // индекс для получения startStopButton
     const startStopButton = startStopButtons.find(
-      (button, index) => trackData[index][0] === handler.carId,
+      (_, index) => trackData[index][0] === handler.carId,
     );
     if (!startStopButton) {
       return;

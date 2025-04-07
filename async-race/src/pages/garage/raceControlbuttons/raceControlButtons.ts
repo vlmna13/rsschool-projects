@@ -88,4 +88,11 @@ export class RaceControlButtons {
   public getResetButton(): HTMLButtonElement {
     return this.resetButton;
   }
+  public getAnimationHandlers(): {
+    id: number;
+    stop: () => void;
+    carId: number;
+  }[] {
+    return this.animationHandlers;
+  }
 }

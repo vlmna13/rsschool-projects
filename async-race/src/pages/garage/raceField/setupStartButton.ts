@@ -11,6 +11,8 @@ export function setupStartButton(
   setAnimationFrameId: (
     id: { id: number; stop: () => void; time: number } | null,
   ) => Promise<void>,
+  selectButton: HTMLButtonElement,
+  deleteButton: HTMLButtonElement,
 ): () => Promise<{
   id: number;
   time: number;
@@ -18,6 +20,8 @@ export function setupStartButton(
 }> {
   return async () => {
     try {
+      selectButton.setAttribute("disabled", "true");
+      deleteButton.setAttribute("disabled", "true");
       startButton.setAttribute("disabled", "true");
       stopButton.removeAttribute("disabled");
 
@@ -25,6 +29,8 @@ export function setupStartButton(
       if (!("velocity" in data && "distance" in data)) {
         startButton.removeAttribute("disabled");
         stopButton.setAttribute("disabled", "true");
+        selectButton.removeAttribute("disabled");
+        deleteButton.removeAttribute("disabled");
         return { id, time: 0, status: "ENGINE_BROKEN" };
       }
 
@@ -43,15 +49,19 @@ export function setupStartButton(
         }
         startButton.setAttribute("disabled", "true");
         stopButton.removeAttribute("disabled");
+        selectButton.removeAttribute("disabled");
+        deleteButton.removeAttribute("disabled");
         return { id, time: 0, status: "ENGINE_BROKEN" };
       }
-
-      // Успешное завершение движения
+      selectButton.removeAttribute("disabled");
+      deleteButton.removeAttribute("disabled");
       return { id, time: data.distance / data.velocity, status: "SUCCESS" };
     } catch (error) {
       startButton.removeAttribute("disabled");
       stopButton.setAttribute("disabled", "true");
-      return { id, time: 0, status: "ENGINE_BROKEN" }; // Возвращаем корректный объект
+      selectButton.removeAttribute("disabled");
+      deleteButton.removeAttribute("disabled");
+      return { id, time: 0, status: "ENGINE_BROKEN" };
     }
   };
 }

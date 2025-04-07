@@ -17,6 +17,8 @@ export async function startRace(
       const startStopButton = startStopButtons[index];
       const startButton = startStopButton.getStartButton();
       const stopButton = startStopButton.getStopButton();
+      const selectButton = startStopButton.getSelectButton(); // Получаем selectButton
+      const deleteButton = startStopButton.getDeleteButton(); // Получаем deleteButton
       const startHandler = setupStartButton(
         id,
         startButton,
@@ -32,6 +34,8 @@ export async function startRace(
             });
           }
         },
+        selectButton,
+        deleteButton,
       );
       const result = await startHandler();
       if (result.status === "SUCCESS" && !winnerDeclared) {

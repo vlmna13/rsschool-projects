@@ -33,7 +33,7 @@ export class GarageView {
       async () => {
         await this.getGarageData();
       },
-      this.trackData, // Передаём trackData
+      this.trackData,
       this.startStopButtons, // Временно пустой массив startStopButtons
     );
     this.paginationElement = new PaginationElement(

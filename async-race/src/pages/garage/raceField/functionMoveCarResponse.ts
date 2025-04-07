@@ -14,8 +14,6 @@ export async function moveCarResponse(id: number) {
     const response = await fetch(url, {
       method: "PATCH",
     });
-
-    // Проверяем статус ответа
     if (!response.ok) {
       switch (response.status) {
         case 400:
@@ -33,7 +31,6 @@ export async function moveCarResponse(id: number) {
     const data: Move = await response.json();
     return data;
   } catch (error) {
-    // Обработка сетевых ошибок
     return { code: MoveErrorCode.NETWORK_ERROR };
   }
 }
