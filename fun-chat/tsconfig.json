@@ -29,5 +29,5 @@
     "alwaysStrict": true,
     "noImplicitThis": true
   },
-  "include": ["src"]
+  "include": ["src", "src/main.ts"]
 }
