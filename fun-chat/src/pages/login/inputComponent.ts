@@ -3,9 +3,8 @@ import { Component } from "../../utils/component";
 export class InputComponent extends Component<"div"> {
   private input: Component<"input">;
   private label: Component<"label">;
-  private errorMessage: Component<"span">;
+  private errorMessage: Component<"p">;
   private currentValue: string = "";
-  private validateInput: (value: string) => boolean;
   constructor(
     labelText: string,
     placeholder: string,
@@ -14,13 +13,11 @@ export class InputComponent extends Component<"div"> {
     labelClass: string,
     inputClass: string,
     errorClass: string,
-    validateInput: (value: string) => boolean,
   ) {
     super({
       tag: "div",
       className: wrapperClass,
     });
-    this.validateInput = validateInput;
     this.label = new Component({
       tag: "label",
       className: labelClass,
@@ -35,34 +32,36 @@ export class InputComponent extends Component<"div"> {
     this.input.getNode().setAttribute("placeholder", placeholder);
 
     this.errorMessage = new Component({
-      tag: "span",
+      tag: "p",
       className: errorClass,
       text: "",
     });
-    this.input.addListener("input", (event) => this.handleInput(event));
     this.appendChildren([this.label, this.input, this.errorMessage]);
+    this.input.addListener("input", (event) => this.handleInput(event));
   }
 
   public getValue(): string {
     return this.currentValue;
   }
 
-  public setType(type: string): void {
-    this.input.getNode().setAttribute("type", type);
+  public showError(message: string): void {
+    this.errorMessage.setTextContent(message);
+  }
+
+  public clearError(): void {
+    this.errorMessage.setTextContent("");
+  }
+
+  public addInputListener(callback: (value: string) => void): void {
+    this.input.getNode().addEventListener("input", () => {
+      callback(this.currentValue);
+    });
   }
 
   private handleInput(event: Event): void {
     if (!(event.target instanceof HTMLInputElement)) {
       return;
     }
-    const value = event.target.value;
-    this.currentValue = value;
-    if (!this.validateInput(value)) {
-      this.errorMessage.setTextContent("Некорректный ввод");
-      this.errorMessage.toggleClass("visible");
-    } else {
-      this.errorMessage.setTextContent("");
-      this.errorMessage.toggleClass("visible");
-    }
+    this.currentValue = event.target.value;
   }
 }
