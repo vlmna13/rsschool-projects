@@ -1,0 +1,23 @@
+.footer-wrapper {
+    display: flex;
+    max-width: 1440px;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+    color: black;
+    font-weight: bold;
+}
+
+.author-link:hover,
+.rsschool-link:hover {
+    text-decoration: underline;
+}
+
+
+

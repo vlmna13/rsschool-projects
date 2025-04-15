@@ -1,16 +1,16 @@
-import './headerComponent.css';
-import { Component } from '../utils/component';
+import "./headerComponent.css";
+import { Component } from "../utils/component";
 
-export class HeaderComponent extends Component<'header'> {
+export class HeaderComponent extends Component<"header"> {
   constructor() {
     super({
-      tag: 'header',
-      className: 'header',
+      tag: "header",
+      className: "header-wrapper",
     });
     const title = new Component({
-      tag: 'h1',
-      className: 'title',
-      text: 'Веселый чат',
+      tag: "h1",
+      className: "title",
+      text: "Веселый чат",
     });
     this.appendElement(title);
   }
