@@ -52,7 +52,6 @@ export default [
         { accessibility: "explicit", overrides: { constructors: "off" } },
       ],
       "@typescript-eslint/member-ordering": "error",
-      "class-methods-use-this": "error",
     },
   },
 ];
