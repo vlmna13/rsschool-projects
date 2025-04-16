@@ -1,9 +1,10 @@
 import "./loginView.css";
 import { Component } from "../../utils/component";
 import { FieldSet } from "./fieldsetComponent";
+import { InfoButtonComponent } from "./infobuttonComponent";
 
-export class loginView extends Component<"form"> {
-  constructor() {
+export class LoginView extends Component<"form"> {
+  constructor(mainComponent: Component<"main">) {
     super({
       tag: "form",
       className: "login-form",
@@ -23,7 +24,9 @@ export class loginView extends Component<"form"> {
         submitButton.getNode().setAttribute("disabled", "true");
       }
     });
-
-    this.appendChildren([fieldSet, submitButton]);
+    const infoButton = new InfoButtonComponent(this.getNode());
+    this.appendChildren([fieldSet, submitButton, infoButton]);
+    mainComponent.destroyChildren();
+    mainComponent.appendElement(this);
   }
 }
