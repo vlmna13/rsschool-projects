@@ -53,8 +53,8 @@ button:disabled:hover {
   cursor: not-allowed;
 }
 
-.info-button,
-.submit-button {
+.submit-button,
+.info-button {
   width: 40%;
   padding: 5px;
   background-color: transparent;
@@ -62,8 +62,8 @@ button:disabled:hover {
   border: 1px solid #000;
 }
 
-.info-button:hover,
-.submit-button:hover {
+.submit-button:hover,
+.info-button:hover {
   background-color: #f0f0f0;
 }
 
