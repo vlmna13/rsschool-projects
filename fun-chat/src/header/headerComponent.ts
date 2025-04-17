@@ -12,6 +12,6 @@ export class HeaderComponent extends Component<"header"> {
       className: "title",
       text: "Веселый чат",
     });
-    this.appendElement(title);
+    this.appendChildren([title]);
   }
 }
