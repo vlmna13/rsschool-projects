@@ -32,6 +32,6 @@ export class ChatHeader extends Component<"div"> {
     const infoButton = new InfoButtonComponent(mainComponent);
     buttonWrapper.appendChildren([buttonExit, infoButton]);
     this.appendChildren([circle, chatTitle, buttonWrapper]);
-    console.log('chatheader  ', userLogin)
+    console.log("chatheader  ", userLogin);
   }
 }

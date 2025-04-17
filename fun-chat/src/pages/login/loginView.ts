@@ -59,6 +59,15 @@ export class LoginView extends Component<"form"> {
       if ("user" in response && response.user.isLogined) {
         console.log("User logged in:", response.user.login);
         userState.setLogin(response.user.login);
+        userState.setPassword(password);
+        sessionStorage.setItem("userPassword", password);
+        userState.setIsLogined(response.user.isLogined);
+        const user = {
+          login: response.user.login,
+          password,
+          isLogined: response.user.isLogined,
+        };
+        sessionStorage.setItem("user", JSON.stringify(user));
         router.navigate("chat");
       } else {
         this.showError("Unexpected server response.");
