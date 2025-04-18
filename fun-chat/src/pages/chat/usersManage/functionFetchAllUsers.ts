@@ -8,6 +8,13 @@ export async function fetchAllUsers(
   wsManager: WebSocketManager,
 ): Promise<{ login: string; isLogined: boolean }[]> {
   try {
+    const savedUser = sessionStorage.getItem("user");
+    let currentUserLogin = "";
+
+    if (savedUser) {
+      const currentUser = JSON.parse(savedUser);
+      currentUserLogin = currentUser.login;
+    }
     const activeUsersResponse = await wsManager.sendRequest<
       { id: string; type: "USER_ACTIVE"; payload: null },
       UserActiveResponse
@@ -17,6 +24,7 @@ export async function fetchAllUsers(
       payload: null,
     });
     const activeUsers = activeUsersResponse.users || [];
+    
     const inactiveUsersResponse = await wsManager.sendRequest<
       { id: string; type: "USER_INACTIVE"; payload: null },
       UserInactiveResponse
@@ -27,7 +35,8 @@ export async function fetchAllUsers(
     });
     const inactiveUsers = inactiveUsersResponse.users || [];
     const allUsers = [...activeUsers, ...inactiveUsers];
-    return allUsers;
+    const filteredUsers = allUsers.filter((user) => user.login !== currentUserLogin);
+    return filteredUsers;
   } catch (error) {
     console.error("Error fetching users:", error);
     throw error;
