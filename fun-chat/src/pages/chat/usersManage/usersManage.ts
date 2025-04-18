@@ -3,6 +3,7 @@ import { Component } from "../../../utils/component";
 import type { WebSocketManager } from "../../../utils/webSocketManager";
 import { fetchAllUsers } from "./functionFetchAllUsers";
 import { UserListPanel } from "./userListPanel";
+import { UserSearchInput } from "./userSearchInput";
 
 export class UsersManage extends Component<"div"> {
   private wsManager: WebSocketManager;
@@ -15,8 +16,16 @@ export class UsersManage extends Component<"div"> {
     });
     this.wsManager = wsManager;
     this.userList = new UserListPanel([]);
-    this.appendChildren([this.userList]);
     this.loadUsers();
+    const userSearchInput = new UserSearchInput();
+    this.appendChildren([userSearchInput, this.userList]);
+    userSearchInput.getNode().addEventListener("input", (event) => {
+      const target = event.target;
+      if (target instanceof HTMLInputElement) {
+        const searchText = target.value.trim().toLowerCase();
+        this.filterUsers(searchText);
+      }
+    });
   }
 
   private async loadUsers(): Promise<void> {
@@ -27,6 +36,16 @@ export class UsersManage extends Component<"div"> {
       console.log("Users loaded successfully:", this.users);
     } catch (error) {
       console.error("Failed to load users:", error);
+    }
+  }
+  private filterUsers(searchText: string): void {
+    if (!searchText) {
+      this.userList.setUsers(this.users);
+    } else {
+      const filteredUsers = this.users.filter((user) =>
+        user.login.toLowerCase().includes(searchText)
+      );
+      this.userList.setUsers(filteredUsers);
     }
   }
 }
