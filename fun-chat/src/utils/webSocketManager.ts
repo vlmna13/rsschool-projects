@@ -20,17 +20,23 @@ export class WebSocketManager {
     this.url = url;
     this.connect();
   }
-  public sendRequest<T extends WebSocketRequestPayload>(
+  public sendRequest<T extends WebSocketRequestPayload, R extends WebSocketResponsePayload>(
     type: string,
     payload: T,
-  ): Promise<WebSocketResponsePayload> {
+  ): Promise<R> {
     return new Promise((resolve, reject) => {
       const id = crypto.randomUUID();
       const message: WebSocketMessage<T> = { id, type, payload };
-
       if (this.socket && this.socket.readyState === WebSocket.OPEN) {
         this.socket.send(JSON.stringify(message));
-        this.requestHandlers.set(id, resolve);
+        // Указываем тип обработчика для конкретного запроса
+        this.requestHandlers.set(id, (payload: WebSocketResponsePayload) => {
+          if (this.isExpectedResponse<R>(payload)) {
+            resolve(payload);
+          } else {
+            reject(new Error("Unexpected response type."));
+          }
+        });
       } else {
         reject(new Error("WebSocket is not connected."));
       }
@@ -76,14 +82,16 @@ export class WebSocketManager {
 
   private handleMessage(data: string): void {
     try {
-      const message: WebSocketMessage<WebSocketResponsePayload> =
-        JSON.parse(data);
+      const message: WebSocketMessage<WebSocketResponsePayload> = JSON.parse(data);
       const { id, type, payload } = message;
-
       if (id && this.requestHandlers.has(id)) {
         const handler = this.requestHandlers.get(id);
         if (handler) {
-          handler(payload);
+          if (this.isExpectedResponse(payload)) {
+            handler(payload);
+          } else {
+            console.error("Unexpected response type for request ID:", id);
+          }
         }
         this.requestHandlers.delete(id);
       } else if (type && this.eventHandlers.has(type)) {
@@ -97,5 +105,11 @@ export class WebSocketManager {
     } catch (error) {
       console.error("Error parsing message:", error);
     }
+  }
+
+  private isExpectedResponse<R extends WebSocketResponsePayload>(
+    payload: WebSocketResponsePayload,
+  ): payload is R {
+    return true;
   }
 }
