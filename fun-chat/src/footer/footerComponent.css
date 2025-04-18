@@ -10,11 +10,12 @@
 a {
   text-decoration: none;
   cursor: pointer;
-  color: black;
+  color: rgb(0 51 102);
   font-weight: bold;
 }
 
 .author-link:hover,
 .rsschool-link:hover {
   text-decoration: underline;
+  color: rgb(0 51 102);
 }

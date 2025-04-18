@@ -26,8 +26,11 @@ li {
   gap: 10px;
   width: 100%;
   overflow-y: auto;
-  background-color: #f5f5f5;
+  background-color: #e6f0ff;
   padding: 10px;
+  height: 400px;
+  max-height: 400px;
+  border: 1px solid #b0c4de;
 }
 
 .user-element {
@@ -37,19 +40,23 @@ li {
   border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s;
-  border: 1px solid #ccc;
+  border: 1px solid #b0c4de;
   width: 90%;
+  background-color: #f0f8ff;
 }
 
 .user-element:hover {
-  background-color: #f0f0f0;
+  background-color: #d0e7ff;
+  box-shadow: 0 0 10px rgb(0 123 255 / 50%);
 }
 
 .user-search-input {
   width: 100%;
   padding: 5px;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid #b0c4de;
+  background-color: #f0f8ff;
+  transition: border-color 0.3s;
 }
 
 .user-search-input:focus {
