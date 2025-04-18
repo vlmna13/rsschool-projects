@@ -7,7 +7,7 @@ export class InfoButtonComponent extends Component<"button"> {
     super({
       tag: "button",
       className: "info-button",
-      text: "Информация",
+      text: "Веселая информация",
     });
     this.addListener("click", () => {
       parentComponent.destroyChildren();

@@ -32,7 +32,7 @@ export class InfoView extends Component<"div"> {
     const buttonBack = new Component<"button">({
       tag: "button",
       className: "button-back",
-      text: "Назад",
+      text: "Назад к веселью",
     });
     buttonBack.addListener("click", () => {
       router.navigate("login");

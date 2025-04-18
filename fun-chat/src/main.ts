@@ -7,7 +7,6 @@ import { Component } from "./utils/component";
 import "./common.css";
 import { ChatView } from "./pages/chat/chatView";
 import { WebSocketManager } from "./utils/webSocketManager";
-import { userState } from "./pages/chat/userState";
 
 const URL = "ws://localhost:4000";
 const wsManager = new WebSocketManager(URL);
@@ -21,16 +20,10 @@ document.body.append(mainComponent.getNode());
 document.body.append(new FooterComponent().getNode());
 
 document.addEventListener("DOMContentLoaded", () => {
-  const savedUser = sessionStorage.getItem("user");
-
-  if (savedUser) {
-    const user = JSON.parse(savedUser);
-    userState.setLogin(user.login);
-    userState.setPassword(user.password);
-  }
-
   router.addRoute("login", () => {
-    if (userState.getLogin()) {
+    const savedUser = sessionStorage.getItem("user");
+    const user = savedUser ? JSON.parse(savedUser) : null;
+    if (user && user.login) {
       console.warn("Access denied. Redirecting to chat...");
       router.navigate("chat");
       return;
@@ -43,7 +36,9 @@ document.addEventListener("DOMContentLoaded", () => {
     mainComponent.getNode().append(new InfoView(mainComponent).getNode());
   });
   router.addRoute("chat", () => {
-    if (!userState.getLogin()) {
+    const savedUser = sessionStorage.getItem("user");
+    const user = savedUser ? JSON.parse(savedUser) : null;
+    if (!user || !user.login) {
       console.warn("Access denied. Redirecting to login...");
       router.navigate("login");
       return;

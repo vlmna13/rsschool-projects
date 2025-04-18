@@ -20,11 +20,12 @@ export class WebSocketManager {
     this.url = url;
     this.connect();
   }
-  public sendRequest<T extends WebSocketRequestPayload, R extends WebSocketResponsePayload>(
-    type: string,
-    payload: T,
-  ): Promise<R> {
+  public sendRequest<
+    T extends WebSocketRequestPayload,
+    R extends WebSocketResponsePayload,
+  >(type: string, payload: T): Promise<R> {
     return new Promise((resolve, reject) => {
+      console.log("Sending request:", { type, payload });
       const id = crypto.randomUUID();
       const message: WebSocketMessage<T> = { id, type, payload };
       if (this.socket && this.socket.readyState === WebSocket.OPEN) {
@@ -82,7 +83,8 @@ export class WebSocketManager {
 
   private handleMessage(data: string): void {
     try {
-      const message: WebSocketMessage<WebSocketResponsePayload> = JSON.parse(data);
+      const message: WebSocketMessage<WebSocketResponsePayload> =
+        JSON.parse(data);
       const { id, type, payload } = message;
       if (id && this.requestHandlers.has(id)) {
         const handler = this.requestHandlers.get(id);

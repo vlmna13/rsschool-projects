@@ -4,13 +4,11 @@ import { FieldSet } from "./fieldsetComponent";
 import { router } from "../../utils/router";
 import { InfoButtonComponent } from "./infobuttonComponent";
 import type { WebSocketManager } from "../../utils/webSocketManager";
-import { userState } from "../chat/userState";
 
 export class LoginView extends Component<"form"> {
   private wsManager: WebSocketManager;
   private errorMessage: Component<"p">;
   private fieldSet: FieldSet;
-
   constructor(mainComponent: Component<"main">, wsManager: WebSocketManager) {
     super({
       tag: "form",
@@ -20,7 +18,7 @@ export class LoginView extends Component<"form"> {
     const submitButton = new Component({
       tag: "button",
       className: "submit-button",
-      text: "Войти",
+      text: "Начать веселье",
     });
     submitButton.getNode().setAttribute("disabled", "true");
     submitButton.getNode().setAttribute("type", "submit");
@@ -57,11 +55,6 @@ export class LoginView extends Component<"form"> {
         },
       });
       if ("user" in response && response.user.isLogined) {
-        console.log("User logged in:", response.user.login);
-        userState.setLogin(response.user.login);
-        userState.setPassword(password);
-        sessionStorage.setItem("userPassword", password);
-        userState.setIsLogined(response.user.isLogined);
         const user = {
           login: response.user.login,
           password,
