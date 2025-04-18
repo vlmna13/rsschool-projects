@@ -1,0 +1,18 @@
+.users-manage-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 35%;
+}
+
+li {
+  list-style-type: none;
+}
+
+.user-active {
+  background-color: #e0ffe0;
+}
+
+.user-inactive {
+  background-color: #ffe0e0;
+}
