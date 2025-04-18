@@ -3,8 +3,8 @@ import "../../common.css";
 import { Component } from "../../utils/component";
 import { ChatHeader } from "./chatHeader";
 import type { WebSocketManager } from "../../utils/webSocketManager";
-import { userState } from "./userState";
 import { router } from "../../utils/router";
+import { ChatElement } from "./chatElement";
 
 export class ChatView extends Component<"div"> {
   private wsManager: WebSocketManager;
@@ -14,14 +14,16 @@ export class ChatView extends Component<"div"> {
       className: "chatview-wrapper",
     });
     this.wsManager = wsManager;
-    const userLogin = userState.getLogin();
-    if (!userLogin) {
+    const savedUser = sessionStorage.getItem("user");
+    if (!savedUser) {
       console.warn("User is not logged in. Redirecting to login...");
       router.navigate("login");
       return;
     }
-    const chatHeader = new ChatHeader(userLogin, mainComponent);
-    this.appendChildren([chatHeader]);
+    const user = JSON.parse(savedUser);
+    const chatHeader = new ChatHeader(user, mainComponent, wsManager);
+    const chatElement = new ChatElement(wsManager);
+    this.appendChildren([chatHeader, chatElement]);
     mainComponent.destroyChildren();
     mainComponent.appendElement(this);
   }

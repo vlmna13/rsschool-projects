@@ -43,7 +43,7 @@ export class UsersManage extends Component<"div"> {
       this.userList.setUsers(this.users);
     } else {
       const filteredUsers = this.users.filter((user) =>
-        user.login.toLowerCase().includes(searchText)
+        user.login.toLowerCase().includes(searchText),
       );
       this.userList.setUsers(filteredUsers);
     }

@@ -24,7 +24,7 @@ export async function fetchAllUsers(
       payload: null,
     });
     const activeUsers = activeUsersResponse.users || [];
-    
+
     const inactiveUsersResponse = await wsManager.sendRequest<
       { id: string; type: "USER_INACTIVE"; payload: null },
       UserInactiveResponse
@@ -35,7 +35,9 @@ export async function fetchAllUsers(
     });
     const inactiveUsers = inactiveUsersResponse.users || [];
     const allUsers = [...activeUsers, ...inactiveUsers];
-    const filteredUsers = allUsers.filter((user) => user.login !== currentUserLogin);
+    const filteredUsers = allUsers.filter(
+      (user) => user.login !== currentUserLogin,
+    );
     return filteredUsers;
   } catch (error) {
     console.error("Error fetching users:", error);

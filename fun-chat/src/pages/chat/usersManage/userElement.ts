@@ -1,5 +1,5 @@
 import "./usersManage.css";
-import '../chatView.css';
+import "../chatView.css";
 import { Component } from "../../../utils/component";
 
 export class UserElement extends Component<"li"> {
@@ -11,17 +11,18 @@ export class UserElement extends Component<"li"> {
     const userStatus = new Component({
       tag: "span",
       className: "circle",
+      text: login[0].toUpperCase(),
     });
-    if (!isLogined) {
-      userStatus.toggleClass('user-active');
+    if (isLogined) {
+      userStatus.toggleClass("user-active");
     } else {
-      userStatus.toggleClass('user-inactive');
+      userStatus.toggleClass("user-inactive");
     }
     const userName = new Component({
       tag: "span",
       className: "user-name",
       text: login,
     });
-    this.appendChildren([userName, userStatus]);
+    this.appendChildren([userStatus, userName]);
   }
 }
