@@ -26,10 +26,6 @@ export class MessageWrapper extends Component<"div"> {
     });
     this.getNode().dataset.id = message.id;
 
-    this.appendChildren([
-      editMessageButton,
-      deleteMessageButton,
-      messageText,
-    ]);
+    this.appendChildren([editMessageButton, deleteMessageButton, messageText]);
   }
 }

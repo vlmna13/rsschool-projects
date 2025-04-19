@@ -3,7 +3,8 @@ import { Component } from "../../../utils/component";
 import { UserElement } from "./userElement";
 
 export class UserListPanel extends Component<"ul"> {
-  private users: { login: string; isLogined: boolean; unreadCount?: number }[] = [];
+  private users: { login: string; isLogined: boolean; unreadCount?: number }[] =
+    [];
   private onUserClick: (user: { login: string; isLogined: boolean }) => void;
   constructor(
     users: { login: string; isLogined: boolean }[] = [],
@@ -18,7 +19,9 @@ export class UserListPanel extends Component<"ul"> {
     this.users = users;
     this.renderUsers();
   }
-  public setUsers(users: { login: string; isLogined: boolean; unreadCount?: number }[]): void {
+  public setUsers(
+    users: { login: string; isLogined: boolean; unreadCount?: number }[],
+  ): void {
     this.users = users;
     this.renderUsers();
   }
