@@ -23,6 +23,7 @@ export class UserElement extends Component<"li"> {
       className: "user-name",
       text: login,
     });
+    this.getNode().dataset.login = login;
     this.appendChildren([userStatus, userName]);
   }
 }

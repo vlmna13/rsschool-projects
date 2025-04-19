@@ -4,19 +4,20 @@ import { UserElement } from "./userElement";
 
 export class UserListPanel extends Component<"ul"> {
   private users: { login: string; isLogined: boolean }[] = [];
-
   constructor(users: { login: string; isLogined: boolean }[] = []) {
     super({
       tag: "ul",
       className: "user-list-panel",
     });
     this.setUsers(users);
+    this.users = users;
     this.renderUsers();
   }
   public setUsers(users: { login: string; isLogined: boolean }[]): void {
     this.users = users;
     this.renderUsers();
   }
+
   public updateUser(user: { login: string; isLogined: boolean }): void {
     const existingUser = this.users.find((u) => u.login === user.login);
     if (existingUser) {
@@ -26,6 +27,7 @@ export class UserListPanel extends Component<"ul"> {
     }
     this.renderUsers();
   }
+
   public renderUsers(): void {
     this.destroyChildren();
     this.users.forEach((user) => {

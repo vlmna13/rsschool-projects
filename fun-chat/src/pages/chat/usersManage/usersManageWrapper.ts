@@ -1,22 +1,24 @@
 import "./usersManage.css";
 import { Component } from "../../../utils/component";
 import type { WebSocketManager } from "../../../utils/webSocketManager";
-import { fetchAllUsers } from "./functionFetchAllUsers";
 import { UserListPanel } from "./userListPanel";
 import { UserSearchInput } from "./userSearchInput";
 
 export class UsersManage extends Component<"div"> {
+  private userList: UserListPanel;
   private wsManager: WebSocketManager;
   private users: { login: string; isLogined: boolean }[] = [];
-  private userList: UserListPanel;
-  constructor(wsManager: WebSocketManager) {
+  constructor(
+    wsManager: WebSocketManager,
+    users: { login: string; isLogined: boolean }[] = [],
+  ) {
     super({
       tag: "div",
       className: "users-manage-wrapper",
     });
     this.wsManager = wsManager;
+    this.users = users;
     this.userList = new UserListPanel([]);
-    this.loadUsers();
     const userSearchInput = new UserSearchInput();
     this.appendChildren([userSearchInput, this.userList]);
     userSearchInput.getNode().addEventListener("input", (event) => {
@@ -28,16 +30,15 @@ export class UsersManage extends Component<"div"> {
     });
   }
 
-  private async loadUsers(): Promise<void> {
-    try {
-      const allUsers = await fetchAllUsers(this.wsManager);
-      this.users = allUsers;
-      this.userList.setUsers(this.users);
-      console.log("Users loaded successfully:", this.users);
-    } catch (error) {
-      console.error("Failed to load users:", error);
-    }
+  public updateUser(user: { login: string; isLogined: boolean }): void {
+    this.userList.updateUser(user);
   }
+
+  public setUsers(users: { login: string; isLogined: boolean }[]): void {
+    this.users = users;
+    this.userList.setUsers(users);
+  }
+
   private filterUsers(searchText: string): void {
     if (!searchText) {
       this.userList.setUsers(this.users);
