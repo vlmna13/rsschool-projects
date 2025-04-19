@@ -42,6 +42,7 @@ export class LoginView extends Component<"form"> {
     mainComponent.destroyChildren();
     mainComponent.appendElement(this);
   }
+
   private async handleSubmit(event: Event): Promise<void> {
     event.preventDefault();
     const login = this.fieldSet.getLoginValue();

@@ -58,6 +58,8 @@
   display: flex;
   width: 100%;
   background-color: rgb(230 247 255);
+  padding: 10px;
+  gap: 10px;
 }
 
 @media (width <= 768px) {
