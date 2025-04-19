@@ -3,9 +3,11 @@ import "../chatView.css";
 import { Component } from "../../../utils/component";
 
 export class UserElement extends Component<"li"> {
-  constructor(login: string, isLogined: boolean,
-    onClick: (user: { login: string; isLogined: boolean }) => void
-
+  constructor(
+    login: string,
+    isLogined: boolean,
+    unreadCount: number,
+    onClick: (user: { login: string; isLogined: boolean }) => void,
   ) {
     super({
       tag: "li",
@@ -26,8 +28,13 @@ export class UserElement extends Component<"li"> {
       className: "user-name",
       text: login,
     });
+    const unreadCountElement = new Component({
+      tag: "span",
+      className: "unread-count",
+      text: unreadCount > 0 ? `(${unreadCount})` : "",
+    });
     this.getNode().dataset.login = login;
-    this.appendChildren([userStatus, userName]);
+    this.appendChildren([userStatus, userName, unreadCountElement]);
     this.getNode().addEventListener("click", () => {
       onClick({ login, isLogined });
     });

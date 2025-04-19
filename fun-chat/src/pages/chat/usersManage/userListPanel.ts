@@ -3,11 +3,11 @@ import { Component } from "../../../utils/component";
 import { UserElement } from "./userElement";
 
 export class UserListPanel extends Component<"ul"> {
-  private users: { login: string; isLogined: boolean }[] = [];
+  private users: { login: string; isLogined: boolean; unreadCount?: number }[] = [];
   private onUserClick: (user: { login: string; isLogined: boolean }) => void;
-  constructor(users: { login: string; isLogined: boolean }[] = [],
-    onUserClick: (user: { login: string; isLogined: boolean }) => void
-
+  constructor(
+    users: { login: string; isLogined: boolean }[] = [],
+    onUserClick: (user: { login: string; isLogined: boolean }) => void,
   ) {
     super({
       tag: "ul",
@@ -18,7 +18,7 @@ export class UserListPanel extends Component<"ul"> {
     this.users = users;
     this.renderUsers();
   }
-  public setUsers(users: { login: string; isLogined: boolean }[]): void {
+  public setUsers(users: { login: string; isLogined: boolean; unreadCount?: number }[]): void {
     this.users = users;
     this.renderUsers();
   }
@@ -36,8 +36,17 @@ export class UserListPanel extends Component<"ul"> {
   public renderUsers(): void {
     this.destroyChildren();
     this.users.forEach((user) => {
-      const userElement = new UserElement(user.login, user.isLogined, this.onUserClick);
+      const userElement = new UserElement(
+        user.login,
+        user.isLogined,
+        user.unreadCount || 0, // Передаем unreadCount
+        this.onUserClick,
+      );
       this.appendElement(userElement);
     });
+  }
+
+  public getUsers(): { login: string; isLogined: boolean }[] {
+    return this.users;
   }
 }

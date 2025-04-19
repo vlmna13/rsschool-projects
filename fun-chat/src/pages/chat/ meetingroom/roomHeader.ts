@@ -12,7 +12,7 @@ export class RoomHeader extends Component<"div"> {
     this.userInfo = new Component({
       tag: "p",
       className: "user-info",
-      text:"Выбери c кем поделиться своим настроением",
+      text: "Выбери c кем поделиться своим настроением",
     });
     this.appendChildren([this.userInfo]);
   }
@@ -32,7 +32,7 @@ export class RoomHeader extends Component<"div"> {
       this.circle.getNode().classList.add("user-active");
       this.circle.getNode().classList.remove("user-inactive");
     } else {
-      this.circle.getNode().classList.add("user-inactive"); 
+      this.circle.getNode().classList.add("user-inactive");
       this.circle.getNode().classList.remove("user-active");
     }
     const userLogin = new Component({

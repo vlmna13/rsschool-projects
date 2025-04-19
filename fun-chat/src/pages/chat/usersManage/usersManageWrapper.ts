@@ -4,17 +4,19 @@ import type { WebSocketManager } from "../../../utils/webSocketManager";
 import { UserListPanel } from "./userListPanel";
 import { UserSearchInput } from "./userSearchInput";
 import type { RoomHeader } from "../ meetingroom/roomHeader";
+import type { MeetingField } from "../ meetingroom/meetingField";
 
 export class UsersManage extends Component<"div"> {
   private userList: UserListPanel;
   private roomHeader: RoomHeader;
-
+  private meetingField: MeetingField;
   private wsManager: WebSocketManager;
-  private users: { login: string; isLogined: boolean }[] = [];
+  private users: { login: string; isLogined: boolean, messages?: any[]; unreadCount?: number }[] = [];
   constructor(
     wsManager: WebSocketManager,
     users: { login: string; isLogined: boolean }[] = [],
-    roomHeader: RoomHeader
+    roomHeader: RoomHeader,
+    meetingField: MeetingField,
   ) {
     super({
       tag: "div",
@@ -23,6 +25,7 @@ export class UsersManage extends Component<"div"> {
     this.wsManager = wsManager;
     this.users = users;
     this.roomHeader = roomHeader;
+    this.meetingField = meetingField;
     this.userList = new UserListPanel([], (user) => this.handleChatWith(user));
     const userSearchInput = new UserSearchInput();
     this.appendChildren([userSearchInput, this.userList]);
@@ -39,7 +42,7 @@ export class UsersManage extends Component<"div"> {
     this.userList.updateUser(user);
   }
 
-  public setUsers(users: { login: string; isLogined: boolean }[]): void {
+  public setUsers(users: { login: string; isLogined: boolean; messages?: any[]; unreadCount?: number }[]): void {
     this.users = users;
     this.userList.setUsers(users);
   }

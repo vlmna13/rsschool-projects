@@ -2,10 +2,12 @@ import { Component } from "../../../utils/component";
 import { RoomHeader } from "./roomHeader";
 import "./meetingRoom.css";
 import type { WebSocketManager } from "../../../utils/webSocketManager";
+import { MeetingField } from "./meetingField";
 
 export class MeetingRoomWrapper extends Component<"div"> {
   private roomHeader: RoomHeader;
   private wsManager: WebSocketManager;
+  private meetingField: MeetingField;
   constructor(wsManager: WebSocketManager) {
     super({
       tag: "div",
@@ -13,30 +15,14 @@ export class MeetingRoomWrapper extends Component<"div"> {
     });
     this.wsManager = wsManager;
     this.roomHeader = new RoomHeader();
-    this.appendChildren([this.roomHeader]);
+    this.meetingField = new MeetingField();
+    this.appendChildren([this.roomHeader, this.meetingField]);
   }
 
   public getRoomHeader(): RoomHeader {
     return this.roomHeader;
   }
-
-  // private async handleUserClick(login: string): Promise<void> {
-  //   try {
-  //     const response: any = await this.wsManager.sendRequest<any, any>(
-  //       "MSG_FROM_USER",
-  //       {
-  //         id: crypto.randomUUID(),
-  //         type: "MSG_FROM_USER",
-  //         payload: { user: { login } },
-  //       },
-  //     );
-
-  //     console.log("Message history:", response.payload.messages);
-
-  //     // Обновляем RoomHeader
-  //     this.roomHeader.updateUser({ login });
-  //   } catch (error) {
-  //     console.error("Failed to fetch user data:", error);
-  //   }
-  // }
+  public getMeetingField(): MeetingField {
+    return this.meetingField;
+  }
 }
