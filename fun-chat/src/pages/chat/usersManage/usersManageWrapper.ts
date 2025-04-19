@@ -3,14 +3,18 @@ import { Component } from "../../../utils/component";
 import type { WebSocketManager } from "../../../utils/webSocketManager";
 import { UserListPanel } from "./userListPanel";
 import { UserSearchInput } from "./userSearchInput";
+import type { RoomHeader } from "../ meetingroom/roomHeader";
 
 export class UsersManage extends Component<"div"> {
   private userList: UserListPanel;
+  private roomHeader: RoomHeader;
+
   private wsManager: WebSocketManager;
   private users: { login: string; isLogined: boolean }[] = [];
   constructor(
     wsManager: WebSocketManager,
     users: { login: string; isLogined: boolean }[] = [],
+    roomHeader: RoomHeader
   ) {
     super({
       tag: "div",
@@ -18,7 +22,8 @@ export class UsersManage extends Component<"div"> {
     });
     this.wsManager = wsManager;
     this.users = users;
-    this.userList = new UserListPanel([]);
+    this.roomHeader = roomHeader;
+    this.userList = new UserListPanel([], (user) => this.handleChatWith(user));
     const userSearchInput = new UserSearchInput();
     this.appendChildren([userSearchInput, this.userList]);
     userSearchInput.getNode().addEventListener("input", (event) => {
@@ -37,6 +42,11 @@ export class UsersManage extends Component<"div"> {
   public setUsers(users: { login: string; isLogined: boolean }[]): void {
     this.users = users;
     this.userList.setUsers(users);
+  }
+
+  private handleChatWith(user: { login: string; isLogined: boolean }): void {
+    console.log("User clicked:", user);
+    this.roomHeader.chatWith(user);
   }
 
   private filterUsers(searchText: string): void {

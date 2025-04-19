@@ -1,7 +1,7 @@
 import type { WebSocketMessage, WebSocketRequestPayload } from "./requestTypes";
 import type { WebSocketResponsePayload } from "./responceTypes";
 
-const reconnectInterval = 2000;
+const reconnectInterval = 1000;
 
 export class WebSocketManager {
   private socket: WebSocket | null = null;
@@ -20,12 +20,12 @@ export class WebSocketManager {
     this.url = url;
     this.connect();
   }
-  public sendRequest<
+  public async sendRequest<
     T extends WebSocketRequestPayload,
     R extends WebSocketResponsePayload,
   >(type: string, payload: T): Promise<R> {
-    return new Promise((resolve, reject) => {
-      console.log("Sending request:", { type, payload });
+    return new Promise(async (resolve, reject) => {
+      await this.ensureConnected();
       const id = crypto.randomUUID();
       const message: WebSocketMessage<T> = { id, type, payload };
       if (this.socket && this.socket.readyState === WebSocket.OPEN) {
@@ -58,6 +58,8 @@ export class WebSocketManager {
   }
 
   private connect(): void {
+    console.log("Connecting to WebSocket...");
+
     this.socket = new WebSocket(this.url);
 
     this.socket.onopen = (): void => {
@@ -65,6 +67,7 @@ export class WebSocketManager {
     };
 
     this.socket.onmessage = (event): void => {
+      console.log("Message received from WebSocket.");
       this.handleMessage(event.data);
     };
 
@@ -74,10 +77,6 @@ export class WebSocketManager {
 
     this.socket.onclose = (): void => {
       console.log("WebSocket connection closed.");
-      if (this.shouldReconnect) {
-        console.log("Reconnecting...");
-        setTimeout(() => this.connect(), reconnectInterval);
-      }
     };
   }
 
@@ -86,6 +85,7 @@ export class WebSocketManager {
       const message: WebSocketMessage<WebSocketResponsePayload> =
         JSON.parse(data);
       const { id, type, payload } = message;
+      console.log(`Message type: ${type}`);
       if (id && this.requestHandlers.has(id)) {
         const handler = this.requestHandlers.get(id);
         if (handler) {
@@ -98,6 +98,8 @@ export class WebSocketManager {
         this.requestHandlers.delete(id);
       } else if (type && this.eventHandlers.has(type)) {
         const handler = this.eventHandlers.get(type);
+        console.log(`Event type: ${type}`);
+
         if (handler) {
           handler(payload);
         }
@@ -113,5 +115,23 @@ export class WebSocketManager {
     payload: WebSocketResponsePayload,
   ): payload is R {
     return true;
+  }
+  private async ensureConnected(): Promise<void> {
+    if (this.socket && this.socket.readyState === WebSocket.OPEN) {
+      return;
+    }
+    return new Promise((resolve, reject) => {
+      const interval = setInterval(() => {
+        if (this.socket && this.socket.readyState === WebSocket.OPEN) {
+          clearInterval(interval);
+          resolve();
+        }
+      }, reconnectInterval);
+
+      setTimeout(() => {
+        clearInterval(interval);
+        reject(new Error("WebSocket failed to connect."));
+      }, reconnectInterval); // Таймаут на подключение
+    });
   }
 }

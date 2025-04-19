@@ -3,6 +3,7 @@ import { Component } from "../../../utils/component";
 
 export class RoomHeader extends Component<"div"> {
   private userInfo: Component<"p">;
+  private circle: Component<"div"> | null = null; // Сохраняем ссылку на кружок
   constructor() {
     super({
       tag: "div",
@@ -11,12 +12,47 @@ export class RoomHeader extends Component<"div"> {
     this.userInfo = new Component({
       tag: "p",
       className: "user-info",
-      text: "No user selected",
+      text:"Выбери c кем поделиться своим настроением",
     });
     this.appendChildren([this.userInfo]);
   }
-  public updateUser(user: { login: string }): void {
-    console.log("Updating RoomHeader with user:", user);
-    this.userInfo.setTextContent(`Chatting with: ${user.login}`);
+  public chatWith(user: { login: string; isLogined: boolean }): void {
+    this.destroyChildren();
+    this.userInfo = new Component({
+      tag: "p",
+      className: "user-info",
+      text: "шлю добро:     ",
+    });
+    this.circle = new Component({
+      tag: "div",
+      className: "circle",
+      text: user.login[0].toUpperCase(),
+    });
+    if (user.isLogined) {
+      this.circle.getNode().classList.add("user-active");
+      this.circle.getNode().classList.remove("user-inactive");
+    } else {
+      this.circle.getNode().classList.add("user-inactive"); 
+      this.circle.getNode().classList.remove("user-active");
+    }
+    const userLogin = new Component({
+      tag: "p",
+      className: "user-login",
+      text: user.login,
+    });
+    this.appendChildren([this.userInfo, this.circle, userLogin]);
+  }
+
+  public updateUser(user: { login: string; isLogined: boolean }): void {
+    if (this.circle) {
+      this.circle.setTextContent(user.login[0].toUpperCase());
+      if (user.isLogined) {
+        this.circle.getNode().classList.add("user-active");
+        this.circle.getNode().classList.remove("user-inactive");
+      } else {
+        this.circle.getNode().classList.add("user-inactive");
+        this.circle.getNode().classList.remove("user-active");
+      }
+    }
   }
 }

@@ -8,3 +8,15 @@
   border-radius: 8px;
   padding: 10px;
 }
+
+.room-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 10px;
+  gap: 10px;
+  background-color: rgb(240 248 255);
+  border-bottom: 1px solid rgb(176 196 222);
+}
+

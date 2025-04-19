@@ -3,7 +3,10 @@ import "../chatView.css";
 import { Component } from "../../../utils/component";
 
 export class UserElement extends Component<"li"> {
-  constructor(login: string, isLogined: boolean) {
+  constructor(login: string, isLogined: boolean,
+    onClick: (user: { login: string; isLogined: boolean }) => void
+
+  ) {
     super({
       tag: "li",
       className: "user-element",
@@ -25,5 +28,8 @@ export class UserElement extends Component<"li"> {
     });
     this.getNode().dataset.login = login;
     this.appendChildren([userStatus, userName]);
+    this.getNode().addEventListener("click", () => {
+      onClick({ login, isLogined });
+    });
   }
 }
