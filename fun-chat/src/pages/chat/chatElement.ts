@@ -9,7 +9,8 @@ import { fetchAllMessages } from "./usersManage/functionFetchAllMessages";
 
 export class ChatElement extends Component<"div"> {
   private wsManager: WebSocketManager;
-  private users: { login: string; isLogined: boolean }[] = [];
+  private users: { login: string; isLogined: boolean; unreadCount?: number }[] =
+    [];
   private usersManage: UsersManage;
   private meetingRoom: MeetingRoomWrapper;
   private userMessages: Map<string, any[]> = new Map(); // Хранилище сообщений для каждого пользователя
@@ -20,7 +21,7 @@ export class ChatElement extends Component<"div"> {
       className: "chat-wrapper",
     });
     this.wsManager = wsManager;
-    this.meetingRoom = new MeetingRoomWrapper(wsManager);
+    this.meetingRoom = new MeetingRoomWrapper(wsManager, this.userMessages);
     const roomHeader = this.meetingRoom.getRoomHeader();
     const meetingField = this.meetingRoom.getMeetingField();
     this.usersManage = new UsersManage(
@@ -34,6 +35,7 @@ export class ChatElement extends Component<"div"> {
     this.appendChildren([this.usersManage, this.meetingRoom]);
     this.loadUsers();
     this.subscribeToWebSocketEvents();
+    this.subscribeToMessageSend();
   }
 
   public getUserMessages(login: string): any[] {
@@ -87,6 +89,34 @@ export class ChatElement extends Component<"div"> {
         });
       } else {
         console.error("Invalid payload for USER_EXTERNAL_LOGIN:", payload);
+      }
+    });
+  }
+  private subscribeToMessageSend(): void {
+    this.wsManager.addEventHandler("MSG_SEND", (payload: any) => {
+      const { message } = payload;
+
+      if (message) {
+        console.log("New message received:", message);
+        this.meetingRoom.addMessages(message.from, [message]); // Для отправителя
+        this.meetingRoom.addMessages(message.to, [message]); // Для получателя
+        const activeUserId = this.meetingRoom.getActiveUserId();
+        console.log("Active user ID:", activeUserId);
+        console.log("Message recipient ID:", message.to);
+        if (activeUserId === message.to || activeUserId === message.from) {
+          console.log("Active user is the recipient. Updating message field.");
+          this.meetingRoom.getMeetingField().addMessages([message]);
+        } else {
+          // Увеличиваем количество непрочитанных сообщений
+          const user = this.users.find((u) => u.login === message.to);
+          if (user) {
+            user.unreadCount = (user.unreadCount || 0) + 1;
+            console.log(`Incrementing unread count for user: ${message.to}`);
+            this.usersManage.setUsers(this.users);
+          }
+        }
+      } else {
+        console.error("Invalid message payload:", payload);
       }
     });
   }

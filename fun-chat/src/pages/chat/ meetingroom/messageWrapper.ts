@@ -1,8 +1,9 @@
 import "./meetingRoom.css";
 import { Component } from "../../../utils/component";
+import type { MessageSendResponse } from "../../../utils/responceTypes";
 
 export class MessageWrapper extends Component<"div"> {
-  constructor(message: { from: string; text: string; id: string }) {
+  constructor(message: MessageSendResponse["message"]) {
     super({
       tag: "div",
       className: "message-wrapper",
@@ -24,8 +25,19 @@ export class MessageWrapper extends Component<"div"> {
       className: "message-text",
       text: `${message.from}: ${message.text}`,
     });
+    const formattedDate = new Date(message.datetime).toLocaleString();
+    const date = new Component({
+      tag: "p",
+      className: ".message-date",
+      text: formattedDate,
+    });
     this.getNode().dataset.id = message.id;
 
-    this.appendChildren([editMessageButton, deleteMessageButton, messageText]);
+    this.appendChildren([
+      editMessageButton,
+      date,
+      deleteMessageButton,
+      messageText,
+    ]);
   }
 }

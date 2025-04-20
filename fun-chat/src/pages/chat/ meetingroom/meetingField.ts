@@ -18,4 +18,12 @@ export class MeetingField extends Component<"div"> {
       this.appendElement(messageElement);
     });
   }
+
+  public addMessages(messages: any[]): void {
+    console.log("Adding messages:", messages);
+    messages.forEach((message) => {
+      const messageElement = new MessageWrapper(message);
+      this.appendElement(messageElement);
+    });
+  }
 }

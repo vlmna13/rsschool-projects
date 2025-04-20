@@ -12,19 +12,25 @@ export class MeetingRoomWrapper extends Component<"div"> {
   private meetingField: MeetingField;
   private messageManage: MessageManage;
   private activeUserId: string | null = null; // Хранит id текущего пользователя
-  private userMessages: Map<string, MessageSendResponse["message"][]> =
-    new Map(); // Хранилище сообщений
+  private userMessages: Map<string, MessageSendResponse["message"][]>;
 
-  constructor(wsManager: WebSocketManager) {
+  constructor(
+    wsManager: WebSocketManager,
+    userMessages: Map<string, MessageSendResponse["message"][]>,
+  ) {
     super({
       tag: "div",
       className: "meetingroom-wrapper",
     });
     this.wsManager = wsManager;
-    this.wsManager = wsManager;
+    this.userMessages = userMessages;
     this.roomHeader = new RoomHeader();
     this.meetingField = new MeetingField();
-    this.messageManage = new MessageManage(this.wsManager);
+    this.messageManage = new MessageManage(
+      this.wsManager,
+      this.meetingField,
+      this,
+    );
     this.appendChildren([
       this.roomHeader,
       this.meetingField,
@@ -32,12 +38,15 @@ export class MeetingRoomWrapper extends Component<"div"> {
     ]);
   }
 
+  public getActiveUserId(): string | null {
+    return this.activeUserId;
+  }
+
   public setActiveUser(userId: string): void {
     this.activeUserId = userId;
     console.log(`Active user set to: ${userId}`);
     const messages = this.userMessages.get(userId) || [];
     this.meetingField.displayMessages(messages);
-    this.messageManage.setRecipient(userId);
   }
   public addMessages(
     userId: string,
