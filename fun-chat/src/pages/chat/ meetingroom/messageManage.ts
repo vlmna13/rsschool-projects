@@ -1,7 +1,7 @@
 import "./meetingRoom.css";
 import { Component } from "../../../utils/component";
-import type { MessageSendRequest } from "../../../utils/requestTypes";
-import type { MessageSendResponse } from "../../../utils/responceTypes";
+import type { MessageEditRequest, MessageSendRequest } from "../../../utils/requestTypes";
+import type { MessageEditResponse, MessageSendResponse } from "../../../utils/responceTypes";
 import type { WebSocketManager } from "../../../utils/webSocketManager";
 import type { MeetingField } from "./meetingField";
 import type { MeetingRoomWrapper } from "./meetingRoomWrapper";
@@ -9,10 +9,11 @@ import type { MeetingRoomWrapper } from "./meetingRoomWrapper";
 export class MessageManage extends Component<"div"> {
   private messageInput: Component<"textarea">;
   private sendButton: Component<"button">;
-  // private recipientId: string | null = null; // Хранит id получателя
   private wsManager: WebSocketManager;
   private meetingField: MeetingField;
   private meetingRoom: MeetingRoomWrapper;
+  private editingMessageId: string | null = null;
+
   constructor(
     wsManager: WebSocketManager,
     meetingField: MeetingField,
@@ -36,28 +37,67 @@ export class MessageManage extends Component<"div"> {
     });
     this.appendChildren([this.messageInput, this.sendButton]);
     this.sendButton.getNode().addEventListener("click", () => {
-      this.sendMessage();
+      if (this.editingMessageId) {
+        this.editMessage();
+      } else {
+        this.sendMessage();
+      }
     });
   }
 
-  // public setRecipient(recipientId: string): void {
-  //   this.recipientId = recipientId;
-  //   console.log(`Recipient set to: ${recipientId}`);
-  // }
+  public startEditingMessage(message: MessageSendResponse["message"]): void {
+    this.editingMessageId = message.id;
+    this.messageInput.getNode().value = message.text;
+  }
+  public async editMessage(): Promise<void> {
+    const newText = this.messageInput.getNode().value;
+    if (!this.editingMessageId) {
+      console.error("No message is being edited.");
+      return;
+    }
+    const payload: MessageEditRequest = {
+      message: {
+        id: this.editingMessageId,
+        text: newText,
+      },
+    };
+    try {
+      const response = await this.wsManager.sendRequest<
+        MessageEditRequest,
+        MessageEditResponse
+      >("MSG_EDIT", payload);
+  
+      const updatedMessage = response.message;
+      const activeUserId = this.meetingRoom.getActiveUserId();
+      if (activeUserId) {
+        const userMessages = this.meetingRoom.userMessages.get(activeUserId) || [];
+        const messageIndex = userMessages.findIndex(
+          (msg) => msg.id === updatedMessage.id,
+        );
+        if(!messageIndex) {
+          return;
+        }
+        userMessages[messageIndex].text = updatedMessage.text;
+        userMessages[messageIndex].status.isEdited = updatedMessage.status.isEdited;
+        this.meetingRoom.userMessages.set(activeUserId, userMessages);
+        this.meetingRoom.getMeetingField().displayMessages(userMessages);
+      }
+        this.editingMessageId = null;
+      this.messageInput.getNode().value = "";
+    } catch (error) {
+      console.error("Failed to edit message:", error);
+    }
+  }
+  
 
   private async sendMessage(): Promise<void> {
-    const activeUserId = this.meetingRoom.getActiveUserId(); // Используем activeUserId
+    const activeUserId = this.meetingRoom.getActiveUserId(); 
     if (!activeUserId) {
       console.error("Recipient is not set.");
       return;
     }
 
-    const messageText = this.messageInput.getNode().value.trim();
-    if (!messageText) {
-      console.error("Message text is empty.");
-      return;
-    }
-
+    const messageText = this.messageInput.getNode().value;
     const payload: MessageSendRequest = {
       message: {
         to: activeUserId,
@@ -66,7 +106,6 @@ export class MessageManage extends Component<"div"> {
     };
 
     try {
-      console.log("Sending payload:", payload);
       const response = await this.wsManager.sendRequest<
         MessageSendRequest,
         MessageSendResponse
@@ -74,7 +113,6 @@ export class MessageManage extends Component<"div"> {
       const sentMessage = response.message;
       this.messageInput.getNode().value = "";
       this.meetingField.addMessages([sentMessage]);
-      // this.meetingRoom.addMessages(sentMessage.from, [sentMessage]); // Для отправителя
     } catch (error) {
       console.error("Failed to send message:", error);
     }
