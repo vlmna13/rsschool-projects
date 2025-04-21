@@ -14,7 +14,7 @@ import type { WebSocketManager } from "../../../utils/webSocketManager";
 import type { MeetingField } from "./meetingField";
 import type { MeetingRoomWrapper } from "./meetingRoomWrapper";
 
-export class MessageManage extends Component<"div"> {
+export class MessageManage extends Component<"form"> {
   public meetingRoom: MeetingRoomWrapper;
   private messageInput: Component<"textarea">;
   private sendButton: Component<"button">;
@@ -28,7 +28,7 @@ export class MessageManage extends Component<"div"> {
     meetingRoom: MeetingRoomWrapper,
   ) {
     super({
-      tag: "div",
+      tag: "form",
       className: "message-manage",
     });
     this.wsManager = wsManager;
@@ -45,11 +45,14 @@ export class MessageManage extends Component<"div"> {
     });
     this.toggleInputState(false);
     this.appendChildren([this.messageInput, this.sendButton]);
-    this.sendButton.getNode().addEventListener("click", () => {
-      if (this.editingMessageId) {
-        this.editMessage();
-      } else {
-        this.sendMessage();
+    this.getNode().addEventListener("submit", (event) => {
+      event.preventDefault(); 
+      this.handleSendMessage();
+    });
+    this.messageInput.getNode().addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault();
+        this.handleSendMessage(); 
       }
     });
   }
@@ -153,14 +156,13 @@ export class MessageManage extends Component<"div"> {
     }
   }
 
-  private async sendMessage(): Promise<void> {
+  private async sendMessage(messageText: string): Promise<void> {
     const activeUserId = this.meetingRoom.getActiveUserId();
     if (!activeUserId) {
       console.error("Recipient is not set.");
       return;
     }
 
-    const messageText = this.messageInput.getNode().value;
     const payload: MessageSendRequest = {
       message: {
         to: activeUserId,
@@ -182,8 +184,26 @@ export class MessageManage extends Component<"div"> {
       this.meetingRoom.userMessages.set(activeUserId, userMessages);
       this.messageInput.getNode().value = "";
       this.meetingField.addMessages([sentMessage]);
+      const lastMessageElement =
+        this.meetingField.getAllMessageElements().length > 0
+          ? this.meetingField
+              .getAllMessageElements()
+              [this.meetingField.getAllMessageElements().length - 1].getNode()
+          : null;
+
+      if (lastMessageElement) {
+        lastMessageElement.scrollIntoView({ behavior: "smooth", block: "end" });
+      }
     } catch (error) {
       console.error("Failed to send message:", error);
     }
+  }
+
+  private handleSendMessage(): void {
+    const messageText = this.messageInput.getNode().value.trim();
+    if (!messageText) {
+      return;
+    }
+    this.sendMessage(messageText);
   }
 }

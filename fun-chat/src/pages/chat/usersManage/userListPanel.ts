@@ -6,6 +6,7 @@ export class UserListPanel extends Component<"ul"> {
   private users: { login: string; isLogined: boolean; unreadCount?: number }[] =
     [];
   private onUserClick: (user: { login: string; isLogined: boolean }) => void;
+  private selectedUserElement: UserElement | null = null;
   constructor(
     users: { login: string; isLogined: boolean }[] = [],
     onUserClick: (user: { login: string; isLogined: boolean }) => void,
@@ -43,7 +44,9 @@ export class UserListPanel extends Component<"ul"> {
         user.login,
         user.isLogined,
         user.unreadCount || 0, // Передаем unreadCount
-        this.onUserClick,
+        (clickedUser) => {
+          this.handleUserClick(userElement, clickedUser);
+        },
       );
       this.appendElement(userElement);
     });
@@ -51,5 +54,16 @@ export class UserListPanel extends Component<"ul"> {
 
   public getUsers(): { login: string; isLogined: boolean }[] {
     return this.users;
+  }
+  private handleUserClick(
+    userElement: UserElement,
+    user: { login: string; isLogined: boolean },
+  ): void {
+    if (this.selectedUserElement) {
+      this.selectedUserElement.getNode().classList.remove("user-selected");
+    }
+    userElement.getNode().classList.add("user-selected");
+    this.selectedUserElement = userElement;
+    this.onUserClick(user);
   }
 }
