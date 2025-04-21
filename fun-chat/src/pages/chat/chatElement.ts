@@ -35,9 +35,9 @@ export class ChatElement extends Component<"div"> {
     this.appendChildren([this.usersManage, this.meetingRoom]);
     this.loadUsers();
     this.subscribeToWebSocketEvents();
-    this.subscribeToMessageSend();
     this.subscribeToMessageDeliver();
-    this.subscribeToMessageRead();
+    this.subscribeToMessageSend();
+    // this.subscribeToMessageRead();
   }
 
   public getUserMessages(login: string): any[] {
@@ -94,51 +94,72 @@ export class ChatElement extends Component<"div"> {
       }
     });
   }
-  private subscribeToMessageSend(): void {
-    this.wsManager.addEventHandler("MSG_SEND", (payload: any) => {
-      const { message } = payload;
-
-      if (message) {
-        console.log("New message received:", message);
-        this.meetingRoom.addMessages(message.from, [message]); // Для отправителя
-        this.meetingRoom.addMessages(message.to, [message]); // Для получателя
-        const activeUserId = this.meetingRoom.getActiveUserId();
-        console.log("Active user ID:", activeUserId);
-        console.log("Message recipient ID:", message.to);
-        if (activeUserId === message.to || activeUserId === message.from) {
-          console.log("Active user is the recipient. Updating message field.");
-          this.meetingRoom.getMeetingField().addMessages([message]);
-        } else {
-          // Увеличиваем количество непрочитанных сообщений
-          const user = this.users.find((u) => u.login === message.to);
-          if (user) {
-            user.unreadCount = (user.unreadCount || 0) + 1;
-            console.log(`Incrementing unread count for user: ${message.to}`);
-            this.usersManage.setUsers(this.users);
-          }
-        }
-      } else {
-        console.error("Invalid message payload:", payload);
-      }
-    });
-  }
 
   private subscribeToMessageDeliver(): void {
     this.wsManager.addEventHandler("MSG_DELIVER", (payload: any) => {
       const { message } = payload;
+      console.log("пользователь зашел в чат", message);
+
       if (message && message.status.isDelivered) {
-        console.log("Message delivered:", message.id);
-        // Здесь можно обновить статус доставки в UI
+        const activeUserId = this.meetingRoom.getActiveUserId();
+        if (!activeUserId) {
+          console.error("Active user ID is null.");
+          return;
+        }
+        const userMessages = this.userMessages.get(activeUserId) || [];
+        const messageIndex = userMessages.findIndex(
+          (msg) => msg.id === message.id,
+        );
+        userMessages[messageIndex].status.isDelivered = true;
+        const messageWrapper = this.meetingRoom
+          .getMeetingField()
+          .getMessageElementById(message.id);
+
+        if (messageWrapper) {
+          messageWrapper.updateStatus(false, true);
+        } else {
+          console.warn(`MessageWrapper with ID ${message.id} not found.`);
+        }
+        this.userMessages.set(activeUserId, userMessages);
+      } else {
+        console.error("Invalid payload for MSG_DELIVER:", payload);
       }
     });
   }
 
-  private subscribeToMessageRead(): void {
-    this.wsManager.addEventHandler("MSG_READ", (payload: any) => {
+  private subscribeToMessageSend(): void {
+    this.wsManager.addEventHandler("MSG_SEND", (payload: any) => {
       const { message } = payload;
-      if (message && message.status.isReaded) {
-        console.log("Message read:", message.id);
-        // Здесь можно обновить статус прочтения в UI
+      if (message && message.to) {
+        const currentUser = JSON.parse(
+          sessionStorage.getItem("user") || "{}",
+        ).login;
+        console.log("Current user:", currentUser);
+        console.log("Message to:", message.to);
+        if (message.to !== currentUser) {
+          console.log(
+            `Message ${message.id} is not addressed to the current user.`,
+          );
+          return;
+        }
+        const activeUserId = this.meetingRoom.getActiveUserId();
+        if (activeUserId !== message.from) {
+          const userMessages =
+            this.meetingRoom.userMessages.get(message.from) || [];
+          userMessages.push({
+            ...message,
+            status: { ...message.status, isDelivered: false },
+          });
+          this.meetingRoom.userMessages.set(message.from, userMessages);
+          return;
+        }
+        const userMessages =
+          this.meetingRoom.userMessages.get(message.from) || [];
+        userMessages.push(message);
+        this.meetingRoom.userMessages.set(message.from, userMessages);
+        this.meetingRoom.getMeetingField().addMessages([message]);
+      } else {
+        console.error("Invalid payload for MSG_SEND:", payload);
       }
     });
   }
