@@ -46,13 +46,13 @@ export class MessageManage extends Component<"form"> {
     this.toggleInputState(false);
     this.appendChildren([this.messageInput, this.sendButton]);
     this.getNode().addEventListener("submit", (event) => {
-      event.preventDefault(); 
+      event.preventDefault();
       this.handleSendMessage();
     });
     this.messageInput.getNode().addEventListener("keydown", (event) => {
       if (event.key === "Enter" && !event.shiftKey) {
         event.preventDefault();
-        this.handleSendMessage(); 
+        this.handleSendMessage();
       }
     });
   }
@@ -176,14 +176,16 @@ export class MessageManage extends Component<"form"> {
         MessageSendResponse
       >("MSG_SEND", payload);
       const sentMessage = response.message;
-      sentMessage.status.isDelivered = false;
+      sentMessage.status.isDelivered = sentMessage.status.isDelivered || false;
       sentMessage.status.isReaded = false;
+
       const userMessages =
         this.meetingRoom.userMessages.get(activeUserId) || [];
       userMessages.push(sentMessage);
       this.meetingRoom.userMessages.set(activeUserId, userMessages);
       this.messageInput.getNode().value = "";
       this.meetingField.addMessages([sentMessage]);
+
       const lastMessageElement =
         this.meetingField.getAllMessageElements().length > 0
           ? this.meetingField

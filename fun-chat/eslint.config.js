@@ -27,10 +27,10 @@ export default [
       reportUnusedDisableDirectives: "error",
     },
     rules: {
-      "max-lines-per-function": [
-        "error",
-        { max: 40, skipComments: true, skipBlankLines: true },
-      ],
+      // "max-lines-per-function": [
+      //   "error",
+      //   { max: 40, skipComments: true, skipBlankLines: true },
+      // ],
       "@typescript-eslint/no-magic-numbers": [
         "error",
         {

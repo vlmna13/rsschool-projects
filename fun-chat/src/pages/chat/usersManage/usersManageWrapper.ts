@@ -1,6 +1,6 @@
 import "./usersManage.css";
 import { Component } from "../../../utils/component";
-import type { WebSocketManager } from "../../../utils/webSocketManager";
+// import type { WebSocketManager } from "../../../utils/webSocketManager";
 import { UserListPanel } from "./userListPanel";
 import { UserSearchInput } from "./userSearchInput";
 import type { RoomHeader } from "../ meetingroom/roomHeader";
@@ -12,7 +12,7 @@ export class UsersManage extends Component<"div"> {
   private userList: UserListPanel;
   private roomHeader: RoomHeader;
   private meetingField: MeetingField;
-  private wsManager: WebSocketManager;
+  // private wsManager: WebSocketManager;
   private meetingRoom: MeetingRoomWrapper;
   private users: {
     login: string;
@@ -21,7 +21,7 @@ export class UsersManage extends Component<"div"> {
     unreadCount?: number;
   }[] = [];
   constructor(
-    wsManager: WebSocketManager,
+    // wsManager: WebSocketManager,
     users: { login: string; isLogined: boolean }[] = [],
     roomHeader: RoomHeader,
     meetingField: MeetingField,
@@ -31,7 +31,7 @@ export class UsersManage extends Component<"div"> {
       tag: "div",
       className: "users-manage-wrapper",
     });
-    this.wsManager = wsManager;
+    // this.wsManager = wsManager;
     this.users = users;
     this.roomHeader = roomHeader;
     this.meetingField = meetingField;

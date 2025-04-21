@@ -4,7 +4,7 @@ import type { MessageSendResponse } from "../../../utils/responceTypes";
 import type { MessageManage } from "./messageManage";
 
 export class MessageWrapper extends Component<"div"> {
-  private message: MessageSendResponse["message"];
+  public message: MessageSendResponse["message"];
   private messageTextElement!: Component<"p">;
   private editStatusElement!: Component<"span">;
   private deliveryStatusElement!: Component<"span">;
@@ -27,18 +27,24 @@ export class MessageWrapper extends Component<"div"> {
     this.editStatusElement.getNode().textContent = isEdited ? "(edited)" : "";
   }
   public updateStatus(isReaded?: boolean, isDelivered?: boolean): void {
+    console.log(
+      `Update status: isReaded=${isReaded}, isDelivered=${isDelivered}`,
+    );
     if (isReaded) {
       this.deliveryStatusElement.getNode().textContent = "Read";
       this.message.status.isReaded = true;
       this.message.status.isDelivered = true; // Если прочитано, то оно уже доставлено
+      console.log("Message is readed");
     } else if (isDelivered) {
       this.deliveryStatusElement.getNode().textContent = "Delivered";
       this.message.status.isDelivered = true;
       this.message.status.isReaded = false; // Если доставлено, но не прочитано
+      console.log("Message is delivered");
     } else {
       this.deliveryStatusElement.getNode().textContent = "Sent";
       this.message.status.isDelivered = false;
       this.message.status.isReaded = false; // Если только отправлено
+      console.log("Message is sent");
     }
   }
 

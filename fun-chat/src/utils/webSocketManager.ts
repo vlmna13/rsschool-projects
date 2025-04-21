@@ -14,7 +14,7 @@ export class WebSocketManager {
     string,
     (payload: WebSocketResponsePayload) => void
   > = new Map();
-  private shouldReconnect: boolean = true;
+  // private shouldReconnect: boolean = true;
 
   constructor(url: string) {
     this.url = url;
@@ -114,6 +114,7 @@ export class WebSocketManager {
   private isExpectedResponse<R extends WebSocketResponsePayload>(
     payload: WebSocketResponsePayload,
   ): payload is R {
+    console.log(payload);
     return true;
   }
   private async ensureConnected(): Promise<void> {

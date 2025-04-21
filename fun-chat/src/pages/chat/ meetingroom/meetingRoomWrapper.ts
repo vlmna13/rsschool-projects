@@ -25,6 +25,7 @@ export class MeetingRoomWrapper extends Component<"div"> {
     this.userMessages = userMessages;
     this.roomHeader = new RoomHeader();
     this.meetingField = new MeetingField();
+    // wsManager; передать в митингфилд
     this.messageManage = new MessageManage(
       this.wsManager,
       this.meetingField,
