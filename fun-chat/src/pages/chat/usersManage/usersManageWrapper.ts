@@ -65,7 +65,6 @@ export class UsersManage extends Component<"div"> {
   }
 
   private handleChatWith(user: { login: string; isLogined: boolean }): void {
-    console.log("User clicked:", user);
     this.roomHeader.chatWith(user);
     const userMessages: MessageSendResponse[] =
       this.users.find((u) => u.login === user.login)?.messages || [];

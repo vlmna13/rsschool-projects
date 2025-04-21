@@ -29,7 +29,6 @@ export async function fetchAllMessages(
         }
       }),
     );
-    console.log("Messages by user:", messagesByUser);
     return messagesByUser;
   } catch (error) {
     console.error("Error fetching messages:", error);

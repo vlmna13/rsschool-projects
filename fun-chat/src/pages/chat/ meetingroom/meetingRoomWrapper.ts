@@ -45,6 +45,7 @@ export class MeetingRoomWrapper extends Component<"div"> {
   }
 
   public getActiveUserId(): string | null {
+    console.log("Active user ID:", this.activeUserId);
     return this.activeUserId;
   }
 
@@ -52,6 +53,7 @@ export class MeetingRoomWrapper extends Component<"div"> {
     this.activeUserId = userId;
     const messages = this.userMessages.get(userId) || [];
     this.meetingField.displayMessages(messages);
+    console.log("Active user set to:", userId);
   }
   public addMessages(
     userId: string,
@@ -68,7 +70,6 @@ export class MeetingRoomWrapper extends Component<"div"> {
     return this.meetingField;
   }
 
-
   private handleMessageEdit(payload: any): void {
     const updatedMessage = payload.message;
     const activeUserId = this.getActiveUserId();
@@ -76,16 +77,21 @@ export class MeetingRoomWrapper extends Component<"div"> {
       console.error("No active user.");
       return;
     }
-      const userMessages = this.userMessages.get(activeUserId) || [];
+    const userMessages = this.userMessages.get(activeUserId) || [];
     const messageIndex = userMessages.findIndex(
       (msg) => msg.id === updatedMessage.id,
     );
     userMessages[messageIndex].text = updatedMessage.text;
     userMessages[messageIndex].status.isEdited = updatedMessage.status.isEdited;
     this.userMessages.set(activeUserId, userMessages);
-    const messageWrapper = this.meetingField.getMessageElementById(updatedMessage.id);
+    const messageWrapper = this.meetingField.getMessageElementById(
+      updatedMessage.id,
+    );
     if (messageWrapper) {
-      messageWrapper.updateText(updatedMessage.text, updatedMessage.status.isEdited);
+      messageWrapper.updateText(
+        updatedMessage.text,
+        updatedMessage.status.isEdited,
+      );
     } else {
       console.warn(`MessageWrapper with ID ${updatedMessage.id} not found.`);
     }
@@ -97,18 +103,19 @@ export class MeetingRoomWrapper extends Component<"div"> {
       console.error("No active user.");
       return;
     }
-    const messageWrapper = this.meetingField.getMessageElementById(deletedMessage.id);
+    const messageWrapper = this.meetingField.getMessageElementById(
+      deletedMessage.id,
+    );
     if (messageWrapper) {
       const userMessages = this.userMessages.get(activeUserId) || [];
       const messageIndex = userMessages.findIndex(
         (msg) => msg.id === deletedMessage.id,
       );
-    userMessages.splice(messageIndex, 1);
-    this.userMessages.set(activeUserId, userMessages);
-    messageWrapper.destroy();
+      userMessages.splice(messageIndex, 1);
+      this.userMessages.set(activeUserId, userMessages);
+      messageWrapper.destroy();
     } else {
       console.warn(`MessageWrapper with ID ${deletedMessage.id} not found.`);
     }
   }
 }
-

@@ -60,7 +60,7 @@ export class MessageManage extends Component<"div"> {
   public async editMessage(): Promise<void> {
     const newText = this.messageInput.getNode().value;
     if (!this.editingMessageId) return;
-  
+
     const payload: MessageEditRequest = {
       message: {
         id: this.editingMessageId,
@@ -76,15 +76,17 @@ export class MessageManage extends Component<"div"> {
       const activeUserId = this.meetingRoom.getActiveUserId();
       if (activeUserId) {
         const userMessages =
-        this.meetingRoom.userMessages.get(activeUserId) || [];
+          this.meetingRoom.userMessages.get(activeUserId) || [];
         const messageIndex = userMessages.findIndex(
           (msg) => msg.id === updatedMessage.id,
         );
         userMessages[messageIndex].text = updatedMessage.text;
         userMessages[messageIndex].status.isEdited =
-        updatedMessage.status.isEdited;
+          updatedMessage.status.isEdited;
         this.meetingRoom.userMessages.set(activeUserId, userMessages);
-        const messageWrapper = this.meetingField.getMessageElementById(updatedMessage.id);
+        const messageWrapper = this.meetingField.getMessageElementById(
+          updatedMessage.id,
+        );
         if (messageWrapper) {
           messageWrapper.updateText(
             updatedMessage.text,
@@ -112,41 +114,39 @@ export class MessageManage extends Component<"div"> {
     const payload: MessageDeleteRequest = {
       message: {
         id: messageId,
-      }
-     }
-     try {
+      },
+    };
+    try {
       const response = await this.wsManager.sendRequest<
         MessageDeleteRequest,
         MessageDeleteResponse
       >("MSG_DELETE", payload);
       const deletedMessage = response.message;
-      const userMessages = this.meetingRoom.userMessages.get(activeUserId) || [];
+      const userMessages =
+        this.meetingRoom.userMessages.get(activeUserId) || [];
       const messageIndex = userMessages.findIndex(
         (msg) => msg.id === deletedMessage.id,
       );
       userMessages.splice(messageIndex, 1);
       this.meetingRoom.userMessages.set(activeUserId, userMessages);
-      const messageWrapper = this.meetingField.getMessageElementById(deletedMessage.id);
+      const messageWrapper = this.meetingField.getMessageElementById(
+        deletedMessage.id,
+      );
       if (messageWrapper) {
         messageWrapper.destroy();
       } else {
-        console.warn(
-          `MessageWrapper with ID ${deletedMessage.id} not found.`,
-        );
+        console.warn(`MessageWrapper with ID ${deletedMessage.id} not found.`);
       }
     } catch (error: any) {
       if (error.payload.error === "incorrect message id") {
         console.error("Сообщение не найдено.");
-        alert("Сообщение не найдено. Возможно, оно было удалено.");
       } else if (error.payload.error === "user not sender cannot be executed") {
-        console.error("Вы не можете редактировать это сообщение.");
         alert("Вы не можете редактировать или удалять это сообщение.");
       } else {
         console.error("Неизвестная ошибка:", error);
       }
     }
   }
-
 
   private async sendMessage(): Promise<void> {
     const activeUserId = this.meetingRoom.getActiveUserId();
@@ -169,7 +169,10 @@ export class MessageManage extends Component<"div"> {
         MessageSendResponse
       >("MSG_SEND", payload);
       const sentMessage = response.message;
-      const userMessages = this.meetingRoom.userMessages.get(activeUserId) || [];
+      sentMessage.status.isDelivered = false;
+      sentMessage.status.isReaded = false;
+      const userMessages =
+        this.meetingRoom.userMessages.get(activeUserId) || [];
       userMessages.push(sentMessage);
       this.meetingRoom.userMessages.set(activeUserId, userMessages);
       this.messageInput.getNode().value = "";

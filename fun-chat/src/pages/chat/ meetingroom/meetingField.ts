@@ -46,8 +46,6 @@ export class MeetingField extends Component<"div"> {
   }
 
   public getMessageElementById(messageId: string): MessageWrapper | null {
-    console.log("getMessageElementById", messageId);
     return this.messageWrappers.get(messageId) || null;
   }
-  
 }
