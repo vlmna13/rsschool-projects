@@ -5,7 +5,9 @@ import type { MessageManage } from "./messageManage";
 
 export class MessageWrapper extends Component<"div"> {
   private message: MessageSendResponse["message"];
-
+  private messageTextElement!: Component<"p">;
+  private editStatusElement!: Component<"span">;
+  private deliveryStatusElement!: Component<"span">;
   constructor(
     message: MessageSendResponse["message"],
     private messageManage: MessageManage,
@@ -19,10 +21,16 @@ export class MessageWrapper extends Component<"div"> {
     this.createMessageElements();
   }
 
+  public updateText(newText: string, isEdited: boolean): void {
+    this.messageTextElement.getNode().textContent = `${this.message.from}: ${newText}${isEdited ? " (edited)" : ""}`;
+    this.message.text = newText;
+    this.message.status.isEdited = isEdited;
+  }
+
   private createMessageElements(): void {
-    const editMessageButton = this.createEditButton();
-    const deleteMessageButton = this.createDeleteButton();
-    const messageText = new Component({
+    const user = JSON.parse(sessionStorage.getItem("user") || "{}");
+    const userLogin = user.login;   
+    this.messageTextElement = new Component({
       tag: "p",
       className: "message-text",
       text: `${this.message.from}: ${this.message.text}`,
@@ -34,16 +42,31 @@ export class MessageWrapper extends Component<"div"> {
       text: formattedDate,
     });
 
-    this.getNode().dataset.id = this.message.id;
+    this.editStatusElement = new Component({
+      tag: "span",
+      className: "message-edit-status",
+      text: this.message.status.isEdited ? "(edited)" : "",
+    });
 
+    this.deliveryStatusElement = new Component({
+      tag: "span",
+      className: "message-delivery-status",
+      text: "",
+    });
+
+    this.getNode().dataset.id = this.message.id;
+    if (this.message.from === userLogin) {
+      const editMessageButton = this.createEditButton();
+      const deleteMessageButton = this.createDeleteButton();
+      this.appendChildren([editMessageButton, deleteMessageButton]);
+    }
     this.appendChildren([
-      editMessageButton,
       date,
-      deleteMessageButton,
-      messageText,
+      this.messageTextElement,
+      this.editStatusElement,
+      this.deliveryStatusElement,
     ]);
   }
-
   private createEditButton(): Component<"button"> {
     const editMessageButton = new Component({
       tag: "button",
@@ -64,11 +87,12 @@ export class MessageWrapper extends Component<"div"> {
       text: "Del",
     });
 
-    // // Обработчик клика на кнопку удаления
-    // deleteMessageButton.getNode().addEventListener("click", () => {
-    //   this.messageManage.deleteMessage(this.message.id);
-    // });
+    deleteMessageButton.getNode().addEventListener("click", () => {
+      this.messageManage.deleteMessage(this.message.id);
+    });
 
     return deleteMessageButton;
   }
+
+  
 }

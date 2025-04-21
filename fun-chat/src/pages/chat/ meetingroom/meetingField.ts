@@ -5,6 +5,7 @@ import type { MessageManage } from "./messageManage";
 
 export class MeetingField extends Component<"div"> {
   private messageManage: MessageManage | null = null;
+  private messageWrappers: Map<string, MessageWrapper> = new Map(); // Хранит ссылки на MessageWrapper
 
   constructor() {
     super({
@@ -18,11 +19,13 @@ export class MeetingField extends Component<"div"> {
 
   public displayMessages(messages: any[]): void {
     this.destroyChildren();
+    this.messageWrappers.clear();
     messages.forEach((message) => {
       if (!this.messageManage) {
         return;
       }
       const messageElement = new MessageWrapper(message, this.messageManage);
+      this.messageWrappers.set(message.id, messageElement); // Сохраняем ссылку на MessageWrapper
       this.appendElement(messageElement);
     });
   }
@@ -33,7 +36,18 @@ export class MeetingField extends Component<"div"> {
         return;
       }
       const messageElement = new MessageWrapper(message, this.messageManage);
+      this.messageWrappers.set(message.id, messageElement); // Сохраняем ссылку на MessageWrapper
       this.appendElement(messageElement);
     });
   }
+
+  public getAllMessageElements(): MessageWrapper[] {
+    return Array.from(this.messageWrappers.values());
+  }
+
+  public getMessageElementById(messageId: string): MessageWrapper | null {
+    console.log("getMessageElementById", messageId);
+    return this.messageWrappers.get(messageId) || null;
+  }
+  
 }

@@ -36,6 +36,8 @@ export class ChatElement extends Component<"div"> {
     this.loadUsers();
     this.subscribeToWebSocketEvents();
     this.subscribeToMessageSend();
+    this.subscribeToMessageDeliver();
+    this.subscribeToMessageRead();
   }
 
   public getUserMessages(login: string): any[] {
@@ -117,6 +119,26 @@ export class ChatElement extends Component<"div"> {
         }
       } else {
         console.error("Invalid message payload:", payload);
+      }
+    });
+  }
+
+  private subscribeToMessageDeliver(): void {
+    this.wsManager.addEventHandler("MSG_DELIVER", (payload: any) => {
+      const { message } = payload;
+      if (message && message.status.isDelivered) {
+        console.log("Message delivered:", message.id);
+        // Здесь можно обновить статус доставки в UI
+      }
+    });
+  }
+
+  private subscribeToMessageRead(): void {
+    this.wsManager.addEventHandler("MSG_READ", (payload: any) => {
+      const { message } = payload;
+      if (message && message.status.isReaded) {
+        console.log("Message read:", message.id);
+        // Здесь можно обновить статус прочтения в UI
       }
     });
   }

@@ -36,6 +36,12 @@ export class MeetingRoomWrapper extends Component<"div"> {
       this.meetingField,
       this.messageManage,
     ]);
+    wsManager.addEventHandler("MSG_DELETE", (payload) => {
+      this.handleMessageDelete(payload);
+    });
+    wsManager.addEventHandler("MSG_EDIT", (payload) => {
+      this.handleMessageEdit(payload);
+    });
   }
 
   public getActiveUserId(): string | null {
@@ -44,7 +50,6 @@ export class MeetingRoomWrapper extends Component<"div"> {
 
   public setActiveUser(userId: string): void {
     this.activeUserId = userId;
-    console.log(`Active user set to: ${userId}`);
     const messages = this.userMessages.get(userId) || [];
     this.meetingField.displayMessages(messages);
   }
@@ -62,4 +67,48 @@ export class MeetingRoomWrapper extends Component<"div"> {
   public getMeetingField(): MeetingField {
     return this.meetingField;
   }
+
+
+  private handleMessageEdit(payload: any): void {
+    const updatedMessage = payload.message;
+    const activeUserId = this.getActiveUserId();
+    if (!activeUserId) {
+      console.error("No active user.");
+      return;
+    }
+      const userMessages = this.userMessages.get(activeUserId) || [];
+    const messageIndex = userMessages.findIndex(
+      (msg) => msg.id === updatedMessage.id,
+    );
+    userMessages[messageIndex].text = updatedMessage.text;
+    userMessages[messageIndex].status.isEdited = updatedMessage.status.isEdited;
+    this.userMessages.set(activeUserId, userMessages);
+    const messageWrapper = this.meetingField.getMessageElementById(updatedMessage.id);
+    if (messageWrapper) {
+      messageWrapper.updateText(updatedMessage.text, updatedMessage.status.isEdited);
+    } else {
+      console.warn(`MessageWrapper with ID ${updatedMessage.id} not found.`);
+    }
+  }
+  private handleMessageDelete(payload: any): void {
+    const deletedMessage = payload.message;
+    const activeUserId = this.getActiveUserId();
+    if (!activeUserId) {
+      console.error("No active user.");
+      return;
+    }
+    const messageWrapper = this.meetingField.getMessageElementById(deletedMessage.id);
+    if (messageWrapper) {
+      const userMessages = this.userMessages.get(activeUserId) || [];
+      const messageIndex = userMessages.findIndex(
+        (msg) => msg.id === deletedMessage.id,
+      );
+    userMessages.splice(messageIndex, 1);
+    this.userMessages.set(activeUserId, userMessages);
+    messageWrapper.destroy();
+    } else {
+      console.warn(`MessageWrapper with ID ${deletedMessage.id} not found.`);
+    }
+  }
 }
+

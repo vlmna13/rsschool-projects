@@ -90,7 +90,8 @@ button:disabled {
   display: grid;
   grid-template:
     "editMessageButton  date" auto
-    "deleteMessageButton messageText" 1fr / auto auto 1fr;
+    "deleteMessageButton messageText" auto
+    "status delivery" 1fr / auto auto 1fr;
   gap: 8px;
   width: 100%;
   padding: 10px;
@@ -129,6 +130,20 @@ button:disabled {
 
 .delete-message-button {
   grid-area: deleteMessageButton;
+}
+
+.message-delivery-status {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  grid-area: delivery;
+}
+
+.message-edit-status {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  grid-area: status;
 }
 
 .edit-message-button:hover {
