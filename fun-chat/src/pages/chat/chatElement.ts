@@ -55,13 +55,13 @@ export class ChatElement extends Component<"div"> {
       const usersWithMessages = this.users.map((user) => {
         const userMessages =
           messagesByUser.find((u) => u.login === user.login)?.messages || [];
-  
+
         const unreadCount = userMessages.filter(
           (msg) => !msg.status.isReaded && msg.from !== currentUser,
         ).length;
-  
+
         this.meetingRoom.addMessages(user.login, userMessages);
-  
+
         return { ...user, messages: userMessages, unreadCount };
       });
       this.usersManage.setUsers(usersWithMessages);
@@ -172,26 +172,26 @@ export class ChatElement extends Component<"div"> {
             block: "end",
           });
         }
-      } 
+      }
     });
   }
-///новое
+  ///новое
   private subscribeToMessageRead(): void {
     this.wsManager.addEventHandler("MSG_READ", (payload: any) => {
       const { message } = payload;
-  
+
       if (!message || !message.status || !message.status.isReaded) {
         console.error("Invalid payload for MSG_READ:", payload);
         return;
       }
-  
+
       const activeUserId = this.meetingRoom.getActiveUserId();
-      
+
       if (!activeUserId) {
         console.error("Active user ID is null.");
         return;
       }
-  
+
       const userMessages =
         this.meetingRoom.userMessages.get(activeUserId) || [];
       const messageIndex = userMessages.findIndex(

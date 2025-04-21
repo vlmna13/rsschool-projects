@@ -158,13 +158,14 @@ export class MessageManage extends Component<"form"> {
 
   public markMessagesAsRead(messageIds: string[]): void {
     messageIds.forEach((id) => {
-      this.wsManager.sendRequest("MSG_READ", {
-        message: { id },
-      }).catch((error) => {
-        console.error(`Failed to mark message ${id} as read:`, error);
-      });
+      this.wsManager
+        .sendRequest("MSG_READ", {
+          message: { id },
+        })
+        .catch((error) => {
+          console.error(`Failed to mark message ${id} as read:`, error);
+        });
     });
-    
   }
 
   private async sendMessage(messageText: string): Promise<void> {

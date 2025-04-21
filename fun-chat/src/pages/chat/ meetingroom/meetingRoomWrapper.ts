@@ -76,14 +76,14 @@ export class MeetingRoomWrapper extends Component<"div"> {
       console.error("No active user.");
       return;
     }
-      const userMessages = this.userMessages.get(activeUserId) || [];
+    const userMessages = this.userMessages.get(activeUserId) || [];
     messageIds.forEach((id) => {
       const messageIndex = userMessages.findIndex((msg) => msg.id === id);
       userMessages[messageIndex].status.isReaded = true;
     });
     this.userMessages.set(activeUserId, userMessages);
-      this.meetingField.markMessagesAsRead(messageIds);
-      this.messageManage.markMessagesAsRead(messageIds);
+    this.meetingField.markMessagesAsRead(messageIds);
+    this.messageManage.markMessagesAsRead(messageIds);
   }
 
   private handleMessageEdit(payload: any): void {
