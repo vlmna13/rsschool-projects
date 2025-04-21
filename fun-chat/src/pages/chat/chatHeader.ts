@@ -61,7 +61,6 @@ export class ChatHeader extends Component<"div"> {
         },
       };
       await this.wsManager.sendRequest("USER_LOGOUT", logoutRequest);
-      console.log("User logged out:", this.user.login);
     } catch (error) {
       console.error("Failed to notify server about logout:", error);
     }

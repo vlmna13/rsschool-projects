@@ -70,6 +70,7 @@ export class UsersManage extends Component<"div"> {
       this.users.find((u) => u.login === user.login)?.messages || [];
     this.meetingField.displayMessages(userMessages);
     this.meetingRoom.setActiveUser(user.login);
+    console.log("Active user set to:", user.login);
   }
   private filterUsers(searchText: string): void {
     if (!searchText) {

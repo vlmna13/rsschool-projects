@@ -29,7 +29,11 @@ export class MeetingField extends Component<"div"> {
       className: "separator",
       text: "Порция увеселительных сообщений",
     });
-    this.getNode().addEventListener("scroll", this.handleScroll);
+    const node = this.getNode();
+    if (node) {
+      node.addEventListener("scroll", this.handleScroll);
+      node.addEventListener("click", this.handleClick);
+    }
   }
   public setMessageManage(messageManage: MessageManage): void {
     this.messageManage = messageManage;
@@ -99,11 +103,44 @@ export class MeetingField extends Component<"div"> {
   public getMessageElementById(messageId: string): MessageWrapper | null {
     return this.messageWrappers.get(messageId) || null;
   }
+  public markMessagesAsRead(messageIds: string[]): void {
+    messageIds.forEach((id) => {
+      const messageWrapper = this.getMessageElementById(id);
+      if (messageWrapper) {
+        messageWrapper.markAsRead();
+      }
+    });
+  }
+  public async markAllUnreadMessagesAsRead(): Promise<void> {
 
-  private handleScroll(): void {
-    const node = this.getNode();
+    const unreadMessages = Array.from(this.messageWrappers.values()).filter(
+      (messageWrapper) => !messageWrapper.message.status.isReaded,
+    );
+  
+    const unreadMessageIds = unreadMessages.map(
+      (messageWrapper) => messageWrapper.message.id,
+    );
+  
+    if (unreadMessageIds.length > 0) {
+      if (!this.messageManage) {
+        console.error("MessageManage is not set.");
+        return;
+      }
+        await this.messageManage.markMessagesAsRead(unreadMessageIds);
+        this.markMessagesAsRead(unreadMessageIds);
+    }
+      this.separator.getNode().style.display = "none";
+  }
+
+  private handleScroll= (): void=> {
+    const node = this.getNode();    
     if (node.scrollTop + node.clientHeight >= node.scrollHeight - 1) {
       this.separator.getNode().style.display = "none";
+      this.markAllUnreadMessagesAsRead();
     }
   }
+  private handleClick = (): void => {
+    this.markAllUnreadMessagesAsRead();
+  };
+  
 }

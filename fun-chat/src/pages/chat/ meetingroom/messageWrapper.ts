@@ -20,6 +20,9 @@ export class MessageWrapper extends Component<"div"> {
     this.message = message;
     this.createMessageElements();
   }
+    public markAsRead(): void {
+      this.updateStatus(true, true); // Обновляем статус как "прочитано"
+    }
 
   public updateText(newText: string, isEdited: boolean): void {
     this.messageTextElement.getNode().textContent = `${this.message.from} ' : ' ${newText}`;
@@ -27,24 +30,18 @@ export class MessageWrapper extends Component<"div"> {
     this.editStatusElement.getNode().textContent = isEdited ? "(edited)" : "";
   }
   public updateStatus(isReaded?: boolean, isDelivered?: boolean): void {
-    console.log(
-      `Update status: isReaded=${isReaded}, isDelivered=${isDelivered}`,
-    );
     if (isReaded) {
       this.deliveryStatusElement.getNode().textContent = "Read";
       this.message.status.isReaded = true;
       this.message.status.isDelivered = true; // Если прочитано, то оно уже доставлено
-      console.log("Message is readed");
     } else if (isDelivered) {
       this.deliveryStatusElement.getNode().textContent = "Delivered";
       this.message.status.isDelivered = true;
       this.message.status.isReaded = false; // Если доставлено, но не прочитано
-      console.log("Message is delivered");
     } else {
       this.deliveryStatusElement.getNode().textContent = "Sent";
       this.message.status.isDelivered = false;
       this.message.status.isReaded = false; // Если только отправлено
-      console.log("Message is sent");
     }
   }
 
@@ -70,16 +67,19 @@ export class MessageWrapper extends Component<"div"> {
       className: "message-edit-status",
       text: this.message.status.isEdited ? "(edited)" : "",
     });
+  
+    // Создаём deliveryStatusElement для всех сообщений
+    this.deliveryStatusElement = new Component({
+      tag: "span",
+      className: "message-delivery-status",
+      text: this.message.status.isReaded
+        ? "Read"
+        : this.message.status.isDelivered
+        ? "Delivered"
+        : "Sent",
+    });
+  
     if (this.message.from === userLogin) {
-      this.deliveryStatusElement = new Component({
-        tag: "span",
-        className: "message-delivery-status",
-        text: this.message.status.isReaded
-          ? "Read"
-          : this.message.status.isDelivered
-            ? "Delivered"
-            : "Sent",
-      });
       const editMessageButton = this.createEditButton();
       const deleteMessageButton = this.createDeleteButton();
       this.appendChildren([
@@ -87,10 +87,13 @@ export class MessageWrapper extends Component<"div"> {
         deleteMessageButton,
         this.deliveryStatusElement,
       ]);
+    } else {
+      // Для входящих сообщений добавляем только deliveryStatusElement
+      this.appendElement(this.deliveryStatusElement);
     }
-
+  
     this.getNode().dataset.id = this.message.id;
-
+  
     this.appendChildren([
       date,
       this.messageTextElement,

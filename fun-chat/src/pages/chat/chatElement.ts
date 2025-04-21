@@ -37,6 +37,7 @@ export class ChatElement extends Component<"div"> {
     this.subscribeToWebSocketEvents();
     this.subscribeToMessageDeliver();
     this.subscribeToMessageSend();
+    this.subscribeToMessageRead();
   }
 
   public getUserMessages(login: string): any[] {
@@ -48,15 +49,19 @@ export class ChatElement extends Component<"div"> {
       const allUsers = await fetchAllUsers(this.wsManager);
       this.users = allUsers;
       const messagesByUser = await fetchAllMessages(this.wsManager, this.users);
-      console.log("messagesByUser", messagesByUser);
+      const currentUser = JSON.parse(
+        sessionStorage.getItem("user") || "{}",
+      ).login;
       const usersWithMessages = this.users.map((user) => {
         const userMessages =
           messagesByUser.find((u) => u.login === user.login)?.messages || [];
+  
         const unreadCount = userMessages.filter(
-          (msg) => !msg.status.isReaded,
+          (msg) => !msg.status.isReaded && msg.from !== currentUser,
         ).length;
-        console.log("unreadCount", unreadCount);
+  
         this.meetingRoom.addMessages(user.login, userMessages);
+  
         return { ...user, messages: userMessages, unreadCount };
       });
       this.usersManage.setUsers(usersWithMessages);
@@ -99,7 +104,6 @@ export class ChatElement extends Component<"div"> {
   private subscribeToMessageDeliver(): void {
     this.wsManager.addEventHandler("MSG_DELIVER", (payload: any) => {
       const { message } = payload;
-      console.log("Received MSG_DELIVER event:", payload);
 
       if (!message || !message.status || !message.status.isDelivered) {
         console.error("Invalid payload for MSG_DELIVER:", payload);
@@ -124,7 +128,6 @@ export class ChatElement extends Component<"div"> {
         .getMessageElementById(message.id);
       if (messageWrapper) {
         messageWrapper.updateStatus(false, true);
-        console.log(`Message ${message.id} marked as delivered in UI.`);
       } else {
         console.warn(`MessageWrapper with ID ${message.id} not found.`);
       }
@@ -145,7 +148,6 @@ export class ChatElement extends Component<"div"> {
       ).login;
 
       if (message.to !== currentUser) {
-        console.log("Message is not addressed to the current user.");
         return;
       }
       const userMessages =
@@ -170,10 +172,40 @@ export class ChatElement extends Component<"div"> {
             block: "end",
           });
         }
+      } 
+    });
+  }
+///новое
+  private subscribeToMessageRead(): void {
+    this.wsManager.addEventHandler("MSG_READ", (payload: any) => {
+      const { message } = payload;
+  
+      if (!message || !message.status || !message.status.isReaded) {
+        console.error("Invalid payload for MSG_READ:", payload);
+        return;
+      }
+  
+      const activeUserId = this.meetingRoom.getActiveUserId();
+      
+      if (!activeUserId) {
+        console.error("Active user ID is null.");
+        return;
+      }
+  
+      const userMessages =
+        this.meetingRoom.userMessages.get(activeUserId) || [];
+      const messageIndex = userMessages.findIndex(
+        (msg) => msg.id === message.id,
+      );
+      userMessages[messageIndex].status.isReaded = true;
+      this.meetingRoom.userMessages.set(activeUserId, userMessages);
+      const messageWrapper = this.meetingRoom
+        .getMeetingField()
+        .getMessageElementById(message.id);
+      if (messageWrapper) {
+        messageWrapper.markAsRead();
       } else {
-        console.log(
-          `Message from ${message.from} is not for the active chat. Saved to history.`,
-        );
+        console.warn(`MessageWrapper with ID ${message.id} not found.`);
       }
     });
   }

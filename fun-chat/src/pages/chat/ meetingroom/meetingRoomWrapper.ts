@@ -46,7 +46,6 @@ export class MeetingRoomWrapper extends Component<"div"> {
   }
 
   public getActiveUserId(): string | null {
-    console.log("Active user ID:", this.activeUserId);
     return this.activeUserId;
   }
 
@@ -55,7 +54,6 @@ export class MeetingRoomWrapper extends Component<"div"> {
     const messages = this.userMessages.get(userId) || [];
     this.meetingField.displayMessages(messages);
     this.messageManage.toggleInputState(!!userId);
-    console.log("Active user set to:", userId);
   }
   public addMessages(
     userId: string,
@@ -70,6 +68,22 @@ export class MeetingRoomWrapper extends Component<"div"> {
   }
   public getMeetingField(): MeetingField {
     return this.meetingField;
+  }
+
+  public markMessagesAsRead(messageIds: string[]): void {
+    const activeUserId = this.getActiveUserId();
+    if (!activeUserId) {
+      console.error("No active user.");
+      return;
+    }
+      const userMessages = this.userMessages.get(activeUserId) || [];
+    messageIds.forEach((id) => {
+      const messageIndex = userMessages.findIndex((msg) => msg.id === id);
+      userMessages[messageIndex].status.isReaded = true;
+    });
+    this.userMessages.set(activeUserId, userMessages);
+      this.meetingField.markMessagesAsRead(messageIds);
+      this.messageManage.markMessagesAsRead(messageIds);
   }
 
   private handleMessageEdit(payload: any): void {

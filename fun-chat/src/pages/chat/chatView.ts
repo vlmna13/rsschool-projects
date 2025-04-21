@@ -7,13 +7,11 @@ import { router } from "../../utils/router";
 import { ChatElement } from "./chatElement";
 
 export class ChatView extends Component<"div"> {
-  private wsManager: WebSocketManager;
   constructor(mainComponent: Component<"main">, wsManager: WebSocketManager) {
     super({
       tag: "div",
       className: "chatview-wrapper",
     });
-    this.wsManager = wsManager;
     const savedUser = sessionStorage.getItem("user");
     if (!savedUser) {
       console.warn("User is not logged in. Redirecting to login...");

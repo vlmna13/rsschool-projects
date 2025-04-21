@@ -156,6 +156,17 @@ export class MessageManage extends Component<"form"> {
     }
   }
 
+  public markMessagesAsRead(messageIds: string[]): void {
+    messageIds.forEach((id) => {
+      this.wsManager.sendRequest("MSG_READ", {
+        message: { id },
+      }).catch((error) => {
+        console.error(`Failed to mark message ${id} as read:`, error);
+      });
+    });
+    
+  }
+
   private async sendMessage(messageText: string): Promise<void> {
     const activeUserId = this.meetingRoom.getActiveUserId();
     if (!activeUserId) {
@@ -206,6 +217,10 @@ export class MessageManage extends Component<"form"> {
     if (!messageText) {
       return;
     }
-    this.sendMessage(messageText);
+    if (this.editingMessageId) {
+      this.editMessage();
+    } else {
+      this.sendMessage(messageText);
+    }
   }
 }
