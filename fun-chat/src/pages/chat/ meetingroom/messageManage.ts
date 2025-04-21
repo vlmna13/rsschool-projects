@@ -43,6 +43,7 @@ export class MessageManage extends Component<"div"> {
       className: "send-message-button",
       text: "Порадовать",
     });
+    this.toggleInputState(false);
     this.appendChildren([this.messageInput, this.sendButton]);
     this.sendButton.getNode().addEventListener("click", () => {
       if (this.editingMessageId) {
@@ -51,6 +52,10 @@ export class MessageManage extends Component<"div"> {
         this.sendMessage();
       }
     });
+  }
+  public toggleInputState(isEnabled: boolean): void {
+    this.messageInput.getNode().disabled = !isEnabled;
+    this.sendButton.getNode().disabled = !isEnabled;
   }
 
   public startEditingMessage(message: MessageSendResponse["message"]): void {

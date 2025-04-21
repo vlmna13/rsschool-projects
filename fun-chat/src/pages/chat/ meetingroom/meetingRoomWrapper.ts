@@ -53,6 +53,7 @@ export class MeetingRoomWrapper extends Component<"div"> {
     this.activeUserId = userId;
     const messages = this.userMessages.get(userId) || [];
     this.meetingField.displayMessages(messages);
+    this.messageManage.toggleInputState(!!userId);
     console.log("Active user set to:", userId);
   }
   public addMessages(

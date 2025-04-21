@@ -64,8 +64,6 @@ export class MessageWrapper extends Component<"div"> {
       className: "message-edit-status",
       text: this.message.status.isEdited ? "(edited)" : "",
     });
-
-    // Добавляем элемент статуса только для сообщений, отправленных текущим пользователем
     if (this.message.from === userLogin) {
       this.deliveryStatusElement = new Component({
         tag: "span",
@@ -76,8 +74,6 @@ export class MessageWrapper extends Component<"div"> {
             ? "Delivered"
             : "Sent",
       });
-
-      // Добавляем кнопки редактирования и удаления только для отправителя
       const editMessageButton = this.createEditButton();
       const deleteMessageButton = this.createDeleteButton();
       this.appendChildren([
