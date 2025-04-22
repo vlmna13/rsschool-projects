@@ -56,9 +56,16 @@ export class MessageManage extends Component<"form"> {
       }
     });
   }
+
+  public getActiveUserId(): string | null {
+    return this.meetingRoom.getActiveUserId();
+  }
   public toggleInputState(isEnabled: boolean): void {
     this.messageInput.getNode().disabled = !isEnabled;
     this.sendButton.getNode().disabled = !isEnabled;
+  }
+  public clearMessageInput(): void {
+    this.messageInput.getNode().value = "";
   }
 
   public startEditingMessage(message: MessageSendResponse["message"]): void {
@@ -157,18 +164,42 @@ export class MessageManage extends Component<"form"> {
   }
 
   public markMessagesAsRead(messageIds: string[]): void {
-    messageIds.forEach((id) => {
+    const activeUserId = this.meetingRoom.getActiveUserId();
+    const currentUser = JSON.parse(
+      sessionStorage.getItem("user") || "{}",
+    ).login;
+
+    if (!activeUserId || !currentUser) {
+      console.error("Either activeUserId or currentUser is null or undefined.");
+      return;
+    }
+
+    const userMessages = this.meetingRoom.userMessages.get(activeUserId) || [];
+    const messagesToMarkAsRead = userMessages.filter(
+      (msg) => messageIds.includes(msg.id) && msg.from !== currentUser,
+    );
+
+    if (messagesToMarkAsRead.length === 0) {
+      return;
+    }
+    messagesToMarkAsRead.forEach((msg) => {
       this.wsManager
         .sendRequest("MSG_READ", {
-          message: { id },
+          message: { id: msg.id },
         })
         .catch((error) => {
-          console.error(`Failed to mark message ${id} as read:`, error);
+          console.error(`Failed to mark message ${msg.id} as read:`, error);
         });
     });
+    messagesToMarkAsRead.forEach((msg) => {
+      const messageIndex = userMessages.findIndex((m) => m.id === msg.id);
+      userMessages[messageIndex].status.isReaded = true;
+    });
+
+    this.meetingRoom.userMessages.set(activeUserId, userMessages);
   }
 
-  private async sendMessage(messageText: string): Promise<void> {
+  public async sendMessage(messageText: string): Promise<void> {
     const activeUserId = this.meetingRoom.getActiveUserId();
     if (!activeUserId) {
       console.error("Recipient is not set.");

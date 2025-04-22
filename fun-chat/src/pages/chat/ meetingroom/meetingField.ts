@@ -2,23 +2,18 @@ import "./meetingRoom.css";
 import { Component } from "../../../utils/component";
 import { MessageWrapper } from "./messageWrapper";
 import type { MessageManage } from "./messageManage";
-// import type { MessageReadRequest } from "../../../utils/requestTypes";
-// import type { MessageReadResponse } from "../../../utils/responceTypes";
-// import type { WebSocketManager } from "../../../utils/webSocketManager";
 
 export class MeetingField extends Component<"div"> {
   private messageManage: MessageManage | null = null;
   private messageWrappers: Map<string, MessageWrapper> = new Map(); // Хранит ссылки на MessageWrapper
   private emptyStateElement: Component<"p">;
   private separator: Component<"p">;
-  // private wsManager: WebSocketManager;
 
   constructor() {
     super({
       tag: "div",
       className: "meeting-field",
     });
-    // this.wsManager= wsManager;
     this.emptyStateElement = new Component({
       tag: "p",
       className: "empty-state",
@@ -52,6 +47,7 @@ export class MeetingField extends Component<"div"> {
     this.emptyStateElement.getNode().style.display = "none";
 
     let firstUnreadMessageElement: HTMLElement | null = null;
+
     messages.forEach((message) => {
       if (!this.messageManage) {
         return;
@@ -59,28 +55,30 @@ export class MeetingField extends Component<"div"> {
       const messageElement = new MessageWrapper(message, this.messageManage);
       this.messageWrappers.set(message.id, messageElement);
       this.appendElement(messageElement);
-      const node = messageElement.getNode();
-      if (
-        !message.status.isReaded &&
-        !firstUnreadMessageElement &&
-        node instanceof HTMLElement
-      ) {
-        firstUnreadMessageElement = node;
-      }
-      if (firstUnreadMessageElement) {
-        this.separator.getNode().style.display = "block";
-        this.getNode().insertBefore(
-          this.separator.getNode(),
-          firstUnreadMessageElement,
-        );
-        firstUnreadMessageElement.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-        });
-      } else {
-        this.separator.getNode().style.display = "none";
+
+      // Определяем первое непрочитанное сообщение
+      if (!message.status.isReaded && !firstUnreadMessageElement) {
+        firstUnreadMessageElement = messageElement.getNode();
       }
     });
+
+    const containerNode = this.getNode();
+
+    if (firstUnreadMessageElement) {
+      this.separator.getNode().style.display = "block";
+      containerNode.insertBefore(
+        this.separator.getNode(),
+        firstUnreadMessageElement,
+      );
+
+      // Прокручиваем к сепаратору
+      this.separator.getNode().scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    } else {
+      this.separator.getNode().style.display = "none";
+    }
   }
   public addMessages(messages: any[]): void {
     if (messages.length > 0) {
@@ -93,6 +91,11 @@ export class MeetingField extends Component<"div"> {
       const messageElement = new MessageWrapper(message, this.messageManage);
       this.messageWrappers.set(message.id, messageElement);
       this.appendElement(messageElement);
+
+      // Обновляем статус в интерфейсе, если сообщение прочитано
+      if (message.status.isReaded) {
+        messageElement.updateStatus(false, true);
+      }
     });
   }
 
@@ -112,8 +115,23 @@ export class MeetingField extends Component<"div"> {
     });
   }
   public async markAllUnreadMessagesAsRead(): Promise<void> {
+    if (!this.messageManage) {
+      return;
+    }
+
+    const currentUser = JSON.parse(
+      sessionStorage.getItem("user") || "{}",
+    ).login;
+    const activeUserId = this.messageManage.getActiveUserId();
+
+    if (activeUserId === currentUser) {
+      return;
+    }
+
     const unreadMessages = Array.from(this.messageWrappers.values()).filter(
-      (messageWrapper) => !messageWrapper.message.status.isReaded,
+      (messageWrapper) =>
+        !messageWrapper.message.status.isReaded &&
+        messageWrapper.message.from !== currentUser,
     );
 
     const unreadMessageIds = unreadMessages.map(
@@ -121,17 +139,23 @@ export class MeetingField extends Component<"div"> {
     );
 
     if (unreadMessageIds.length > 0) {
-      if (!this.messageManage) {
-        console.error("MessageManage is not set.");
-        return;
-      }
-      await this.messageManage.markMessagesAsRead(unreadMessageIds);
-      this.markMessagesAsRead(unreadMessageIds);
+      this.messageManage.markMessagesAsRead(unreadMessageIds);
     }
     this.separator.getNode().style.display = "none";
   }
 
   private handleScroll = (): void => {
+    const currentUser = JSON.parse(
+      sessionStorage.getItem("user") || "{}",
+    ).login;
+    if (!this.messageManage) {
+      return;
+    }
+    const activeUserId = this.messageManage.getActiveUserId();
+
+    if (activeUserId === currentUser) {
+      return;
+    }
     const node = this.getNode();
     if (node.scrollTop + node.clientHeight >= node.scrollHeight - 1) {
       this.separator.getNode().style.display = "none";

@@ -8,11 +8,14 @@ import type { MessageSendResponse } from "../../../utils/responceTypes";
 
 export class MeetingRoomWrapper extends Component<"div"> {
   public userMessages: Map<string, MessageSendResponse["message"][]>;
+  public users: { login: string; isLogined: boolean; unreadCount: number }[] =
+    [];
   private roomHeader: RoomHeader;
   private wsManager: WebSocketManager;
   private meetingField: MeetingField;
   private messageManage: MessageManage;
   private activeUserId: string | null = null; // Хранит id текущего пользователя
+
   constructor(
     wsManager: WebSocketManager,
     userMessages: Map<string, MessageSendResponse["message"][]>,
@@ -25,7 +28,6 @@ export class MeetingRoomWrapper extends Component<"div"> {
     this.userMessages = userMessages;
     this.roomHeader = new RoomHeader();
     this.meetingField = new MeetingField();
-    // wsManager; передать в митингфилд
     this.messageManage = new MessageManage(
       this.wsManager,
       this.meetingField,
@@ -43,6 +45,9 @@ export class MeetingRoomWrapper extends Component<"div"> {
     wsManager.addEventHandler("MSG_EDIT", (payload) => {
       this.handleMessageEdit(payload);
     });
+  }
+  public getMessageManage(): MessageManage {
+    return this.messageManage;
   }
 
   public getActiveUserId(): string | null {
@@ -70,22 +75,53 @@ export class MeetingRoomWrapper extends Component<"div"> {
     return this.meetingField;
   }
 
-  public markMessagesAsRead(messageIds: string[]): void {
-    const activeUserId = this.getActiveUserId();
-    if (!activeUserId) {
-      console.error("No active user.");
-      return;
-    }
-    const userMessages = this.userMessages.get(activeUserId) || [];
-    messageIds.forEach((id) => {
-      const messageIndex = userMessages.findIndex((msg) => msg.id === id);
-      userMessages[messageIndex].status.isReaded = true;
-    });
-    this.userMessages.set(activeUserId, userMessages);
-    this.meetingField.markMessagesAsRead(messageIds);
-    this.messageManage.markMessagesAsRead(messageIds);
+  public setUsers(
+    users: { login: string; isLogined: boolean; unreadCount: number }[],
+  ): void {
+    this.users = users;
   }
 
+  public getUsers(): {
+    login: string;
+    isLogined: boolean;
+    unreadCount: number;
+  }[] {
+    return this.users;
+  }
+
+  public updateUser(user: {
+    login: string;
+    isLogined: boolean;
+    unreadCount: number;
+  }): void {
+    const existingUser = this.users.find((u) => u.login === user.login);
+    if (existingUser) {
+      existingUser.isLogined = user.isLogined;
+      existingUser.unreadCount = user.unreadCount;
+    } else {
+      console.warn(`User ${user.login} not found. Adding a new user.`);
+      this.users.push(user);
+    }
+  }
+  public updateUserStatus(login: string, isLogined: boolean): void {
+    const user = this.users.find((u) => u.login === login);
+    if (user) {
+      user.isLogined = isLogined;
+    } else {
+      console.warn(`User ${login} not found. Adding a new user.`);
+      this.users.push({ login, isLogined, unreadCount: 0 });
+    }
+  }
+
+  public updateUnreadCount(login: string, unreadCount: number): void {
+    const user = this.users.find((u) => u.login === login);
+    if (user) {
+      user.unreadCount = unreadCount;
+    } else {
+      console.warn(`User ${login} not found. Adding a new user.`);
+      this.users.push({ login, isLogined: false, unreadCount });
+    }
+  }
   private handleMessageEdit(payload: any): void {
     const updatedMessage = payload.message;
     const activeUserId = this.getActiveUserId();

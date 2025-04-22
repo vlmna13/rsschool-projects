@@ -12,7 +12,6 @@ export class UsersManage extends Component<"div"> {
   private userList: UserListPanel;
   private roomHeader: RoomHeader;
   private meetingField: MeetingField;
-  // private wsManager: WebSocketManager;
   private meetingRoom: MeetingRoomWrapper;
   private users: {
     login: string;
@@ -21,7 +20,6 @@ export class UsersManage extends Component<"div"> {
     unreadCount?: number;
   }[] = [];
   constructor(
-    // wsManager: WebSocketManager,
     users: { login: string; isLogined: boolean }[] = [],
     roomHeader: RoomHeader,
     meetingField: MeetingField,
@@ -31,7 +29,6 @@ export class UsersManage extends Component<"div"> {
       tag: "div",
       className: "users-manage-wrapper",
     });
-    // this.wsManager = wsManager;
     this.users = users;
     this.roomHeader = roomHeader;
     this.meetingField = meetingField;
@@ -48,8 +45,32 @@ export class UsersManage extends Component<"div"> {
     });
   }
 
-  public updateUser(user: { login: string; isLogined: boolean }): void {
-    this.userList.updateUser(user);
+  public updateUserStatus(login: string, isLogined: boolean): void {
+    const user = this.users.find((u) => u.login === login);
+    if (user) {
+      user.isLogined = isLogined;
+      this.userList.updateUser({
+        login,
+        isLogined,
+        unreadCount: user.unreadCount,
+      });
+    } else {
+      console.warn(`User ${login} not found while updating status.`);
+    }
+  }
+
+  public updateUnreadCount(login: string, unreadCount: number): void {
+    const user = this.users.find((u) => u.login === login);
+    if (user) {
+      user.unreadCount = unreadCount;
+      this.userList.updateUser({
+        login,
+        isLogined: user.isLogined,
+        unreadCount,
+      });
+    } else {
+      console.warn(`User ${login} not found while updating unread count.`);
+    }
   }
 
   public setUsers(
@@ -70,7 +91,7 @@ export class UsersManage extends Component<"div"> {
       this.users.find((u) => u.login === user.login)?.messages || [];
     this.meetingField.displayMessages(userMessages);
     this.meetingRoom.setActiveUser(user.login);
-    console.log("Active user set to:", user.login);
+    this.meetingRoom.getMessageManage().clearMessageInput();
   }
   private filterUsers(searchText: string): void {
     if (!searchText) {

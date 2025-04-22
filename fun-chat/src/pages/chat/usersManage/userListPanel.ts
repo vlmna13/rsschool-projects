@@ -27,10 +27,18 @@ export class UserListPanel extends Component<"ul"> {
     this.renderUsers();
   }
 
-  public updateUser(user: { login: string; isLogined: boolean }): void {
+  public updateUser(user: {
+    login: string;
+    isLogined: boolean;
+    unreadCount?: number;
+  }): void {
     const existingUser = this.users.find((u) => u.login === user.login);
+
     if (existingUser) {
       existingUser.isLogined = user.isLogined;
+      if (user.unreadCount !== undefined) {
+        existingUser.unreadCount = user.unreadCount;
+      }
     } else {
       this.users.push(user);
     }

@@ -67,19 +67,17 @@ export class MessageWrapper extends Component<"div"> {
       className: "message-edit-status",
       text: this.message.status.isEdited ? "(edited)" : "",
     });
-
-    // Создаём deliveryStatusElement для всех сообщений
-    this.deliveryStatusElement = new Component({
-      tag: "span",
-      className: "message-delivery-status",
-      text: this.message.status.isReaded
-        ? "Read"
-        : this.message.status.isDelivered
-          ? "Delivered"
-          : "Sent",
-    });
-
     if (this.message.from === userLogin) {
+      this.deliveryStatusElement = new Component({
+        tag: "span",
+        className: "message-delivery-status",
+        text: this.message.status.isReaded
+          ? "Read"
+          : this.message.status.isDelivered
+            ? "Delivered"
+            : "Sent",
+      });
+
       const editMessageButton = this.createEditButton();
       const deleteMessageButton = this.createDeleteButton();
       this.appendChildren([
@@ -87,9 +85,6 @@ export class MessageWrapper extends Component<"div"> {
         deleteMessageButton,
         this.deliveryStatusElement,
       ]);
-    } else {
-      // Для входящих сообщений добавляем только deliveryStatusElement
-      this.appendElement(this.deliveryStatusElement);
     }
 
     this.getNode().dataset.id = this.message.id;

@@ -114,7 +114,7 @@ export class WebSocketManager {
   private isExpectedResponse<R extends WebSocketResponsePayload>(
     payload: WebSocketResponsePayload,
   ): payload is R {
-    // console.log(payload);
+    console.log(payload);
     return true;
   }
   private async ensureConnected(): Promise<void> {
