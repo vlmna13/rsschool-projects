@@ -25,7 +25,8 @@ export class MessageWrapper extends Component<"div"> {
   }
 
   public updateText(newText: string, isEdited: boolean): void {
-    this.messageTextElement.getNode().textContent = `${this.message.from} ' : ' ${newText}`;
+    const sender = this.message.from ? `${this.message.from}: ` : "";
+    this.messageTextElement.getNode().textContent = `${sender}${newText}`;
     this.message.text = newText;
     this.editStatusElement.getNode().textContent = isEdited ? "(edited)" : "";
   }
@@ -45,6 +46,15 @@ export class MessageWrapper extends Component<"div"> {
     }
   }
 
+  public toggleDeleteButton(disabled: boolean): void {
+    const deleteButton = this.getNode().querySelector(
+      ".delete-message-button",
+    ) as HTMLButtonElement;
+    if (deleteButton) {
+      deleteButton.disabled = disabled;
+    }
+  }
+
   private createMessageElements(): void {
     const user = JSON.parse(sessionStorage.getItem("user") || "{}");
     const userLogin = user.login;
@@ -58,7 +68,7 @@ export class MessageWrapper extends Component<"div"> {
     const formattedDate = new Date(this.message.datetime).toLocaleString();
     const date = new Component({
       tag: "p",
-      className: ".message-date",
+      className: "message-date",
       text: formattedDate,
     });
 

@@ -71,6 +71,10 @@ export class MessageManage extends Component<"form"> {
   public startEditingMessage(message: MessageSendResponse["message"]): void {
     this.editingMessageId = message.id;
     this.messageInput.getNode().value = message.text;
+    const messageWrapper = this.meetingField.getMessageElementById(message.id);
+    if (messageWrapper) {
+      messageWrapper.toggleDeleteButton(true); // Блокируем кнопку
+    }
   }
   public async editMessage(): Promise<void> {
     const newText = this.messageInput.getNode().value;
@@ -107,6 +111,7 @@ export class MessageManage extends Component<"form"> {
             updatedMessage.text,
             updatedMessage.status.isEdited,
           );
+          messageWrapper.toggleDeleteButton(false);
         } else {
           console.warn(
             `MessageWrapper with ID ${updatedMessage.id} not found.`,

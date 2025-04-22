@@ -89,9 +89,9 @@ button:disabled {
 .message-wrapper {
   display: grid;
   grid-template:
-    "editMessageButton  date" auto
-    "deleteMessageButton messageText" auto
-    "status delivery" 1fr / auto auto 1fr;
+    "editMessageButton deleteMessageButton date" auto
+    "messageText messageText messageText" auto
+    "status delivery delivery" 1fr / auto auto 1fr;
   gap: 8px;
   width: 100%;
   padding: 10px;
@@ -103,11 +103,6 @@ button:disabled {
     background-color 0.3s,
     box-shadow 0.3s;
 }
-
-/* .message-wrapper:hover {
-  background-color: rgb(230 247 255);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-} */
 
 .edit-message-button,
 .delete-message-button {
@@ -156,13 +151,24 @@ button:disabled {
   color: rgb(255 0 0);
 }
 
+.message-delivery-status,
+.message-edit-status {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px; /* Уменьшен размер шрифта */
+  color: rgb(108 117 125);
+}
+
 .message-text {
   grid-area: messageText;
-  font-size: 14px;
+  font-size: 16px;
   color: rgb(33 37 41);
   word-wrap: break-word;
   overflow-wrap: break-word;
   padding: 3px;
+  background-color: white;
+  width: 100%;
 }
 
 .message-date {
