@@ -8,6 +8,7 @@ export class MessageWrapper extends Component<"div"> {
   private messageTextElement!: Component<"p">;
   private editStatusElement!: Component<"span">;
   private deliveryStatusElement!: Component<"span">;
+  private deleteButton!: Component<"button">;
   constructor(
     message: MessageSendResponse["message"],
     private messageManage: MessageManage,
@@ -47,12 +48,7 @@ export class MessageWrapper extends Component<"div"> {
   }
 
   public toggleDeleteButton(disabled: boolean): void {
-    const deleteButton = this.getNode().querySelector(
-      ".delete-message-button",
-    ) as HTMLButtonElement;
-    if (deleteButton) {
-      deleteButton.disabled = disabled;
-    }
+    this.deleteButton.getNode().disabled = disabled;
   }
 
   private createMessageElements(): void {
@@ -119,16 +115,16 @@ export class MessageWrapper extends Component<"div"> {
   }
 
   private createDeleteButton(): Component<"button"> {
-    const deleteMessageButton = new Component({
+    this.deleteButton = new Component({
       tag: "button",
       className: "delete-message-button",
       text: "Del",
     });
 
-    deleteMessageButton.getNode().addEventListener("click", () => {
+    this.deleteButton.getNode().addEventListener("click", () => {
       this.messageManage.deleteMessage(this.message.id);
     });
 
-    return deleteMessageButton;
+    return this.deleteButton;
   }
 }
