@@ -23,7 +23,8 @@ export class FooterComponent extends Component<"footer"> {
       tag: "img",
       className: "rsschool-logo",
     });
-    img.getNode().setAttribute("src", "public/fav/rs-school-logo.svg");
+    img.getNode().src = "./fav/rs-school-logo.svg"
+    img.getNode().setAttribute("alt", "RSSchool");
     rsschool.appendChildren([img]);
 
     this.appendChildren([author, rsschool]);
