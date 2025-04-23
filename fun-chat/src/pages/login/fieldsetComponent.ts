@@ -7,6 +7,7 @@ export class FieldSet extends Component<"fieldset"> {
   private loginInput: InputComponent;
   private passwordInput: InputComponent;
   private isValid: boolean = false;
+  private errorMessage: Component<"p">;
 
   constructor(private onValidationChange: (isValid: boolean) => void) {
     super({
@@ -36,7 +37,20 @@ export class FieldSet extends Component<"fieldset"> {
       "input-field",
       "error-message",
     );
-    this.appendChildren([legend, this.loginInput, this.passwordInput]);
+    this.errorMessage = new Component({
+      tag: "p",
+      className: "error-message",
+      text: "",
+    });
+    this.errorMessage.getNode().style.color = "red";
+    this.errorMessage.getNode().style.display = "none";
+
+    this.appendChildren([
+      legend,
+      this.loginInput,
+      this.passwordInput,
+      this.errorMessage,
+    ]);
     this.loginInput.addInputListener(() => this.updateValidationState());
     this.passwordInput.addInputListener(() => this.updateValidationState());
   }
@@ -48,6 +62,14 @@ export class FieldSet extends Component<"fieldset"> {
   public getPasswordValue(): string {
     return this.passwordInput.getValue();
   }
+  public getLoginInput(): InputComponent {
+    return this.loginInput;
+  }
+
+  public getPasswordInput(): InputComponent {
+    return this.passwordInput;
+  }
+
   private updateValidationState(): void {
     const loginValue = this.loginInput.getValue();
     const passwordValue = this.passwordInput.getValue();

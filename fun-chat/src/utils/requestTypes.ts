@@ -32,10 +32,6 @@ export interface MessageDeleteRequest {
   };
 }
 
-export type UserActiveRequest = null;
-
-export type UserInactiveRequest = null;
-
 export interface MessageHistoryRequest {
   user: {
     login: string;
@@ -60,8 +56,6 @@ export type WebSocketRequestPayload =
   | MessageSendRequest
   | MessageEditRequest
   | MessageDeleteRequest
-  | UserActiveRequest
-  | UserInactiveRequest
   | MessageHistoryRequest
   | MessageReadRequest
   | WebSocketMessage;

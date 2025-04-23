@@ -4,6 +4,7 @@ import { FieldSet } from "./fieldsetComponent";
 import { router } from "../../utils/router";
 import { InfoButtonComponent } from "./infobuttonComponent";
 import type { WebSocketManager } from "../../utils/webSocketManager";
+import type { ErrorResponse } from "../../utils/responceTypes";
 
 export class LoginView extends Component<"form"> {
   private wsManager: WebSocketManager;
@@ -25,7 +26,7 @@ export class LoginView extends Component<"form"> {
     submitButton.addListener("click", (event) => this.handleSubmit(event));
     this.errorMessage = new Component({
       tag: "p",
-      className: "error-message",
+      className: "error-message-log",
       text: "",
     });
     this.errorMessage.getNode().style.color = "red";
@@ -38,7 +39,14 @@ export class LoginView extends Component<"form"> {
         submitButton.getNode().setAttribute("disabled", "true");
       }
     });
-    this.appendChildren([this.fieldSet, submitButton, infoButton]);
+    this.appendChildren([
+      this.fieldSet,
+      submitButton,
+      infoButton,
+      this.errorMessage,
+    ]);
+    this.fieldSet.getLoginInput().addInputListener(() => this.hideError());
+    this.fieldSet.getPasswordInput().addInputListener(() => this.hideError());
     mainComponent.destroyChildren();
     mainComponent.appendElement(this);
   }
@@ -55,6 +63,11 @@ export class LoginView extends Component<"form"> {
           password,
         },
       });
+      if ("error" in response) {
+        this.handleErrorResponse(response);
+        return;
+      }
+
       if ("user" in response && response.user.isLogined) {
         const user = {
           login: response.user.login,
@@ -64,19 +77,38 @@ export class LoginView extends Component<"form"> {
         sessionStorage.setItem("user", JSON.stringify(user));
         router.navigate("chat");
       } else {
-        this.showError("Unexpected server response.");
+        throw new Error("Unexpected server response.");
       }
     } catch (error: any) {
-      if (error.payload && error.payload.error) {
-        this.showError(error.payload.error);
-      } else {
-        this.showError("Произошла ошибка. Попробуйте снова.");
-      }
+      this.showError(error.message || "Произошла ошибка. Попробуйте снова.");
     }
   }
-
   private showError(message: string): void {
     this.errorMessage.getNode().textContent = message;
     this.errorMessage.getNode().style.display = "block";
+  }
+  private handleErrorResponse(response: ErrorResponse): void {
+    switch (response.error) {
+      case "a user with this login is already authorized":
+        this.showError("Пользователь с указанным логином уже вошел в систему.");
+        break;
+      case "another user is already authorized in this connection":
+        this.showError(
+          "Другой пользователь уже авторизован в этом соединении.",
+        );
+        break;
+      case "incorrect password":
+        this.showError(
+          "Предоставленный пароль не соответствует указанному логину.",
+        );
+        break;
+      default:
+        this.showError("Произошла ошибка. Попробуйте снова.");
+        break;
+    }
+  }
+  private hideError(): void {
+    this.errorMessage.getNode().textContent = "";
+    this.errorMessage.getNode().style.display = "none";
   }
 }

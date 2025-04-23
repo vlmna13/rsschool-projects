@@ -49,7 +49,7 @@ export class ChatElement extends Component<"div"> {
       const allUsers = await fetchAllUsers(this.wsManager);
       this.users = allUsers.map((user) => ({
         ...user,
-        unreadCount: 0, // Устанавливаем значение по умолчанию
+        unreadCount: 0,
       }));
       const messagesByUser = await fetchAllMessages(this.wsManager, this.users);
       const currentUser = JSON.parse(
@@ -66,7 +66,11 @@ export class ChatElement extends Component<"div"> {
 
         this.meetingRoom.addMessages(user.login, userMessages);
 
-        return { ...user, messages: userMessages, unreadCount: unreadCount | 0};
+        return {
+          ...user,
+          messages: userMessages,
+          unreadCount: unreadCount | 0,
+        };
       });
       this.usersManage.setUsers(usersWithMessages);
       this.meetingRoom.setUsers(usersWithMessages);
@@ -80,7 +84,7 @@ export class ChatElement extends Component<"div"> {
       if (payload && payload.user) {
         this.meetingRoom.getRoomHeader().updateUser({
           login: payload.user.login,
-          isLogined: false,// Пользователь вышел, статус неактивен
+          isLogined: false, // Пользователь вышел, статус неактивен
         });
         this.usersManage.updateUserStatus(payload.user.login, true); // Обновляем только статус
       } else {
@@ -92,7 +96,7 @@ export class ChatElement extends Component<"div"> {
         const existingUser = this.users.find(
           (user) => user.login === payload.user.login,
         );
-    
+
         if (!existingUser) {
           const newUser = {
             login: payload.user.login,
