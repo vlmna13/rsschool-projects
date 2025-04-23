@@ -91,8 +91,6 @@ export class MeetingField extends Component<"div"> {
       const messageElement = new MessageWrapper(message, this.messageManage);
       this.messageWrappers.set(message.id, messageElement);
       this.appendElement(messageElement);
-
-      // Обновляем статус в интерфейсе, если сообщение прочитано
       if (message.status.isReaded) {
         messageElement.updateStatus(false, true);
       }

@@ -9,7 +9,7 @@ import { fetchAllMessages } from "./usersManage/functionFetchAllMessages";
 
 export class ChatElement extends Component<"div"> {
   private wsManager: WebSocketManager;
-  private users: { login: string; isLogined: boolean; unreadCount?: number }[] =
+  private users: { login: string; isLogined: boolean; unreadCount: number }[] =
     [];
   private usersManage: UsersManage;
   private meetingRoom: MeetingRoomWrapper;
@@ -47,7 +47,10 @@ export class ChatElement extends Component<"div"> {
   private async loadUsers(): Promise<void> {
     try {
       const allUsers = await fetchAllUsers(this.wsManager);
-      this.users = allUsers;
+      this.users = allUsers.map((user) => ({
+        ...user,
+        unreadCount: 0, // Устанавливаем значение по умолчанию
+      }));
       const messagesByUser = await fetchAllMessages(this.wsManager, this.users);
       const currentUser = JSON.parse(
         sessionStorage.getItem("user") || "{}",
@@ -63,7 +66,7 @@ export class ChatElement extends Component<"div"> {
 
         this.meetingRoom.addMessages(user.login, userMessages);
 
-        return { ...user, messages: userMessages, unreadCount };
+        return { ...user, messages: userMessages, unreadCount: unreadCount | 0};
       });
       this.usersManage.setUsers(usersWithMessages);
       this.meetingRoom.setUsers(usersWithMessages);
@@ -77,7 +80,7 @@ export class ChatElement extends Component<"div"> {
       if (payload && payload.user) {
         this.meetingRoom.getRoomHeader().updateUser({
           login: payload.user.login,
-          isLogined: false, // Пользователь вышел, статус неактивен
+          isLogined: false,// Пользователь вышел, статус неактивен
         });
         this.usersManage.updateUserStatus(payload.user.login, true); // Обновляем только статус
       } else {
@@ -86,11 +89,26 @@ export class ChatElement extends Component<"div"> {
     });
     this.wsManager.addEventHandler("USER_EXTERNAL_LOGIN", (payload: any) => {
       if (payload && payload.user) {
-        this.usersManage.updateUserStatus(payload.user.login, true); // Обновляем только статус
-        this.meetingRoom.getRoomHeader().updateUser({
-          login: payload.user.login,
-          isLogined: true,
-        });
+        const existingUser = this.users.find(
+          (user) => user.login === payload.user.login,
+        );
+    
+        if (!existingUser) {
+          const newUser = {
+            login: payload.user.login,
+            isLogined: true,
+            unreadCount: 0, // Устанавливаем значение по умолчанию
+          };
+          this.users.push(newUser);
+          this.usersManage.setUsers(this.users); // Обновляем список пользователей
+          this.meetingRoom.setUsers(this.users); // Обновляем пользователей в комнате
+        } else {
+          this.usersManage.updateUserStatus(payload.user.login, true); // Обновляем только статус
+          this.meetingRoom.getRoomHeader().updateUser({
+            login: payload.user.login,
+            isLogined: true,
+          });
+        }
       } else {
         console.error("Invalid payload for USER_EXTERNAL_LOGIN:", payload);
       }
@@ -155,7 +173,6 @@ export class ChatElement extends Component<"div"> {
       const activeUserId = this.meetingRoom.getActiveUserId();
 
       if (activeUserId === message.from) {
-        // Если чат открыт, добавляем сообщение в UI
         this.meetingRoom.getMeetingField().addMessages([message]);
 
         const allMessages = this.meetingRoom
@@ -193,7 +210,6 @@ export class ChatElement extends Component<"div"> {
       const currentUser = JSON.parse(
         sessionStorage.getItem("user") || "{}",
       ).login;
-      // Ищем сообщение в локальной истории
       let foundMessage: any = null;
       let foundUserKey: string | null = null;
 

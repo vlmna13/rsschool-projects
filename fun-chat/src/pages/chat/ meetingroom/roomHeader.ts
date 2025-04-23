@@ -43,7 +43,7 @@ export class RoomHeader extends Component<"div"> {
     this.appendChildren([this.userInfo, this.circle, userLogin]);
   }
 
-  public updateUser(user: { login: string; isLogined: boolean }): void {
+  public updateUser(user: { login: string; isLogined: boolean,  }): void {
     if (this.circle) {
       this.circle.setTextContent(user.login[0].toUpperCase());
       if (user.isLogined) {

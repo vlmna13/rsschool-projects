@@ -36,9 +36,8 @@ export class UserListPanel extends Component<"ul"> {
 
     if (existingUser) {
       existingUser.isLogined = user.isLogined;
-      if (user.unreadCount !== undefined) {
-        existingUser.unreadCount = user.unreadCount;
-      }
+      existingUser.unreadCount = user.unreadCount || 0;
+
     } else {
       this.users.push(user);
     }

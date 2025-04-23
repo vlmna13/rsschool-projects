@@ -66,7 +66,7 @@ export class UsersManage extends Component<"div"> {
       this.userList.updateUser({
         login,
         isLogined: user.isLogined,
-        unreadCount,
+        unreadCount: unreadCount || 0,
       });
     } else {
       console.warn(`User ${login} not found while updating unread count.`);
@@ -81,8 +81,11 @@ export class UsersManage extends Component<"div"> {
       unreadCount?: number;
     }[],
   ): void {
-    this.users = users;
-    this.userList.setUsers(users);
+    this.users = users.map((user) => ({
+      ...user,
+      unreadCount: user.unreadCount || 0,
+    }));
+    this.userList.setUsers(this.users);
   }
 
   private handleChatWith(user: { login: string; isLogined: boolean }): void {
