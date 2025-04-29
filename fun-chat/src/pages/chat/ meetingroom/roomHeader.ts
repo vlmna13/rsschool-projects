@@ -3,7 +3,8 @@ import { Component } from "../../../utils/component";
 
 export class RoomHeader extends Component<"div"> {
   private userInfo: Component<"p">;
-  private circle: Component<"div"> | null = null; // Сохраняем ссылку на кружок
+  private circle: Component<"div"> | null = null; 
+  private userLogin: Component<"p"> | null = null;
   constructor() {
     super({
       tag: "div",
@@ -53,6 +54,9 @@ export class RoomHeader extends Component<"div"> {
         this.circle.getNode().classList.add("user-inactive");
         this.circle.getNode().classList.remove("user-active");
       }
+    }
+    if (this.userLogin) {
+      this.userLogin.setTextContent(user.login);
     }
   }
 }

@@ -84,9 +84,9 @@ export class ChatElement extends Component<"div"> {
       if (payload && payload.user) {
         this.meetingRoom.getRoomHeader().updateUser({
           login: payload.user.login,
-          isLogined: false, // Пользователь вышел, статус неактивен
+          isLogined: false,
         });
-        this.usersManage.updateUserStatus(payload.user.login, true); // Обновляем только статус
+        this.usersManage.updateUserStatus(payload.user.login, false);
       } else {
         console.error("Invalid payload for USER_EXTERNAL_LOGOUT:", payload);
       }
@@ -101,13 +101,13 @@ export class ChatElement extends Component<"div"> {
           const newUser = {
             login: payload.user.login,
             isLogined: true,
-            unreadCount: 0, // Устанавливаем значение по умолчанию
+            unreadCount: 0,
           };
           this.users.push(newUser);
-          this.usersManage.setUsers(this.users); // Обновляем список пользователей
-          this.meetingRoom.setUsers(this.users); // Обновляем пользователей в комнате
+          this.usersManage.setUsers(this.users);
+          this.meetingRoom.setUsers(this.users); 
         } else {
-          this.usersManage.updateUserStatus(payload.user.login, true); // Обновляем только статус
+          this.usersManage.updateUserStatus(payload.user.login, true);
           this.meetingRoom.getRoomHeader().updateUser({
             login: payload.user.login,
             isLogined: true,
@@ -153,32 +153,29 @@ export class ChatElement extends Component<"div"> {
   }
 
   private subscribeToMessageSend(): void {
-    this.wsManager.addEventHandler("MSG_SEND", (payload: any) => {
+    this.wsManager.addEventHandler("MSG_SEND", (payload: any) => {  
       const { message } = payload;
-
-      if (!message || !message.to) {
+      if (!message || !message.to || !message.from) {
         console.error("Invalid payload for MSG_SEND:", payload);
         return;
       }
-
+  
       const currentUser = JSON.parse(
         sessionStorage.getItem("user") || "{}",
       ).login;
-
+  
       if (message.to !== currentUser) {
         return;
       }
-
+  
       const userMessages =
         this.meetingRoom.userMessages.get(message.from) || [];
       userMessages.push(message);
-      this.meetingRoom.userMessages.set(message.from, userMessages);
-
+      this.meetingRoom.userMessages.set(message.from, userMessages);  
       const activeUserId = this.meetingRoom.getActiveUserId();
-
       if (activeUserId === message.from) {
         this.meetingRoom.getMeetingField().addMessages([message]);
-
+  
         const allMessages = this.meetingRoom
           .getMeetingField()
           .getAllMessageElements();
@@ -186,7 +183,7 @@ export class ChatElement extends Component<"div"> {
           allMessages.length > 0
             ? allMessages[allMessages.length - 1].getNode()
             : null;
-
+  
         if (lastMessageElement) {
           lastMessageElement.scrollIntoView({
             behavior: "smooth",
@@ -196,8 +193,12 @@ export class ChatElement extends Component<"div"> {
       } else {
         const user = this.users.find((u) => u.login === message.from);
         if (user) {
-          const newUnreadCount = (user.unreadCount || 0) + 1;
-          this.usersManage.updateUnreadCount(message.from, newUnreadCount); // Обновляем только счётчик
+          const newUnreadCount = userMessages.filter(
+            (msg) => !msg.status.isReaded,
+          ).length;
+          this.usersManage.updateUnreadCount(message.from, newUnreadCount);
+        } else {
+          console.warn(`User ${message.from} not found in users list.`);
         }
       }
     });
@@ -205,39 +206,85 @@ export class ChatElement extends Component<"div"> {
   private subscribeToMessageRead(): void {
     this.wsManager.addEventHandler("MSG_READ", (payload: any) => {
       const { message } = payload;
-
+      console.log("MSG_READ", payload);
+  
       if (!message || !message.status || !message.status.isReaded) {
         console.error("Invalid payload for MSG_READ:", payload);
         return;
       }
-
+  
       const currentUser = JSON.parse(
         sessionStorage.getItem("user") || "{}",
       ).login;
-      let foundMessage: any = null;
+      console.log("Current user:", currentUser);
+  
+      // Ищем сообщение и его владельца
       let foundUserKey: string | null = null;
+      const foundMessage = Array.from(this.meetingRoom.userMessages.entries())
+        .find(([userKey, messages]) => {
+          const msg = messages.find((m) => m.id === message.id);
+          if (msg) {
+            foundUserKey = userKey;
+            return true;
+          }
+          return false;
+        })?.[1].find((m) => m.id === message.id);
 
-      for (const [
-        userKey,
-        messages,
-      ] of this.meetingRoom.userMessages.entries()) {
-        const msg = messages.find((m) => m.id === message.id);
-        if (msg) {
-          foundMessage = msg;
-          foundUserKey = userKey;
-          break;
-        }
-      }
-
-      if (!foundMessage) {
+        console.log(
+          "Found message and user key:",
+          foundMessage,
+          foundUserKey,
+        );
+  
+      if (!foundMessage || !foundUserKey) {
         console.warn(
           `Message with ID ${message.id} not found in local history.`,
         );
         return;
       }
+  
+      console.log("Found user key:", foundUserKey);
+      console.log("Found message:", foundMessage);
+  
+      // Если сообщение адресовано текущему пользователю (получатель)
+      if (foundMessage.to === currentUser) {
+        console.log(
+          `Checking if message with ID ${message.id} is for user ${currentUser}`,
+        );
+  
+        const userMessages =
+          this.meetingRoom.userMessages.get(foundUserKey) || [];
+        const messageIndex = userMessages.findIndex(
+          (m) => m.id === message.id,
+        );
+        userMessages[messageIndex] = foundMessage;
+        this.meetingRoom.userMessages.set(foundUserKey, userMessages);
+  
+        // Пересчитываем количество непрочитанных сообщений
+        const unreadCount = userMessages.filter(
+          (msg) => !msg.status.isReaded,
+        ).length;
+  
+        console.log(
+          `Updating unread count for user ${foundUserKey}:`,
+          unreadCount,
+        );
+  
+        // Обновляем счётчик непрочитанных сообщений
+        this.usersManage.updateUnreadCount(foundUserKey, unreadCount);
+  
+        // Завершаем выполнение метода, чтобы не обрабатывать отправителя
+        return;
+      }
+  
+      // Если сообщение отправлено текущим пользователем (отправитель)
       if (foundMessage.from === currentUser) {
+        console.log(
+          `Checking if message with ID ${message.id} is from user ${currentUser}`,
+        );
         foundMessage.status.isDelivered = false;
         foundMessage.status.isReaded = true;
+  
         const messageWrapper = this.meetingRoom
           .getMeetingField()
           .getMessageElementById(message.id);
@@ -246,19 +293,6 @@ export class ChatElement extends Component<"div"> {
         } else {
           console.warn(`MessageWrapper with ID ${message.id} not found.`);
         }
-        if (foundUserKey) {
-          const userMessages =
-            this.meetingRoom.userMessages.get(foundUserKey) || [];
-          const messageIndex = userMessages.findIndex(
-            (m) => m.id === message.id,
-          );
-          userMessages[messageIndex] = foundMessage;
-          this.meetingRoom.userMessages.set(foundUserKey, userMessages);
-        }
-      } else {
-        console.log(
-          `Skipping MSG_READ for message not sent by current user: ${message.id}`,
-        );
       }
     });
   }

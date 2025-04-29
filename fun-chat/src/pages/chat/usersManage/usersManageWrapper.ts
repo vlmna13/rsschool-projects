@@ -61,6 +61,7 @@ export class UsersManage extends Component<"div"> {
 
   public updateUnreadCount(login: string, unreadCount: number): void {
     const user = this.users.find((u) => u.login === login);
+    console.log("updateUnreadCount", login, unreadCount);
     if (user) {
       user.unreadCount = unreadCount;
       this.userList.updateUser({
