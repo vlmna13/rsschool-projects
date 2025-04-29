@@ -3,7 +3,7 @@ import { Component } from "../../../utils/component";
 
 export class RoomHeader extends Component<"div"> {
   private userInfo: Component<"p">;
-  private circle: Component<"div"> | null = null; 
+  private circle: Component<"div"> | null = null;
   private userLogin: Component<"p"> | null = null;
   constructor() {
     super({
